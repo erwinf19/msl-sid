@@ -7,7 +7,7 @@
 @media(max-width:760px){.week-tabs button{padding-inline:18px;flex:0 0 auto}.role-name{font-size:12px}.roster-head h3{font-size:23px}.roster-foot{font-size:11px}.timezone{font-size:12px;max-width:125px}.match-top{font-size:13px}.demo-note{font-size:13px}.table-note{font-size:12px}.hero-copy{column-gap:8px}}
 @media(max-width:370px){.hero-copy{display:block}.hero .button{margin-top:16px}.team-grid{grid-template-columns:1fr}.roster-head{display:flex}.roster-head>div{margin-top:0}.roster-card li{flex-wrap:nowrap}.roster-card li strong{width:auto;padding:0;margin-top:0}.role-name{font-size:14px}.league-bar-inner{flex-wrap:wrap}.prize-grid{grid-template-columns:1fr 1fr}.prize-card{padding:12px}}
 /* Supplied business-unit logos and individual role-sheet viewports. */
-.business-units>div{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:26px;align-items:center;padding:12px 24px;background:#fff;border:1px solid var(--line);border-radius:6px}
+.business-units>div{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px;align-items:center;padding:12px 24px;background:#fff;border:1px solid var(--line);border-radius:6px}
 .business-units a{display:flex;align-items:center;justify-content:center;height:112px;min-width:0}
 .business-units img{width:100%;height:64px;object-fit:contain;transition:transform .18s ease}
 .business-units a:hover img{transform:scale(1.04)}
@@ -15,10 +15,9 @@
 .business-units .bu-living img{max-width:166px;height:62px}
 .business-units .bu-smm img{width:112px;height:112px}
 .business-units .bu-sekolahmu img{max-width:184px}
-.business-units .bu-siap img{max-width:175px}
 .role-icon{width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:4px;overflow:hidden;background:#303030}
 .role-icon svg{display:block;width:100%;height:100%;overflow:hidden}
-@media(max-width:760px){.business-units>div{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 25px;padding:18px}.business-units a{height:92px}.business-units a:last-child{grid-column:1/-1;justify-self:center;width:170px}.business-units .bu-smm img{width:100px;height:100px}.roster-card li strong{padding-left:38px}.role-icon{width:30px;height:30px}}
+@media(max-width:760px){.business-units>div{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 25px;padding:18px}.business-units a{height:92px}.business-units .bu-smm img{width:100px;height:100px}.roster-card li strong{padding-left:38px}.role-icon{width:30px;height:30px}}
 @media(max-width:370px){.roster-card li strong{padding-left:0}}
 @media(prefers-reduced-motion:reduce){.business-units img{transition:none}}
 /* Diamond rewards and completed-match presentation. */
@@ -111,3 +110,8 @@
 /* Original partner logos retain a white backing for legibility. */
 [data-theme="dark"] .business-units>div{background:var(--surface);gap:16px;padding:20px}
 [data-theme="dark"] .business-units a{background:#fff;border-radius:6px;padding-inline:8px}
+
+/* Allow the updated copy to fit comfortably on narrow screens. */
+.prize-card-top{flex-wrap:wrap;gap:8px}
+@media(max-width:760px){.hero .button{grid-column:1/-1;grid-row:4;justify-self:start;margin-top:16px}}
+@media(max-width:400px){.match-body{grid-template-columns:minmax(0,1fr) 64px minmax(0,1fr);gap:8px}.outcome{font-size:9px;letter-spacing:.3px}}

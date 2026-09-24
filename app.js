@@ -20,9 +20,9 @@ function renderSchedule(week) {
       <div class="match-top"><span>${escape(dateLabel(m.date))}</span><span class="match-status ${done?'finished':''}">${done?'Selesai':'Terjadwal'}</span></div>
       ${isPreview?'<div class="match-preview-label">CONTOH HASIL · Tidak masuk klasemen</div>':''}
       <div class="match-body">
-        <div class="match-team ${done&&aWins?'match-winner':''}">${badge(a)}<h3>${escape(a.name)}</h3>${done?`<span class="outcome ${aWins?'won':''}">${aWins?'MENANG':'KALAH'}</span>`:''}</div>
+        <div class="match-team ${done&&aWins?'match-winner':''}">${badge(a)}<h3>${escape(a.name)}</h3>${done?`<span class="outcome ${aWins?'won':''}">${aWins?'UNGGUL':'BERPARTISIPASI'}</span>`:''}</div>
         <div class="match-score">${done?`<strong><b class="${aWins?'winning-score':''}">${score[0]}</b><span>:</span><b class="${!aWins?'winning-score':''}">${score[1]}</b></strong><span class="score-format">FINAL · BO3</span>`:'<strong class="versus">VS</strong>'}<span>${escape(m.time)} WIB</span></div>
-        <div class="match-team ${done&&!aWins?'match-winner':''}">${badge(b)}<h3>${escape(b.name)}</h3>${done?`<span class="outcome ${!aWins?'won':''}">${!aWins?'MENANG':'KALAH'}</span>`:''}</div>
+        <div class="match-team ${done&&!aWins?'match-winner':''}">${badge(b)}<h3>${escape(b.name)}</h3>${done?`<span class="outcome ${!aWins?'won':''}">${!aWins?'UNGGUL':'BERPARTISIPASI'}</span>`:''}</div>
       </div>
       ${done?`<div class="match-rewards"><span class="reward-caption">DIAMONDS / PEMAIN</span><div><span>${escape(a.tag)}</span><strong>${diamondIcon}${getReward(data,...score)}</strong></div><div><span>${escape(b.tag)}</span><strong>${diamondIcon}${getReward(data,...[...score].reverse())}</strong></div></div>`:`<div class="match-bottom"><span>BEST OF 3</span><span class="upcoming-reward">${diamondIcon} Hingga 28 diamonds / pemain</span></div>`}
     </article>`;
@@ -33,14 +33,14 @@ try {
   document.querySelector('#demo-note').hidden = !data.demo;
   const rows=getStandings(data);
   document.querySelector('#standings').innerHTML=rows.map((t,i)=>`<tr><td class="rank">${String(i+1).padStart(2,'0')}</td><th scope="row"><a class="table-team" href="#team-${escape(t.id)}">${badge(t,true)}<span>${escape(t.name)}<small>${escape(t.tag)}</small></span></a></th><td class="match-points">${t.points}</td><td>${t.wins} <span class="dash">–</span> ${t.losses}</td><td class="${t.net>0?'positive':t.net<0?'negative':''}">${t.net>0?'+':''}${t.net}</td><td>${t.gameWins} <span class="dash">–</span> ${t.gameLosses}</td></tr>`).join('');
-  document.querySelector('#scoring-note').textContent=`Menang = ${data.pointsPerWin} poin · Kalah = 0 · Urutan: poin, net game, game win, nama tim`;
+  document.querySelector('#scoring-note').textContent=`Unggul = ${data.pointsPerWin} poin · Berpartisipasi = 0 · Urutan: poin, net game, game win, nama tim`;
   const weeks=[...new Set(data.matches.map(m=>m.week))].sort((a,b)=>a-b);
   document.querySelector('#week-tabs').innerHTML=weeks.map(w=>`<button data-week="${w}" aria-pressed="false">WEEK ${String(w).padStart(2,'0')}</button>`).join('');
   document.querySelector('#week-tabs').addEventListener('click',e=>{const button=e.target.closest('button[data-week]');if(button)renderSchedule(Number(button.dataset.week));});
   renderSchedule(weeks.includes(data.defaultWeek)?data.defaultWeek:weeks[0]);
   document.querySelector('#team-count').textContent=`${data.teams.length} tim / ${data.teams.reduce((n,t)=>n+t.players.length,0)} pemain`;
   document.querySelector('#teams').innerHTML=data.teams.map(t=>`<article class="roster-card" id="team-${escape(t.id)}"><div class="roster-head">${badge(t)}<div><span>${escape(t.tag)} / TEAM ROSTER</span><h3>${escape(t.name)}</h3></div></div><ul>${t.players.map((p,i)=>`<li><span class="role-icon">${roleIcon(i)}</span><span class="role-name">${escape(data.roles[i])}</span><strong>${escape(p)}</strong></li>`).join('')}</ul></article>`).join('');
-  document.querySelector('#prizes').innerHTML=data.rewards.map(r=>`<div class="prize-card ${r.win?'win':''}"><div class="prize-card-top"><span>${r.win?'MENANG':'KALAH'}</span><strong>${r.score}</strong></div><div class="diamond-value">${diamondIcon}<strong>${r.diamonds}</strong></div><p>diamonds / pemain</p><small>${r.diamonds*5} diamonds / tim</small></div>`).join('');
+  document.querySelector('#prizes').innerHTML=data.rewards.map(r=>`<div class="prize-card ${r.win?'win':''}"><div class="prize-card-top"><span>${r.win?'UNGGUL':'BERPARTISIPASI'}</span><strong>${r.score}</strong></div><div class="diamond-value">${diamondIcon}<strong>${r.diamonds}</strong></div><p>diamonds / pemain</p><small>${r.diamonds*5} diamonds / tim</small></div>`).join('');
 } catch(error) {
   document.querySelector('#demo-note').hidden=false;
   document.querySelector('#demo-note').textContent='Data turnamen belum dapat ditampilkan. Silakan hubungi panitia.';
