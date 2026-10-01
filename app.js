@@ -1,7 +1,10 @@
-import { tournament as data } from './tournament-data.js';
+import { tournament } from './tournament-data.js';
 import { validateTournament, getStandings, getReward } from './league.js';
+import { loadAssets } from './draft.js';
+import { loadPublishedTeams, applyPublishedTeams } from './published-teams.js';
+let data = structuredClone(tournament);
 const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const badge = (team, small = false) => `<span class="team-badge ${escape(team.color)} ${small ? 'small' : ''}" aria-hidden="true">${escape(team.tag)}</span>`;
+const badge = (team, small = false) => team.logo ? `<img class="team-logo ${small ? 'small' : ''}" src="${escape(team.logo)}" alt="" width="62" height="62">` : `<span class="team-badge ${escape(team.color)} ${small ? 'small' : ''}" aria-hidden="true">${escape(team.tag)}</span>`;
 const diamondIcon = '<img class="diamond-icon" src="assets/diamond-icon.png" alt="" width="48" height="48" loading="lazy">';
 // Five independent viewport windows into the original supplied role sheet.
 // Keep the source bitmap intact; no redrawing or image regeneration.
@@ -29,8 +32,14 @@ function renderSchedule(week) {
   }).join('') : '<p class="empty">Jadwal minggu ini belum diumumkan.</p>';
 }
 try {
+  const { players, logos } = await loadAssets();
+  const published = await loadPublishedTeams(players, logos);
+  data = applyPublishedTeams(tournament, published);
   validateTournament(data);
-  document.querySelector('#demo-note').hidden = !data.demo;
+  document.querySelector('#demo-note').hidden = false;
+  document.querySelector('#demo-note').textContent = published.finalized
+    ? `TEAM RESMI · Nama dan roster berasal dari data yang dipublikasikan.${data.demo ? ' Jadwal masih contoh dan belum menjadi jadwal resmi.' : ''}`
+    : 'MENUNGGU TEAM · Delapan slot team siap. Nama dan roster akan tampil setelah hasil undian dipublikasikan.';
   const rows=getStandings(data);
   document.querySelector('#standings').innerHTML=rows.map((t,i)=>`<tr><td class="rank">${String(i+1).padStart(2,'0')}</td><th scope="row"><a class="table-team" href="#team-${escape(t.id)}">${badge(t,true)}<span>${escape(t.name)}<small>${escape(t.tag)}</small></span></a></th><td class="match-points">${t.points}</td><td>${t.wins} <span class="dash">–</span> ${t.losses}</td><td class="${t.net>0?'positive':t.net<0?'negative':''}">${t.net>0?'+':''}${t.net}</td><td>${t.gameWins} <span class="dash">–</span> ${t.gameLosses}</td></tr>`).join('');
   document.querySelector('#scoring-note').textContent=`Unggul = ${data.pointsPerWin} poin · Berpartisipasi = 0 · Urutan: poin, net game, game win, nama tim`;
@@ -39,8 +48,11 @@ try {
   document.querySelector('#week-tabs').addEventListener('click',e=>{const button=e.target.closest('button[data-week]');if(button)renderSchedule(Number(button.dataset.week));});
   renderSchedule(weeks.includes(data.defaultWeek)?data.defaultWeek:weeks[0]);
   document.querySelector('#team-count').textContent=`${data.teams.length} tim / ${data.teams.reduce((n,t)=>n+t.players.length,0)} pemain`;
-  document.querySelector('#teams').innerHTML=data.teams.map(t=>`<article class="roster-card" id="team-${escape(t.id)}"><div class="roster-head">${badge(t)}<div><span>${escape(t.tag)} / TEAM ROSTER</span><h3>${escape(t.name)}</h3></div></div><ul>${t.players.map((p,i)=>`<li><span class="role-icon">${roleIcon(i)}</span><span class="role-name">${escape(data.roles[i])}</span><strong>${escape(p)}</strong></li>`).join('')}</ul></article>`).join('');
+  document.querySelector('#teams').innerHTML=data.teams.map(t=>`<article class="roster-card" id="team-${escape(t.id)}"><div class="roster-head">${badge(t)}<div><span>${escape(t.tag)} / TEAM ROSTER · ${t.players.length} PLAYER</span><h3>${escape(t.name)}</h3></div></div><ul>${t.players.map((p,i)=>{const role=t.playerRoles?.[i] || data.roles[i];return `<li><span class="role-icon">${roleIcon(data.roles.indexOf(role))}</span><span class="role-name">${escape(role)}</span><div class="roster-player"><strong>${escape(p)}</strong><span>${escape(t.playerNames?.[i] || '')}</span></div></li>`;}).join('')}</ul></article>`).join('');
+  if (!published.finalized) document.querySelectorAll('#teams ul').forEach(list => { list.outerHTML = '<p class="pending-roster">Menunggu nama team dan roster resmi.</p>'; });
   document.querySelector('#prizes').innerHTML=data.rewards.map(r=>`<div class="prize-card ${r.win?'win':''}"><div class="prize-card-top"><span>${r.win?'UNGGUL':'BERPARTISIPASI'}</span><strong>${r.score}</strong></div><div class="diamond-value">${diamondIcon}<strong>${r.diamonds}</strong></div><p>diamonds / pemain</p><small>${r.diamonds*5} diamonds / tim</small></div>`).join('');
+  // Async roster loading changes section positions; resolve incoming anchors afterward.
+  if (['#klasemen', '#jadwal', '#tim', '#hadiah'].includes(location.hash)) document.querySelector(location.hash).scrollIntoView();
 } catch(error) {
   document.querySelector('#demo-note').hidden=false;
   document.querySelector('#demo-note').textContent='Data turnamen belum dapat ditampilkan. Silakan hubungi panitia.';

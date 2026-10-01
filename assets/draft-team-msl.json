@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "finalized": false,
+  "locked": false,
+  "generatedAt": null,
+  "teams": [
+    { "id": 0, "name": null, "logo": null, "players": [] },
+    { "id": 1, "name": null, "logo": null, "players": [] },
+    { "id": 2, "name": null, "logo": null, "players": [] },
+    { "id": 3, "name": null, "logo": null, "players": [] },
+    { "id": 4, "name": null, "logo": null, "players": [] },
+    { "id": 5, "name": null, "logo": null, "players": [] },
+    { "id": 6, "name": null, "logo": null, "players": [] },
+    { "id": 7, "name": null, "logo": null, "players": [] }
+  ]
+}

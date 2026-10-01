@@ -1,0 +1,96 @@
+import { ALLOW_FINAL_TEAM_CHANGES } from './draft-policy.js';
+export const TEAM_COUNT = 8;
+export const STORAGE_KEY = 'msl-team-draft-v1';
+export const ROLES = ['Jungler', 'Goldlaner', 'Explaner', 'Midlaner', 'Roamer'];
+export const ROLE_LABELS = { Jungler: 'Jungler', Goldlaner: 'Gold Lane', Explaner: 'EXP Lane', Midlaner: 'Mid Lane', Roamer: 'Roamer' };
+
+export function preparePlayers(source) {
+  if (!Array.isArray(source)) throw new Error('Daftar player tidak valid.');
+  const players = source.map((p, id) => ({ id, playername: p.playername, username: p.username, role: p.role }));
+  if (players.some(p => !ROLES.includes(p.role) || typeof p.playername !== 'string' || !p.playername.trim() || typeof p.username !== 'string' || !p.username.trim())) throw new Error('Nama atau role player tidak valid.');
+  for (const role of ROLES) {
+    const count = players.filter(p => p.role === role).length;
+    if (count < TEAM_COUNT || (!['Midlaner', 'Roamer'].includes(role) && count !== TEAM_COUNT)) throw new Error(`${role} harus memiliki ${TEAM_COUNT} player; hanya Mid Lane dan Roamer boleh berlebih.`);
+  }
+  if (players.length > TEAM_COUNT * 6) throw new Error('Jumlah player melebihi kapasitas 8 team × 6 orang.');
+  return players;
+}
+
+export const createDraft = () => ({ version: 1, step: 0, teams: Array.from({ length: TEAM_COUNT }, (_, i) => ({ id: i, name: null, players: [] })) });
+
+export function shuffle(items, random = Math.random) {
+  const result = [...items];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
+export function generateRole(draft, players, random = Math.random) {
+  if (draft.step >= ROLES.length) throw new Error('Semua role sudah dibagikan.');
+  const next = structuredClone(draft);
+  const pool = shuffle(players.filter(p => p.role === ROLES[next.step]), random);
+  if (pool.length < TEAM_COUNT) throw new Error('Player untuk role ini belum cukup.');
+  const teamOrder = shuffle(next.teams, random);
+  teamOrder.forEach((team, i) => team.players.push(pool[i].id));
+  // A team may receive only one extra player across both surplus roles.
+  const eligible = shuffle(next.teams.filter(t => t.players.length === next.step + 1), random);
+  const extras = pool.slice(TEAM_COUNT);
+  if (extras.length > eligible.length) throw new Error('Tidak ada slot player tambahan yang tersedia.');
+  extras.forEach((p, i) => eligible[i].players.push(p.id));
+  next.step++;
+  return next;
+}
+
+export function validateDraft(draft, players, names) {
+  if (!draft || draft.version !== 1 || !Number.isInteger(draft.step) || draft.step < 0 || draft.step > ROLES.length || !Array.isArray(draft.teams) || draft.teams.length !== TEAM_COUNT) return false;
+  const assigned = new Set(), chosen = new Set();
+  for (const [i, team] of draft.teams.entries()) {
+    if (!team || team.id !== i || !Array.isArray(team.players) || team.players.length > draft.step + 1) return false;
+    if (team.name !== null) {
+      if (draft.step !== ROLES.length || !names.includes(team.name) || chosen.has(team.name)) return false;
+      chosen.add(team.name);
+    }
+    const counts = {};
+    for (const id of team.players) {
+      const player = players.find(p => p.id === id);
+      if (!player || assigned.has(id) || !ROLES.slice(0, draft.step).includes(player.role)) return false;
+      assigned.add(id);
+      counts[player.role] = (counts[player.role] || 0) + 1;
+    }
+    for (const role of ROLES.slice(0, draft.step)) {
+      if (!counts[role] || counts[role] > (['Midlaner', 'Roamer'].includes(role) ? 2 : 1)) return false;
+    }
+  }
+  return assigned.size === players.filter(p => ROLES.slice(0, draft.step).includes(p.role)).length;
+}
+
+export function chooseName(draft, teamId, name, names) {
+  if (draft.step !== ROLES.length || !names.includes(name) || !draft.teams.some(t => t.id === teamId)) throw new Error('Selesaikan undian sebelum memilih nama team.');
+  if (draft.teams.find(t => t.id === teamId).name && !ALLOW_FINAL_TEAM_CHANGES) throw new Error('Identitas team sudah terkunci.');
+  if (draft.teams.some(t => t.id !== teamId && t.name === name)) throw new Error('Nama team sudah dipilih.');
+  const next = structuredClone(draft);
+  next.teams.find(t => t.id === teamId).name = name;
+  return next;
+}
+
+export async function loadAssets() {
+  const responses = await Promise.all([fetch('assets/player-msl.json'), fetch('assets/logo-team.json')]);
+  if (responses.some(r => !r.ok)) throw new Error('Data player atau logo gagal dimuat. Muat ulang halaman untuk mencoba lagi.');
+  const [source, files] = await Promise.all(responses.map(r => r.json()));
+  return { players: preparePlayers(source), logos: files.map(file => ({ name: file.replace(/\.[^.]+$/, ''), src: `assets/logo-team/${encodeURIComponent(file)}` })) };
+}
+
+export function readDraft(players, names) {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return null;
+  const saved = JSON.parse(raw);
+  const signature = JSON.stringify(players);
+  if (saved.signature !== signature || !validateDraft(saved.draft, players, names)) throw new Error('Simpanan undian tidak cocok dengan data player saat ini.');
+  return saved.draft;
+}
+
+export function saveDraft(draft, players) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ signature: JSON.stringify(players), draft }));
+}

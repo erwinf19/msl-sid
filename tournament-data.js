@@ -9,28 +9,13 @@ export const tournament = {
     { id: 'sky', name: 'Sky Sentinels', tag: 'SKY', color: 'teal', players: ['Zephyr', 'Cloud9', 'Stratos', 'Harbor', 'Nimbus'] },
     { id: 'lunar', name: 'Lunar Wolves', tag: 'LNR', color: 'purple', players: ['Lupus', 'Moonshot', 'Eclipse', 'Howl', 'Selene'] },
     { id: 'ember', name: 'Ember Pact', tag: 'EMB', color: 'red', players: ['Cinder', 'Flare', 'Obsidian', 'Bastion', 'Pyra'] },
-    { id: 'rift', name: 'Rift Nomads', tag: 'RFT', color: 'slate', players: ['Drift', 'Vesper', 'Onyx', 'Rune', 'Sora'] }
+    { id: 'rift', name: 'Rift Nomads', tag: 'RFT', color: 'slate', players: ['Drift', 'Vesper', 'Onyx', 'Rune', 'Sora'] },
+    { id: 'storm', name: 'Storm Keepers', tag: 'STM', color: 'blue', players: ['Bolt', 'Flash', 'Thunder', 'Rain', 'Mist'] },
+    { id: 'jade', name: 'Jade Guardians', tag: 'JDE', color: 'teal', players: ['Jade', 'Emerald', 'Stone', 'Fern', 'Leaf'] }
   ],
   // Urutan pemain selalu mengikuti urutan role ini.
   roles: ['Jungler', 'Gold Lane', 'EXP Lane', 'Roamer', 'Mid Lane'],
-  matches: [
-    // previewScore hanya contoh visual; tidak memengaruhi klasemen.
-    { id: 'm1', week: 1, date: '2026-10-06', time: '12:15', a: 'dawn', b: 'rift', score: null, previewScore: [2, 1] },
-    { id: 'm2', week: 1, date: '2026-10-08', time: '12:15', a: 'solar', b: 'ember', score: null },
-    { id: 'm3', week: 2, date: '2026-10-13', time: '12:15', a: 'sky', b: 'lunar', score: null },
-    { id: 'm4', week: 2, date: '2026-10-15', time: '12:15', a: 'dawn', b: 'ember', score: null },
-    { id: 'm5', week: 3, date: '2026-10-20', time: '12:15', a: 'rift', b: 'lunar', score: null },
-    { id: 'm6', week: 3, date: '2026-10-22', time: '12:15', a: 'solar', b: 'sky', score: null },
-    { id: 'm7', week: 4, date: '2026-10-27', time: '12:15', a: 'dawn', b: 'lunar', score: null },
-    { id: 'm8', week: 4, date: '2026-10-29', time: '12:15', a: 'ember', b: 'sky', score: null },
-    { id: 'm9', week: 5, date: '2026-11-03', time: '12:15', a: 'rift', b: 'solar', score: null },
-    { id: 'm10', week: 5, date: '2026-11-05', time: '12:15', a: 'dawn', b: 'sky', score: null },
-    { id: 'm11', week: 6, date: '2026-11-10', time: '12:15', a: 'lunar', b: 'solar', score: null },
-    { id: 'm12', week: 6, date: '2026-11-12', time: '12:15', a: 'ember', b: 'rift', score: null },
-    { id: 'm13', week: 7, date: '2026-11-17', time: '12:15', a: 'dawn', b: 'solar', score: null },
-    { id: 'm14', week: 7, date: '2026-11-19', time: '12:15', a: 'sky', b: 'rift', score: null },
-    { id: 'm15', week: 8, date: '2026-11-24', time: '12:15', a: 'lunar', b: 'ember', score: null }
-  ],
+  matches: [],
   rewards: [
     { win: true, score: '2–0', diamonds: 28 },
     { win: true, score: '2–1', diamonds: 19 },
@@ -38,3 +23,15 @@ export const tournament = {
     { win: false, score: '0–2', diamonds: 5 }
   ]
 };
+
+// Round-robin preview: eight teams, 28 matches over 14 Tuesday/Thursday weeks.
+const rotation = tournament.teams.map(t => t.id);
+tournament.matches = [];
+for (let round = 0; round < rotation.length - 1; round++) {
+  for (let pair = 0; pair < rotation.length / 2; pair++) {
+    const index = tournament.matches.length;
+    const date = new Date(Date.UTC(2026, 9, 6 + Math.floor(index / 2) * 7 + (index % 2) * 2));
+    tournament.matches.push({ id: `m${index + 1}`, week: Math.floor(index / 2) + 1, date: date.toISOString().slice(0, 10), time: '12:15', a: rotation[pair], b: rotation[rotation.length - 1 - pair], score: null, ...(index === 0 ? { previewScore: [2, 1] } : {}) });
+  }
+  rotation.splice(1, 0, rotation.pop());
+}

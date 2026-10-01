@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { tournament } from '../dist/tournament-data.js';
-import { getStandings, getReward, validateTournament } from '../dist/league.js';
+import { tournament } from '../tournament-data.js';
+import { getStandings, getReward, validateTournament } from '../league.js';
 
 test('standings ignore unplayed matches and balance games and match results', () => {
   const fixture = structuredClone(tournament);
@@ -33,14 +33,14 @@ test('invalid scores and incomplete rosters are rejected',()=>{
   const data=structuredClone(tournament); data.teams[0].players.pop();
   assert.throws(()=>validateTournament(data));
 });
-test('six teams play each other once at lunch on Tuesday or Thursday',()=>{
-  assert.equal(tournament.teams.length,6);
-  assert.equal(tournament.matches.length,15);
+test('eight teams play each other once at lunch on Tuesday or Thursday',()=>{
+  assert.equal(tournament.teams.length,8);
+  assert.equal(tournament.matches.length,28);
   const pairs=new Set();
   for(const m of tournament.matches){
     assert.ok([2,4].includes(new Date(`${m.date}T12:15:00Z`).getUTCDay()));
     assert.equal(m.time,'12:15'); pairs.add([m.a,m.b].sort().join(':'));
   }
-  assert.equal(pairs.size,15);
-  for(const t of tournament.teams) assert.equal(tournament.matches.filter(m=>m.a===t.id||m.b===t.id).length,5);
+  assert.equal(pairs.size,28);
+  for(const t of tournament.teams) assert.equal(tournament.matches.filter(m=>m.a===t.id||m.b===t.id).length,7);
 });
