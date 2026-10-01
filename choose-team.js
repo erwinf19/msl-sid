@@ -1,4 +1,4 @@
-import { ROLES, ROLE_LABELS, createDraft, generateRole, chooseName, loadAssets, readDraft, saveDraft, STORAGE_KEY } from './draft.js';
+import { ROLES, ROLE_LABELS, createDraft, generateRole, chooseName, lockDraft, loadAssets, readDraft, saveDraft, STORAGE_KEY } from './draft.js';
 import { canExportDraft, exportDraft, loadPublishedTeams, DOWNLOAD_FILENAME } from './published-teams.js';
 import { verifyDownloadPassword } from './download-password.js';
 import { draftPermissions, publishedToDraft } from './draft-policy.js';
@@ -48,12 +48,13 @@ function render(reveal = false) {
   $('#final-banner').hidden = !isComplete();
   $('#final-banner').classList.toggle('is-final', policy.locked);
   $('#final-title').textContent = policy.locked ? 'THE TEAMS ARE READY.' : 'YOUR SQUAD IS HERE.';
-  $('#final-copy').textContent = policy.locked ? 'Delapan team. Satu arena. Roster dan identitas team sudah final — saatnya bersiap untuk match pertama.' : policy.rosterLocked ? 'Semua player sudah mendapat team. Roster terkunci. Pilih satu nama untuk masing-masing team; pilihan nama tidak dapat diganti.' : 'Mode pemeliharaan aktif. Perubahan team diizinkan oleh konfigurasi website.';
-  $('#final-badge').textContent = policy.locked ? 'FINAL · TERKUNCI' : policy.rosterLocked ? 'ROSTER TERKUNCI' : 'MODE PEMELIHARAAN';
+  $('#final-copy').textContent = policy.locked ? 'Delapan team. Satu arena. Roster dan identitas team sudah final — saatnya bersiap untuk match pertama.' : 'Periksa lineup dan pilih nama squad kamu. Undian bisa diulang dan nama bisa diganti sampai kamu menekan Kunci Roster.';
+  $('#final-badge').textContent = policy.locked ? 'FINAL · TERKUNCI' : 'DRAFT · MASIH BISA DIUBAH';
   $('#draw-title').textContent = policy.locked ? 'Lineup final. Let the games begin.' : isComplete() ? 'Roster selesai. Pilih identitas team.' : 'Satu klik. Satu role. Delapan team.';
-  $('#draw-description').textContent = policy.locked ? 'Hasil ini terkunci. Tidak ada perubahan roster maupun nama team melalui halaman ini.' : isComplete() ? 'Roster tidak dapat diacak ulang. Setiap team mendapat satu kesempatan memilih nama.' : 'Jungler → Gold Lane → EXP Lane → Mid Lane → Roamer.';
+  $('#draw-description').textContent = policy.locked ? 'Hasil ini terkunci. Tidak ada perubahan roster maupun nama team melalui halaman ini.' : isComplete() ? 'Periksa hasilnya, pilih 8 nama team, lalu Kunci Roster. Kamu masih bisa mengulang undian.' : 'Jungler → Gold Lane → EXP Lane → Mid Lane → Roamer.';
   $('#download').disabled = !canExportDraft(draft, players, logos);
-  $('#download-help').textContent = canExportDraft(draft, players, logos) ? '8 team lengkap. Download JSON dengan password, lalu ganti assets/draft-team-msl.json dan deploy ulang.' : 'Download terbuka setelah 5 role selesai dan seluruh 8 nama team dipilih.';
+  $('#download').textContent = policy.locked ? 'Download JSON ↓' : 'Kunci Roster 🔒';
+  $('#download-help').textContent = policy.locked ? 'Roster final terkunci. JSON dapat diunduh ulang dengan password.' : canExportDraft(draft, players, logos) ? '8 team lengkap. Kunci Roster dengan password untuk memfinalisasi dan langsung mengunduh JSON.' : 'Kunci Roster aktif setelah 5 role selesai dan seluruh 8 nama team dipilih.';
   $('#choose-hint').textContent = isComplete() ? 'Klik Choose Team Name pada masing-masing kartu hasil undian untuk memilih identitas dari logo di bawah.' : 'Pilihan identitas untuk team kamu. Selesaikan undian, lalu klik Choose Team Name pada kartu team.';
   if (policy.locked) $('#choose-hint').textContent = 'Identitas team sudah ditentukan. Temukan logo team kamu dan kenali rekan satu squad.';
   $('#draft-teams').innerHTML = draft.teams.map(team => {
@@ -117,6 +118,8 @@ $('#download').addEventListener('click', () => {
   if (!canExportDraft(draft, players, logos)) return;
   $('#download-form').reset();
   $('#download-error').textContent = '';
+  $('#download-title').textContent = permissions().locked ? 'Download roster final.' : 'Kunci roster & download.';
+  $('#download-description').textContent = permissions().locked ? 'Masukkan password untuk mengunduh ulang roster final.' : 'Setelah password benar, roster dan nama team tidak bisa diubah lagi. JSON langsung diunduh untuk kamu commit dan deploy.';
   $('#download-dialog').showModal();
   $('#download-password').focus();
 });
@@ -126,7 +129,7 @@ $('#download-dialog').addEventListener('close', () => {
   passwordAttempt++;
   $('#download-form').reset();
   $('#confirm-download').disabled = false;
-  $('#confirm-download').textContent = 'Verifikasi & Download';
+  $('#confirm-download').textContent = 'Konfirmasi & Download';
 });
 $('#download-form').addEventListener('submit', async event => {
   event.preventDefault();
@@ -146,13 +149,17 @@ $('#download-form').addEventListener('submit', async event => {
       $('#download-password').focus();
       return;
     }
-    const output = permissions().locked && published?.finalized ? { ...published, locked: true } : exportDraft(draft, players, logos);
+    const wasPublished = permissions().locked && published?.finalized;
+    if (!wasPublished) draft = lockDraft(draft, players, logos.map(l => l.name));
+    const output = wasPublished ? { ...published, locked: true } : exportDraft(draft, players, logos);
     const url = URL.createObjectURL(new Blob([JSON.stringify(output, null, 2) + '\n'], { type: 'application/json' }));
     const link = document.createElement('a');
     link.href = url; link.download = DOWNLOAD_FILENAME;
     document.body.append(link); link.click(); link.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
+    if (!wasPublished) persist();
     $('#download-dialog').close();
+    render();
     $('#download-help').textContent = 'File draft-team-msl.json siap diunduh. Ganti file di assets/, commit, lalu deploy ulang untuk memperbarui beranda.';
   } catch (error) {
     if (attempt === passwordAttempt) $('#download-error').textContent = error.message;
@@ -160,7 +167,7 @@ $('#download-form').addEventListener('submit', async event => {
     password = '';
     if (attempt === passwordAttempt) {
       $('#confirm-download').disabled = false;
-      $('#confirm-download').textContent = 'Verifikasi & Download';
+      $('#confirm-download').textContent = 'Konfirmasi & Download';
     }
   }
 });

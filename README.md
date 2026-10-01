@@ -11,8 +11,8 @@ Gunakan Node.js 22 atau lebih baru. Jalankan `npm start`, lalu buka `http://127.
 1. Buka `choose-team.html` dari navigasi beranda.
 2. Generate Jungler, Goldlaner, Explaner, Midlaner, lalu Roamer.
 3. Pilih nama/logo yang berbeda untuk seluruh 8 team.
-4. Tombol **Download hasil JSON** baru aktif ketika seluruh 42 player dan 8 nama team lengkap.
-5. Masukkan password yang sudah ditentukan pada dialog download. Password salah tidak menghasilkan file. Setiap download meminta password kembali.
+4. Tombol **Kunci Roster** di dekat Generate baru aktif ketika seluruh 42 player dan 8 nama team lengkap.
+5. Klik Kunci Roster dan masukkan password. Password salah tidak mengunci roster dan tidak menghasilkan file. Password benar memfinalisasi roster serta langsung mengunduh JSON.
 6. Simpan file unduhan **draft-team-msl.json** dengan menggantikan **assets/draft-team-msl.json** di repository ini. Jangan mengganti `player-msl.json`. Jika browser menambahkan `(1)` pada nama unduhan, ubah kembali menjadi `draft-team-msl.json`.
 7. Commit dan push file tersebut, kemudian deploy ulang Netlify. Beranda membaca file yang dipublikasikan: nama, logo, roster 5–6 player, dan identitas team di klasemen serta jadwal akan ikut berubah.
 
@@ -44,16 +44,18 @@ Font Barlow dan Barlow Condensed menggunakan Google Fonts dengan fallback lokal.
 
 ## Penguncian final dan mode pemeliharaan
 
-Setelah kelima role selesai, roster terkunci: tombol Ulangi undian tidak aktif. Setiap team hanya bisa memilih nama sekali. Setelah kedelapan nama terisi, seluruh hasil otomatis menjadi final, termasuk ketika halaman di-reload. Download masih tersedia dengan password, tetapi password tidak membuka pengeditan.
+Sebelum Kunci Roster dikonfirmasi dengan password, seluruh draft boleh diulang, termasuk sesudah kelima role dan delapan nama selesai. Nama team dapat diganti selama tetap unik. Generate, Kunci Roster, dan Ulangi undian berada dalam panel kontrol yang sama.
 
-File ekspor memiliki `finalized: true` dan `locked: true`. Setelah file ini dipublikasikan, Choose Team memuat roster resmi dari JSON, mengabaikan draft lama di browser, dan mengunci generate/reset/pilihan nama untuk semua pengunjung. File lama tanpa properti `locked` juga dikunci jika sudah `finalized: true`.
+Kunci Roster hanya aktif saat 42 player dan delapan nama team lengkap. Password salah atau membatalkan dialog tidak mengubah draft. Password benar menambahkan `locked: true` dan `lockedAt` ke draft browser, lalu men-download JSON final (`finalized: true`, `locked: true`). Setelah itu reset dan penggantian nama tidak tersedia, termasuk setelah reload. Tombol Kunci Roster berubah menjadi Download JSON untuk mengunduh ulang dengan password.
 
-Satu-satunya sakelar pemeliharaan di aplikasi ada di **draft-policy.js**:
+Setelah file hasil dipublikasikan, Choose Team memuat roster resmi dari JSON dan mengabaikan draft browser. Beranda tetap menggunakan hasil yang di-commit dan di-deploy. Grid hasil team di kedua halaman berisi empat kolom dan dua baris. Pada layar sempit grid dapat digeser horizontal agar teks pemain tetap terbaca.
+
+Sakelar pemeliharaan ada di **draft-policy.js**:
 
 ```js
 export const ALLOW_FINAL_TEAM_CHANGES = false;
 ```
 
-Untuk membuka perubahan, ubah konstanta itu menjadi `true` secara manual, commit, lalu deploy ulang. Tidak ada tombol atau input password untuk mengubah flag ini. Setelah pemeliharaan selesai, kembalikan ke `false` sebelum mempublikasikan roster baru. Jangan mengubah `finalized` menjadi false pada file berisi roster: nilai false disediakan hanya untuk delapan slot kosong awal. `locked` dalam JSON adalah penanda hasil final, bukan sakelar pemeliharaan.
+Membuka kembali roster final memerlukan perubahan konstanta menjadi `true` secara manual, commit, dan deploy ulang. Tidak ada tombol atau password yang mengubah flag ini. Setelah pemeliharaan, kembalikan ke `false` sebelum mempublikasikan roster baru. Jangan mengubah `finalized` menjadi false pada file berisi roster; nilai false hanya untuk delapan slot kosong awal.
 
-Pada website statis, flag ini menegakkan alur UI, bukan otorisasi server: modifikasi JavaScript lokal tetap mungkin. Pengunjung tidak bisa menulis ulang JSON resmi di Netlify; perubahan resmi tetap membutuhkan akses repository/deploy.
+Pada website statis, penguncian menegakkan alur UI. Publikasi data resmi tetap membutuhkan akses repository/deploy.

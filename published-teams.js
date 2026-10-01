@@ -9,8 +9,9 @@ export function canExportDraft(draft, players, logos) {
 
 export function exportDraft(draft, players, logos) {
   if (!canExportDraft(draft, players, logos)) throw new Error('Selesaikan semua role dan pilih 8 nama team yang unik terlebih dahulu.');
+  if (!draft.locked) throw new Error('Kunci roster sebelum mengunduh hasil final.');
   return {
-    version: 1, finalized: true, locked: true, generatedAt: new Date().toISOString(),
+    version: 1, finalized: true, locked: true, generatedAt: draft.lockedAt,
     teams: draft.teams.map(t => ({ id: t.id, name: t.name, logo: logos.find(l => l.name === t.name).src, players: t.players.map(id => ({ ...players.find(p => p.id === id) })) }))
   };
 }

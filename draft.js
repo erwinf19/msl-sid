@@ -16,7 +16,7 @@ export function preparePlayers(source) {
   return players;
 }
 
-export const createDraft = () => ({ version: 1, step: 0, teams: Array.from({ length: TEAM_COUNT }, (_, i) => ({ id: i, name: null, players: [] })) });
+export const createDraft = () => ({ version: 1, step: 0, locked: false, teams: Array.from({ length: TEAM_COUNT }, (_, i) => ({ id: i, name: null, players: [] })) });
 
 export function shuffle(items, random = Math.random) {
   const result = [...items];
@@ -45,6 +45,8 @@ export function generateRole(draft, players, random = Math.random) {
 
 export function validateDraft(draft, players, names) {
   if (!draft || draft.version !== 1 || !Number.isInteger(draft.step) || draft.step < 0 || draft.step > ROLES.length || !Array.isArray(draft.teams) || draft.teams.length !== TEAM_COUNT) return false;
+  if (draft.locked !== undefined && typeof draft.locked !== 'boolean') return false;
+  if (draft.locked && (draft.step !== ROLES.length || typeof draft.lockedAt !== 'string' || !Number.isFinite(Date.parse(draft.lockedAt)) || draft.teams.some(t => !t?.name))) return false;
   const assigned = new Set(), chosen = new Set();
   for (const [i, team] of draft.teams.entries()) {
     if (!team || team.id !== i || !Array.isArray(team.players) || team.players.length > draft.step + 1) return false;
@@ -68,11 +70,17 @@ export function validateDraft(draft, players, names) {
 
 export function chooseName(draft, teamId, name, names) {
   if (draft.step !== ROLES.length || !names.includes(name) || !draft.teams.some(t => t.id === teamId)) throw new Error('Selesaikan undian sebelum memilih nama team.');
-  if (draft.teams.find(t => t.id === teamId).name && !ALLOW_FINAL_TEAM_CHANGES) throw new Error('Identitas team sudah terkunci.');
+  if (draft.locked && !ALLOW_FINAL_TEAM_CHANGES) throw new Error('Roster sudah terkunci.');
   if (draft.teams.some(t => t.id !== teamId && t.name === name)) throw new Error('Nama team sudah dipilih.');
   const next = structuredClone(draft);
   next.teams.find(t => t.id === teamId).name = name;
   return next;
+}
+
+export function lockDraft(draft, players, names) {
+  if (!validateDraft(draft, players, names) || draft.step !== ROLES.length || draft.teams.some(team => !team.name)) throw new Error('Lengkapi semua role dan delapan nama team sebelum mengunci roster.');
+  if (draft.locked && !ALLOW_FINAL_TEAM_CHANGES) return structuredClone(draft);
+  return { ...structuredClone(draft), locked: true, lockedAt: new Date().toISOString() };
 }
 
 export async function loadAssets() {

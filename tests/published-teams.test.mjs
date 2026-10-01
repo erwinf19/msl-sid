@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { pbkdf2Sync } from 'node:crypto';
-import { preparePlayers, createDraft, generateRole, chooseName, ROLES } from '../draft.js';
+import { preparePlayers, createDraft, generateRole, chooseName, lockDraft, ROLES } from '../draft.js';
 import { canExportDraft, exportDraft, validatePublishedTeams, applyPublishedTeams, DOWNLOAD_FILENAME } from '../published-teams.js';
 import { verifyDownloadPassword, DOWNLOAD_LOCK } from '../download-password.js';
 import { tournament } from '../tournament-data.js';
@@ -34,13 +34,14 @@ test('export stays locked until every role and every team identity is complete',
     draft = chooseName(draft, i, names[i], names);
   }
   assert.equal(canExportDraft(draft, players, logos), true);
+  assert.throws(() => exportDraft(draft, players, logos));
   const bad = structuredClone(draft);
   bad.teams[7].name = bad.teams[0].name;
   assert.equal(canExportDraft(bad, players, logos), false);
 });
 
 test('downloaded JSON round-trips into homepage rosters, logos, standings and schedule', () => {
-  const draft = namedDraft();
+  const draft = lockDraft(namedDraft(), players, names);
   const value = JSON.parse(JSON.stringify(exportDraft(draft, players, logos)));
   assert.equal(DOWNLOAD_FILENAME, 'draft-team-msl.json');
   assert.ok(validatePublishedTeams(value, players, logos));
@@ -68,7 +69,7 @@ test('empty published file shows eight waiting slots and rejects partial/invalid
   assert.equal(data.teams.length, 8);
   assert.ok(data.teams.every(t => t.players.length === 0 && t.pendingRoster));
   for (const change of [v => { v.teams[0].players[0].role = 'Roamer'; }, v => { v.teams[0].logo = 'https://example.com/logo.png'; }, v => { v.teams[0].players[0].username = 'changed'; }, v => { v.teams[0].players.push(v.teams[1].players[0]); }, v => { v.teams[0] = null; }]) {
-    const value = exportDraft(namedDraft(), players, logos);
+    const value = exportDraft(lockDraft(namedDraft(), players, names), players, logos);
     change(value);
     assert.equal(validatePublishedTeams(value, players, logos), false);
   }
@@ -82,23 +83,27 @@ test('password verification accepts the matching PBKDF2 value and rejects wrong 
   assert.equal(await verifyDownloadPassword('x'.repeat(257)), false);
 });
 
-test('completed rosters cannot reset and each team gets only one name selection', () => {
+test('completed drafts can reset and rename until the explicit lock action', () => {
   assert.equal(ALLOW_FINAL_TEAM_CHANGES, false);
   const draft = completeDraft();
   let policy = draftPermissions(draft, null);
   assert.equal(policy.canGenerate, false);
-  assert.equal(policy.canReset, false);
-  assert.equal(policy.rosterLocked, true);
+  assert.equal(policy.canReset, true);
+  assert.equal(policy.rosterLocked, false);
   assert.equal(policy.canChooseName(draft.teams[0]), true);
   const named = chooseName(draft, 0, names[0], names);
   policy = draftPermissions(named, null);
-  assert.equal(policy.canChooseName(named.teams[0]), false);
+  assert.equal(policy.canChooseName(named.teams[0]), true);
   assert.equal(policy.canChooseName(named.teams[1]), true);
-  assert.throws(() => chooseName(named, 0, names[1], names));
+  assert.equal(chooseName(named, 0, names[1], names).teams[0].name, names[1]);
+  assert.throws(() => lockDraft(named, players, names));
+  const allNamed = namedDraft();
+  assert.equal(draftPermissions(allNamed, null).canReset, true);
+  assert.equal(draftPermissions(allNamed, null).locked, false);
 });
 
 test('final data stays locked after JSON round-trip and requires the code maintenance flag', () => {
-  const draft = namedDraft();
+  const draft = lockDraft(namedDraft(), players, names);
   assert.equal(draftPermissions(draft, null).locked, true);
   const file = JSON.parse(JSON.stringify(exportDraft(draft, players, logos)));
   assert.equal(file.locked, true);

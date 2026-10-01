@@ -26,15 +26,14 @@
       <div class="table-shell player-table" tabindex="0" role="region" aria-label="Daftar player, gulir untuk melihat semua"><table><caption class="sr-only">Player yang siap diundi dan team hasil undian</caption><thead><tr><th scope="col">#</th><th scope="col">Player / Username</th><th scope="col">Role</th><th scope="col">Team</th></tr></thead><tbody id="players"></tbody></table></div>
     </section>
     <section id="random-team" class="section"><div class="section-heading"><div><div class="eyebrow">03 / THE TEAM DRAW</div><h2>Let’s build your team<span>.</span></h2></div><span class="count-label">8 team · 5–6 player / team</span></div>
-      <div class="draw-console"><div><h3 id="draw-title">Satu klik. Satu role. Delapan team.</h3><p id="draw-description">Jungler → Gold Lane → EXP Lane → Mid Lane → Roamer.</p></div><button id="generate" class="button" type="button" disabled>Memuat player…</button><ol id="draw-steps" class="draw-steps"></ol><div class="draw-bottom"><span id="draw-status" role="status" aria-live="polite">Belum ada player yang dibagikan.</span><button id="reset" class="text-button" type="button" disabled>Ulangi undian</button></div></div>
+      <div class="draw-console"><div><h3 id="draw-title">Satu klik. Satu role. Delapan team.</h3><p id="draw-description">Jungler → Gold Lane → EXP Lane → Mid Lane → Roamer.</p></div><div class="draw-actions"><button id="generate" class="button" type="button" disabled>Memuat player…</button><button id="download" class="secondary-button lock-button" type="button" disabled aria-describedby="download-help">Kunci Roster 🔒</button><button id="reset" class="text-button" type="button" disabled>Ulangi undian</button></div><p id="download-help" class="download-help" role="status">Kunci Roster aktif setelah 5 role selesai dan seluruh 8 nama team dipilih.</p><ol id="draw-steps" class="draw-steps"></ol><div class="draw-bottom"><span id="draw-status" role="status" aria-live="polite">Belum ada player yang dibagikan.</span></div></div>
       <section id="final-banner" class="final-banner" aria-labelledby="final-title" tabindex="-1" hidden><div><span class="final-badge" id="final-badge">ROSTER TERKUNCI</span><h2 id="final-title">YOUR SQUAD IS HERE.</h2><p id="final-copy"></p></div><span class="final-emblem" aria-hidden="true">✦</span></section>
       <div id="draft-teams" class="draft-team-grid"></div>
-      <p class="section-intro">Draft tersimpan otomatis di browser ini. Setelah semua team dan nama lengkap, download JSON dengan password. Beranda diperbarui setelah file hasilnya di-commit dan di-deploy.</p>
-      <div class="draft-actions"><button id="download" class="secondary-button" type="button" disabled aria-describedby="download-help">Download hasil JSON ↓</button><a class="text-button" href="index.html#tim">Lihat team di beranda ↗</a></div>
-      <p id="download-help" class="download-help" role="status">Download terbuka setelah 5 role selesai dan seluruh 8 nama team dipilih.</p>
+      <p class="section-intro">Draft tersimpan otomatis di browser ini dan bisa diubah sampai Kunci Roster ditekan. Setelah terkunci, simpan JSON hasil unduhan ke assets/, commit, dan deploy untuk memperbarui beranda.</p>
+      <div class="draft-actions"><a class="text-button" href="index.html#tim">Lihat team di beranda ↗</a></div>
     </section>
   </main>
-  <dialog id="name-dialog" aria-labelledby="name-title"><div class="dialog-head"><div><div class="eyebrow">TEAM IDENTITY</div><h2 id="name-title">Choose Team Name</h2></div><button class="secondary-button" id="close-name" aria-label="Tutup pilihan nama">×</button></div><p>Pilih identitas squad kamu. Setiap nama hanya untuk satu team. Pilihan langsung terkunci setelah logo diklik.</p><div class="logo-grid" id="name-options"></div></dialog>
+  <dialog id="name-dialog" aria-labelledby="name-title"><div class="dialog-head"><div><div class="eyebrow">TEAM IDENTITY</div><h2 id="name-title">Choose Team Name</h2></div><button class="secondary-button" id="close-name" aria-label="Tutup pilihan nama">×</button></div><p>Pilih identitas squad kamu. Setiap nama hanya untuk satu team. Nama masih bisa diganti sebelum Kunci Roster.</p><div class="logo-grid" id="name-options"></div></dialog>
   <dialog id="reset-dialog" aria-labelledby="reset-title"><h2 id="reset-title">Mulai undian baru?</h2><p>Seluruh hasil undian dan pilihan nama di browser ini akan dihapus.</p><div class="draft-actions"><button class="secondary-button" id="cancel-reset">Batal</button><button class="button" id="confirm-reset">Ya, ulangi undian</button></div></dialog>
   <dialog id="download-dialog" aria-labelledby="download-title" aria-describedby="download-description">
     <form id="download-form">
@@ -43,7 +42,7 @@
       <label class="password-label" for="download-password">Password download</label>
       <input id="download-password" type="password" autocomplete="current-password" maxlength="256" required aria-describedby="download-error">
       <p id="download-error" role="alert"></p>
-      <div class="draft-actions"><button type="button" id="cancel-download" class="secondary-button">Batal</button><button type="submit" id="confirm-download" class="button">Verifikasi & Download</button></div>
+      <div class="draft-actions"><button type="button" id="cancel-download" class="secondary-button">Batal</button><button type="submit" id="confirm-download" class="button">Konfirmasi & Download</button></div>
     </form>
   </dialog>
   <footer><div class="wrap footer-inner"><div class="footer-brand">MSL <span>MLBB SID LEAGUE</span></div><p>© 2026 Semesta Integrasi Digital.<br>Turnamen komunitas internal.</p><a href="#choose-team">Kembali ke atas ↑</a></div></footer>

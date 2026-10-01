@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
-import { ROLES, preparePlayers, createDraft, generateRole, validateDraft, chooseName } from '../draft.js';
+import { ROLES, preparePlayers, createDraft, generateRole, validateDraft, chooseName, lockDraft } from '../draft.js';
 
 const source = JSON.parse(readFileSync(new URL('../assets/player-msl.json', import.meta.url), 'utf8'));
 const players = preparePlayers(source);
@@ -44,10 +44,13 @@ test('team identities unlock after the final draw and cannot be shared', () => {
   for (const role of ROLES) draft = generateRole(draft, players);
   draft = chooseName(draft, 0, names[0], names);
   assert.throws(() => chooseName(draft, 1, names[0], names));
-  assert.throws(() => chooseName(draft, 0, names[1], names));
-  draft = chooseName(draft, 1, names[1], names);
+  draft = chooseName(draft, 0, names[1], names);
+  draft = chooseName(draft, 1, names[0], names);
   assert.ok(validateDraft(draft, players, names));
   assert.throws(() => chooseName(draft, 1, 'Unknown', names));
+  for (let i = 2; i < 8; i++) draft = chooseName(draft, i, names[i], names);
+  draft = lockDraft(draft, players, names);
+  assert.throws(() => chooseName(draft, 0, names[8], names));
 });
 
 test('invalid source and corrupted saved rosters are rejected', () => {
