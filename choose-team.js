@@ -137,6 +137,19 @@ function logoTile(logo, index, selectable = false) {
   return selectable ? `<button type="button" class="logo-tile ${owner ? 'is-chosen' : ''}" data-name="${escape(logo.name)}" ${unavailable ? 'disabled' : ''} aria-pressed="${owner?.id === namingTeam}">${body}</button>` : `<article class="logo-tile ${owner ? 'is-chosen' : ''}">${body}</article>`;
 }
 
+function fitPlayerTable() {
+  const shell = $('.player-table'), table = shell.querySelector('table');
+  const rows = [...$('#players').rows];
+  if (rows.length <= 8) {
+    shell.style.removeProperty('--player-table-height');
+    return;
+  }
+  // Include the header, eight actual rows, borders and any horizontal scrollbar.
+  const contentHeight = rows[7].getBoundingClientRect().bottom - table.getBoundingClientRect().top;
+  const frameHeight = shell.offsetHeight - shell.clientHeight;
+  shell.style.setProperty('--player-table-height', `${Math.ceil(contentHeight + frameHeight + 1)}px`);
+}
+
 function renderPlayers() {
   const shown = visibleDraft();
   const visible = players.filter(p => (filter === 'all' || p.role === filter) && [p.playername, p.username, p.businessUnit, p.telegram].filter(Boolean).join(' ').toLocaleLowerCase('id').includes(search));
@@ -146,6 +159,7 @@ function renderPlayers() {
     const telegram = p.telegram ? `<a class="telegram-link" href="https://t.me/${encodeURIComponent(p.telegram.slice(1))}" target="_blank" rel="noopener noreferrer" aria-label="Buka Telegram ${escape(p.playername)}">${escape(p.telegram)} <span aria-hidden="true">↗</span></a>` : '<span class="player-pending">—</span>';
     return `<tr><td>${String(p.id + 1).padStart(2, '0')}</td><th scope="row"><strong>${escape(p.playername)}</strong><small>${escape(p.username)}</small></th><td><span class="role-pill" data-role="${p.role}">${ROLE_LABELS[p.role]}</span></td><td><span class="player-unit">${escape(p.businessUnit || '—')}</span></td><td>${telegram}</td><td>${team ? escape(teamLabel(team)) : '<span class="player-pending">Menunggu undian</span>'}</td></tr>`;
   }).join('') : '<tr><td colspan="6">Tidak ada player yang cocok dengan pencarian.</td></tr>';
+  fitPlayerTable();
 }
 
 function render() {
@@ -346,3 +360,5 @@ try {
 }
 
 initSectionNavigation();
+// Recalculate when responsive widths or loaded fonts change the row heights.
+new ResizeObserver(fitPlayerTable).observe($('.player-table table'));
