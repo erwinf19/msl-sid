@@ -6,14 +6,14 @@
   <meta name="description" content="Satu arena untuk seluruh Muvers. Pantau klasemen, jadwal pertandingan, tim, dan apresiasi MLBB SID League.">
   <meta name="theme-color" content="#10254c">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2310254c'/%3E%3Cpath d='M6 24V8l10 9L26 8v16h-5V18l-5 5-5-5v6' fill='%23efbb50'/%3E%3C/svg%3E">
-  <script src="theme.js"></script>
-  <link rel="stylesheet" href="styles.css">
+  <script src="/theme.js"></script>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <a class="skip" href="#klasemen">Langsung ke klasemen</a>
-  <header class="site-header"><div class="nav-wrap has-event-guide">
-    <a class="brand" href="#beranda" aria-label="MSL — Beranda"><img src="assets/msl-logo.jpg" alt="Logo MSL" width="62" height="62"><span>MSL<small>MLBB SID LEAGUE</small></span></a>
-    <nav aria-label="Navigasi utama"><a href="#beranda" class="active">Beranda</a><a href="#klasemen">Klasemen</a><a href="#jadwal">Jadwal</a><a href="#tim">Tim & Pemain</a><a href="#hadiah">Prize Pool</a><a href="choose-team.html#player-list">Player Data</a><a href="event-guide.html">Event Guide</a></nav>
+  <header class="site-header"><div class="nav-wrap">
+    <a class="brand" href="/" aria-label="MSL — Beranda"><img src="/assets/msl-logo.jpg" alt="Logo MSL" width="62" height="62"><span>MSL<small>MLBB SID LEAGUE</small></span></a>
+    <nav aria-label="Navigasi utama"><a href="/" class="active" aria-current="page">Beranda</a><a href="/full-schedule">Jadwal Lengkap</a><a href="/player-data">Player Data</a><a href="/event-guide">Event Guide</a></nav>
     <div class="nav-actions">
       <span class="nav-season">INTERNAL COLLABORATION GAMES <span>2026</span></span>
       <button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Mode gelap" title="Aktifkan mode gelap">
@@ -25,7 +25,7 @@
   <main id="beranda">
     <section class="hero wrap" aria-labelledby="hero-title">
       <div class="hero-copy"><span class="eyebrow"><i></i> THE MUVERS' ARENA</span><h1 id="hero-title">ONE LEAGUE.<br>ALL <em>MUVERS.</em></h1><p>MLBB SID LEAGUE</p><p class="intro">Dari rekan kerja, jadi rekan satu tim.<br>Ikuti perjalanan Muvers di Land of Dawn.</p><a class="button" href="#jadwal">Lihat Jadwal Permainan <span aria-hidden="true">↗</span></a><div class="hero-note"><span>5 vs 5</span><b>·</b><span>Best of 3</span><b>·</b><span>Internal SID</span></div></div>
-      <div class="hero-art"><img src="assets/msl-banner.png" alt="Banner MSL: Life as Muvers. Pendaftaran individual 17–30 September, free diamond setiap permainan." width="1672" height="941" fetchpriority="high"></div>
+      <div class="hero-art"><img src="/assets/msl-banner.png" alt="Banner MSL: Life as Muvers. Pendaftaran individual 17–30 September, free diamond setiap permainan." width="1672" height="941" fetchpriority="high"></div>
     </section>
     <div class="league-bar"><div class="wrap league-bar-inner"><div><span class="gold">◆</span><strong>MLBB SID LEAGUE</strong><span class="bar-description">Turnamen internal Semesta Integrasi Digital</span></div><a href="#hadiah">Diamonds di setiap match <span aria-hidden="true">↗</span></a></div></div>
     <div class="wrap content">
@@ -34,18 +34,18 @@
         <div class="table-shell"><table><caption class="sr-only">Klasemen Regular Season MLBB SID League</caption><thead><tr><th scope="col" class="rank-head">#</th><th scope="col">Team</th><th scope="col">Match Point</th><th scope="col">Match W–L</th><th scope="col">Net Game Win</th><th scope="col">Game W–L</th></tr></thead><tbody id="standings"></tbody></table></div>
         <div class="table-note"><span><i></i> Peringkat berdasarkan hasil permainan</span><span id="scoring-note"></span></div>
       </section>
-      <section id="jadwal" class="section" aria-labelledby="schedule-title"><div class="section-heading"><div><div class="eyebrow">MARK YOUR CALENDAR</div><h2 id="schedule-title">Jadwal & hasil<span>.</span></h2></div><span class="timezone">Selasa–Kamis · 12.15 WIB</span></div><div class="schedule-toolbar"><div class="week-tabs" id="week-tabs" aria-label="Pilih pekan"></div></div><div id="matches" class="match-grid" aria-live="polite"></div><div class="schedule-summary"><p class="schedule-note">8 team · 28 match · 10 pekan, mulai 6 Oktober 2026. Pekan 4 dan 7: Selasa–Rabu; pekan lainnya: Selasa–Kamis.</p><a class="button schedule-link" href="schedule.html">Lihat jadwal lengkap <span aria-hidden="true">↗</span></a></div></section>
+      <section id="jadwal" class="section" aria-labelledby="schedule-title"><div class="section-heading"><div><div class="eyebrow">MARK YOUR CALENDAR</div><h2 id="schedule-title">Jadwal & hasil<span>.</span></h2></div><span class="timezone">Selasa–Kamis · 12.15 WIB</span></div><div class="schedule-toolbar"><div class="week-tabs" id="week-tabs" aria-label="Pilih pekan"></div></div><div id="matches" class="match-grid" aria-live="polite"></div><div class="schedule-summary"><p class="schedule-note">8 team · 28 match · 10 pekan, mulai 6 Oktober 2026. Pekan 4 dan 7: Selasa–Rabu; pekan lainnya: Selasa–Kamis.</p><a class="button schedule-link" href="/full-schedule">Lihat jadwal lengkap <span aria-hidden="true">↗</span></a></div></section>
       <section id="tim" class="section" aria-labelledby="teams-title"><div class="section-heading"><div><div class="eyebrow">MEET THE MUVERS</div><h2 id="teams-title">Satu tim. Lima peran<span>.</span></h2></div><span class="count-label" id="team-count"></span></div><div class="team-grid" id="teams"></div></section>
-      <section id="hadiah" class="section prize-section" aria-labelledby="prize-title"><div class="prize-top"><div class="prize-copy"><div class="eyebrow">EVERY MATCH COUNTS</div><h2 id="prize-title">Main bareng.<br>Bawa pulang <span>diamonds.</span></h2><p>Unggul atau berpartisipasi, setiap pemain tetap dapat apresiasi.<br>Reward dihitung dari skor akhir setiap match BO3.</p></div><div class="prize-art"><img src="assets/diamond-chest.webp" alt="Peti penuh diamonds Mobile Legends" width="312" height="312" loading="lazy"><span>DIAMONDS IN EVERY MATCH</span></div></div><div class="prize-grid" id="prizes"></div><p class="prize-note">Apresiasi untuk masing-masing dari 5 pemain dalam tim. Total tim = apresiasi per pemain × 5.</p></section>
+      <section id="hadiah" class="section prize-section" aria-labelledby="prize-title"><div class="prize-top"><div class="prize-copy"><div class="eyebrow">EVERY MATCH COUNTS</div><h2 id="prize-title">Main bareng.<br>Bawa pulang <span>diamonds.</span></h2><p>Unggul atau berpartisipasi, setiap pemain tetap dapat apresiasi.<br>Reward dihitung dari skor akhir setiap match BO3.</p></div><div class="prize-art"><img src="/assets/diamond-chest.webp" alt="Peti penuh diamonds Mobile Legends" width="312" height="312" loading="lazy"><span>DIAMONDS IN EVERY MATCH</span></div></div><div class="prize-grid" id="prizes"></div><p class="prize-note">Apresiasi untuk masing-masing dari 5 pemain dalam tim. Total tim = apresiasi per pemain × 5.</p></section>
       <section class="business-units" aria-label="Business unit SID"><span>ONE SID. ONE COMMUNITY.</span><div>
-        <a href="https://www.ktmsolutions.id/" target="_blank" rel="noreferrer" class="bu-ktm"><img src="assets/business-units/ktm.webp" alt="KTM Solutions" loading="lazy"></a>
-        <a href="https://www.livingenglish.id/" target="_blank" rel="noreferrer" class="bu-living"><img src="assets/business-units/living-english.png" alt="Living English" loading="lazy"></a>
-        <a href="https://www.sekolahmuridmerdeka.id/" target="_blank" rel="noreferrer" class="bu-smm"><img src="assets/business-units/smm.jpeg" alt="SMM — Sekolah Murid Merdeka" loading="lazy"></a>
-        <a href="https://www.sekolah.mu/" target="_blank" rel="noreferrer" class="bu-sekolahmu"><img src="assets/business-units/sekolahmu.png" alt="Sekolah.mu" loading="lazy"></a>
+        <a href="https://www.ktmsolutions.id/" target="_blank" rel="noreferrer" class="bu-ktm"><img src="/assets/business-units/ktm.webp" alt="KTM Solutions" loading="lazy"></a>
+        <a href="https://www.livingenglish.id/" target="_blank" rel="noreferrer" class="bu-living"><img src="/assets/business-units/living-english.png" alt="Living English" loading="lazy"></a>
+        <a href="https://www.sekolahmuridmerdeka.id/" target="_blank" rel="noreferrer" class="bu-smm"><img src="/assets/business-units/smm.jpeg" alt="SMM — Sekolah Murid Merdeka" loading="lazy"></a>
+        <a href="https://www.sekolah.mu/" target="_blank" rel="noreferrer" class="bu-sekolahmu"><img src="/assets/business-units/sekolahmu.png" alt="Sekolah.mu" loading="lazy"></a>
       </div></section>
     </div>
   </main>
   <footer><div class="wrap footer-inner"><div class="footer-brand">MSL <span>MLBB SID LEAGUE</span></div><p>© 2026 Semesta Integrasi Digital.<br>Turnamen komunitas internal.</p><a href="#beranda">Kembali ke atas ↑</a></div></footer>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="/app.js"></script>
 </body>
 </html>

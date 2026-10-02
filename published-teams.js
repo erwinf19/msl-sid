@@ -1,6 +1,6 @@
 import { ROLES, ROLE_LABELS, TEAM_COUNT, PLAYER_PROFILE_FIELDS, validateDraft } from './draft.js';
 
-export const PUBLISHED_TEAMS_PATH = 'assets/draft-team-msl.json';
+export const PUBLISHED_TEAMS_PATH = '/assets/draft-team-msl.json';
 export const DOWNLOAD_FILENAME = 'draft-team-msl.json';
 
 export function canExportDraft(draft, players, logos) {

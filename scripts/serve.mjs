@@ -2,13 +2,21 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve, relative, extname, isAbsolute } from 'node:path';
+import { getPageRoute } from '../page-routes.js';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp' };
-createServer(async (request, response) => {
+export function createMSLServer() {
+  return createServer(async (request, response) => {
   try {
-    const pathname = decodeURIComponent(new URL(request.url, 'http://localhost').pathname);
-    const file = resolve(root, `.${pathname === '/' ? '/index.html' : pathname}`);
+    const url = new URL(request.url, 'http://localhost');
+    const pathname = decodeURIComponent(url.pathname);
+    const page = getPageRoute(pathname);
+    if (page && pathname !== page.path) {
+      response.writeHead(301, { Location: `${page.path}${url.search}` });
+      response.end(); return;
+    }
+    const file = resolve(root, `.${page?.file || pathname}`);
     const local = relative(root, file);
     if (local.startsWith('..') || isAbsolute(local) || local.split(/[\\/]/).some(part => part.startsWith('.'))) {
       response.writeHead(403); response.end('Forbidden'); return;
@@ -19,4 +27,9 @@ createServer(async (request, response) => {
   } catch {
     response.writeHead(404); response.end('Not found');
   }
-}).listen(4173, '127.0.0.1', () => console.log('MSL: http://127.0.0.1:4173'));
+  });
+}
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  createMSLServer().listen(4173, '127.0.0.1', () => console.log('MSL: http://127.0.0.1:4173'));
+}

@@ -1,0 +1,14 @@
+# Redirect old page addresses to the public URLs.
+/index.html       /                 301!
+/index            /                 301!
+/schedule.html    /full-schedule   301!
+/schedule         /full-schedule   301!
+/jadwal-lengkap   /full-schedule   301!
+/choose-team.html /player-data      301!
+/choose-team      /player-data      301!
+/event-guide.html /event-guide      301!
+
+# Serve the original HTML without changing the browser URL.
+/full-schedule   /schedule.html    200!
+/player-data      /choose-team.html 200!
+/event-guide      /event-guide.html 200!

@@ -1,6 +1,9 @@
+import { initSiteNavigation } from './site-navigation.js';
+
 // One moving indicator per navigation bar; keep the clicked tab selected
 // while smooth scrolling passes through other sections on the way there.
 export function initSectionNavigation() {
+  initSiteNavigation();
   document.querySelectorAll('nav').forEach(nav => {
     if (nav.classList.contains('nav-motion')) return;
     const links = [...nav.querySelectorAll('a')];

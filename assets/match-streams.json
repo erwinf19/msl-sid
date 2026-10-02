@@ -1,0 +1,228 @@
+{
+  "matches": [
+    {
+      "id": "m1",
+      "week": 1,
+      "date": "2026-10-06",
+      "teamA": "dawn",
+      "teamB": "jade",
+      "streamUrl": ""
+    },
+    {
+      "id": "m2",
+      "week": 1,
+      "date": "2026-10-07",
+      "teamA": "solar",
+      "teamB": "storm",
+      "streamUrl": ""
+    },
+    {
+      "id": "m3",
+      "week": 1,
+      "date": "2026-10-08",
+      "teamA": "sky",
+      "teamB": "rift",
+      "streamUrl": ""
+    },
+    {
+      "id": "m4",
+      "week": 2,
+      "date": "2026-10-13",
+      "teamA": "lunar",
+      "teamB": "ember",
+      "streamUrl": ""
+    },
+    {
+      "id": "m5",
+      "week": 2,
+      "date": "2026-10-14",
+      "teamA": "dawn",
+      "teamB": "storm",
+      "streamUrl": ""
+    },
+    {
+      "id": "m6",
+      "week": 2,
+      "date": "2026-10-15",
+      "teamA": "jade",
+      "teamB": "rift",
+      "streamUrl": ""
+    },
+    {
+      "id": "m7",
+      "week": 3,
+      "date": "2026-10-20",
+      "teamA": "solar",
+      "teamB": "ember",
+      "streamUrl": ""
+    },
+    {
+      "id": "m8",
+      "week": 3,
+      "date": "2026-10-21",
+      "teamA": "sky",
+      "teamB": "lunar",
+      "streamUrl": ""
+    },
+    {
+      "id": "m9",
+      "week": 3,
+      "date": "2026-10-22",
+      "teamA": "dawn",
+      "teamB": "rift",
+      "streamUrl": ""
+    },
+    {
+      "id": "m10",
+      "week": 4,
+      "date": "2026-10-27",
+      "teamA": "storm",
+      "teamB": "ember",
+      "streamUrl": ""
+    },
+    {
+      "id": "m11",
+      "week": 4,
+      "date": "2026-10-28",
+      "teamA": "jade",
+      "teamB": "lunar",
+      "streamUrl": ""
+    },
+    {
+      "id": "m12",
+      "week": 5,
+      "date": "2026-11-03",
+      "teamA": "solar",
+      "teamB": "sky",
+      "streamUrl": ""
+    },
+    {
+      "id": "m13",
+      "week": 5,
+      "date": "2026-11-04",
+      "teamA": "dawn",
+      "teamB": "ember",
+      "streamUrl": ""
+    },
+    {
+      "id": "m14",
+      "week": 5,
+      "date": "2026-11-05",
+      "teamA": "rift",
+      "teamB": "lunar",
+      "streamUrl": ""
+    },
+    {
+      "id": "m15",
+      "week": 6,
+      "date": "2026-11-10",
+      "teamA": "storm",
+      "teamB": "sky",
+      "streamUrl": ""
+    },
+    {
+      "id": "m16",
+      "week": 6,
+      "date": "2026-11-11",
+      "teamA": "jade",
+      "teamB": "solar",
+      "streamUrl": ""
+    },
+    {
+      "id": "m17",
+      "week": 6,
+      "date": "2026-11-12",
+      "teamA": "dawn",
+      "teamB": "lunar",
+      "streamUrl": ""
+    },
+    {
+      "id": "m18",
+      "week": 7,
+      "date": "2026-11-17",
+      "teamA": "ember",
+      "teamB": "sky",
+      "streamUrl": ""
+    },
+    {
+      "id": "m19",
+      "week": 7,
+      "date": "2026-11-18",
+      "teamA": "rift",
+      "teamB": "solar",
+      "streamUrl": ""
+    },
+    {
+      "id": "m20",
+      "week": 8,
+      "date": "2026-11-24",
+      "teamA": "storm",
+      "teamB": "jade",
+      "streamUrl": ""
+    },
+    {
+      "id": "m21",
+      "week": 8,
+      "date": "2026-11-25",
+      "teamA": "dawn",
+      "teamB": "sky",
+      "streamUrl": ""
+    },
+    {
+      "id": "m22",
+      "week": 8,
+      "date": "2026-11-26",
+      "teamA": "lunar",
+      "teamB": "solar",
+      "streamUrl": ""
+    },
+    {
+      "id": "m23",
+      "week": 9,
+      "date": "2026-12-01",
+      "teamA": "ember",
+      "teamB": "jade",
+      "streamUrl": ""
+    },
+    {
+      "id": "m24",
+      "week": 9,
+      "date": "2026-12-02",
+      "teamA": "rift",
+      "teamB": "storm",
+      "streamUrl": ""
+    },
+    {
+      "id": "m25",
+      "week": 9,
+      "date": "2026-12-03",
+      "teamA": "dawn",
+      "teamB": "solar",
+      "streamUrl": ""
+    },
+    {
+      "id": "m26",
+      "week": 10,
+      "date": "2026-12-08",
+      "teamA": "sky",
+      "teamB": "jade",
+      "streamUrl": ""
+    },
+    {
+      "id": "m27",
+      "week": 10,
+      "date": "2026-12-09",
+      "teamA": "lunar",
+      "teamB": "storm",
+      "streamUrl": ""
+    },
+    {
+      "id": "m28",
+      "week": 10,
+      "date": "2026-12-10",
+      "teamA": "ember",
+      "teamB": "rift",
+      "streamUrl": ""
+    }
+  ]
+}

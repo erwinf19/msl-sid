@@ -87,10 +87,10 @@ export function lockDraft(draft, players, names) {
 }
 
 export async function loadAssets() {
-  const responses = await Promise.all([fetch('assets/player-msl.json'), fetch('assets/logo-team.json')]);
+  const responses = await Promise.all([fetch('/assets/player-msl.json'), fetch('/assets/logo-team.json')]);
   if (responses.some(r => !r.ok)) throw new Error('Data player atau logo gagal dimuat. Muat ulang halaman untuk mencoba lagi.');
   const [source, files] = await Promise.all(responses.map(r => r.json()));
-  return { players: preparePlayers(source), logos: files.map(file => ({ name: file.replace(/\.[^.]+$/, ''), src: `assets/logo-team/${encodeURIComponent(file)}` })) };
+  return { players: preparePlayers(source), logos: files.map(file => ({ name: file.replace(/\.[^.]+$/, ''), src: `/assets/logo-team/${encodeURIComponent(file)}` })) };
 }
 
 export function readDraft(players, names, storage = localStorage) {

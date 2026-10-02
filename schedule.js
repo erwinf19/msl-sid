@@ -4,23 +4,27 @@ import { loadAssets } from './draft.js';
 import { loadPublishedTeams, applyPublishedTeams } from './published-teams.js';
 import { escape, renderMatchCard } from './schedule-view.js';
 import { initSectionNavigation } from './section-navigation.js';
+import { loadMatchStreams } from './match-streams.js';
+import { initMatchActions } from './match-actions.js';
+import { matchIcon } from './match-icons.js';
 
 try {
   const { players, logos } = await loadAssets();
   const published = await loadPublishedTeams(players, logos);
-  const data = applyPublishedTeams(tournament, published);
+  const data = await loadMatchStreams(applyPublishedTeams(tournament, published));
   validateTournament(data);
   const weeks = [...new Set(data.matches.map(m => m.week))].sort((a, b) => a - b);
   document.querySelector('#week-index').innerHTML = weeks.map(week => `<a href="#pekan-${week}"><span>Pekan ${String(week).padStart(2, '0')}</span><small>${data.matches.filter(m => m.week === week).length} match</small></a>`).join('');
   const shortDate = date => new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', timeZone: 'Asia/Jakarta' }).format(new Date(`${date}T12:00:00+07:00`));
   document.querySelector('#full-schedule').innerHTML = weeks.map(week => {
     const matches = data.matches.filter(m => m.week === week).sort((a, b) => `${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`));
-    return `<section class="schedule-week" id="pekan-${week}" aria-labelledby="pekan-title-${week}"><div class="week-heading"><div><span class="eyebrow">${matches.length} MATCH · REGULAR SEASON</span><h2 id="pekan-title-${week}">Pekan ${String(week).padStart(2, '0')}<span>.</span></h2></div><span>${escape(shortDate(matches[0].date))} – ${escape(shortDate(matches.at(-1).date))} 2026</span></div><div class="match-grid">${matches.map(m => renderMatchCard(data, m)).join('')}</div></section>`;
+    return `<section class="schedule-week" id="pekan-${week}" aria-labelledby="pekan-title-${week}"><div class="week-heading"><div><span class="eyebrow">${matches.length} MATCH · REGULAR SEASON</span><h2 id="pekan-title-${week}">Pekan ${String(week).padStart(2, '0')}<span>.</span></h2></div><div class="week-heading-actions"><span>${escape(shortDate(matches[0].date))} – ${escape(shortDate(matches.at(-1).date))} 2026</span><button class="action-button" type="button" data-week-share="${week}">${matchIcon('share')} Bagikan pekan ${String(week).padStart(2,'0')}</button></div></div><div class="match-grid">${matches.map(m => renderMatchCard(data, m)).join('')}</div></section>`;
   }).join('');
   const status = document.querySelector('#schedule-status');
   status.textContent = published.finalized ? '' : 'Nama team mengikuti hasil roster resmi setelah dipublikasikan. Jadwal tiap slot sudah tersedia di bawah.';
   status.hidden = published.finalized;
-  if (/^#pekan-\d+$/.test(location.hash)) document.querySelector(location.hash)?.scrollIntoView();
+  initMatchActions(data);
+  if (/^#(?:pekan-\d+|match-m\d+)$/.test(location.hash)) document.querySelector(location.hash)?.scrollIntoView();
   initSectionNavigation();
 } catch (error) {
   document.querySelector('#schedule-status').textContent = 'Jadwal belum dapat ditampilkan. Silakan hubungi panitia.';

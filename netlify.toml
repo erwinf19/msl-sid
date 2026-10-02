@@ -1,0 +1,3 @@
+[build.processing.html]
+  # Custom routes are defined in _redirects; keep their chosen spelling.
+  pretty_urls = false

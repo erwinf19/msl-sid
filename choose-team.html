@@ -5,15 +5,15 @@
   <title>Player Data & Team Draft — MSL</title>
   <meta name="description" content="Data player MSL: role, BU/Function, ID Telegram, serta undian 8 team.">
   <meta name="theme-color" content="#10254c">
-  <script src="theme.js"></script>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="draft.css">
+  <script src="/theme.js"></script>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/draft.css">
 </head>
 <body>
   <a class="skip" href="#player-list">Langsung ke player list</a>
-  <header class="site-header"><div class="nav-wrap has-event-guide">
-    <a class="brand" href="index.html"><img src="assets/msl-logo.jpg" alt="Logo MSL" width="62" height="62"><span>MSL<small>MLBB SID LEAGUE</small></span></a>
-    <nav aria-label="Navigasi utama"><a href="index.html">Beranda</a><a href="#choose-team" class="active">Team Identity</a><a href="#player-list">Player Data</a><a href="#random-team">Random Team</a><a href="schedule.html">Jadwal Lengkap</a><a href="event-guide.html">Event Guide</a></nav>
+  <header class="site-header"><div class="nav-wrap">
+    <a class="brand" href="/"><img src="/assets/msl-logo.jpg" alt="Logo MSL" width="62" height="62"><span>MSL<small>MLBB SID LEAGUE</small></span></a>
+    <nav aria-label="Navigasi utama"><a href="/">Beranda</a><a href="/full-schedule">Jadwal Lengkap</a><a href="/player-data" class="active" aria-current="page">Player Data</a><a href="/event-guide">Event Guide</a></nav>
     <div class="nav-actions"><span class="nav-season">THE MUVERS' DRAFT <span>2026</span></span><button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Mode gelap" title="Aktifkan mode gelap"><svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/></svg></button></div>
   </div></header>
   <main class="wrap draft-page">
@@ -36,7 +36,7 @@
       <section id="final-banner" class="final-banner" aria-labelledby="final-title" tabindex="-1" hidden><div><span class="final-badge" id="final-badge">ROSTER TERKUNCI</span><h2 id="final-title">YOUR SQUAD IS HERE.</h2><p id="final-copy"></p></div><span class="final-emblem" aria-hidden="true">✦</span></section>
       <div id="draft-teams" class="draft-team-grid"></div>
       <p class="section-intro">Draft tersimpan otomatis di browser ini dan bisa diubah sampai Kunci Roster ditekan. Setelah terkunci, simpan JSON hasil unduhan ke assets/, commit, dan deploy untuk memperbarui beranda.</p>
-      <div class="draft-actions"><a class="text-button" href="index.html#tim">Lihat team di beranda ↗</a></div>
+      <div class="draft-actions"><a class="text-button" href="/#tim">Lihat team di beranda ↗</a></div>
     </section>
   </main>
   <dialog id="name-dialog" aria-labelledby="name-title"><div class="dialog-head"><div><div class="eyebrow">TEAM IDENTITY</div><h2 id="name-title">Choose Team Name</h2></div><button class="secondary-button" id="close-name" aria-label="Tutup pilihan nama">×</button></div><p>Pilih identitas squad kamu. Setiap nama hanya untuk satu team. Nama masih bisa diganti sebelum Kunci Roster.</p><div class="logo-grid" id="name-options"></div></dialog>
@@ -52,6 +52,6 @@
     </form>
   </dialog>
   <footer><div class="wrap footer-inner"><div class="footer-brand">MSL <span>MLBB SID LEAGUE</span></div><p>© 2026 Semesta Integrasi Digital.<br>Turnamen komunitas internal.</p><a href="#choose-team">Kembali ke atas ↑</a></div></footer>
-  <script type="module" src="choose-team.js"></script>
+  <script type="module" src="/choose-team.js"></script>
 </body>
 </html>
