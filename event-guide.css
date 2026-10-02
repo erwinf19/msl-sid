@@ -8,3 +8,10 @@
 @media(min-width:761px){.is-presenting #reward .chapter-heading{margin-bottom:14px}.is-presenting .reward-showcase{padding:12px 20px;margin-bottom:14px}.is-presenting .reward-showcase img{width:105px;height:80px}.is-presenting .reward-showcase h3{font-size:26px;margin:7px 0}.is-presenting .reward-showcase p{font-size:14px}.is-presenting .reward-table tbody td,.is-presenting .reward-table tbody th{padding:8px 18px;font-size:15px}.is-presenting .reward-table thead th{padding:10px 18px}.is-presenting .reward-table td strong{font-size:20px}.is-presenting .champion-card{padding:14px 20px;margin-top:14px}.is-presenting .champion-card h3{font-size:25px;margin:5px 0}.is-presenting .champion-card p{font-size:14px;line-height:1.5}.is-presenting #reward .guide-inline-note{font-size:14px;line-height:1.5;margin-top:12px}}
 @media(prefers-reduced-motion:reduce){.guide-topic-links a{transition:none}.is-presenting .guide-chapter{animation:none}}
 @media print{.site-header,.guide-index,.guide-toolbar,.guide-hero-links,footer,.guide-closing>div{display:none!important}.guide-layout{display:block}.guide-chapter,.is-presenting .guide-chapter[hidden]{display:block!important;break-inside:avoid}.guide-chapter{border:1px solid #ddd}.guide-page{padding:0}.guide-cover{display:none}.guide-hero{display:block}.guide-hero h1{font-size:40px}.guide-chapter *{color:#172746}.guide-table thead th{background:#eee}.guide-rule-grid{display:block}.guide-card{margin:10px 0}}
+
+/* Transparent Weekly Diamond Pass artwork for the season champion reward. */
+.champion-card .weekly-pass-image{width:180px;height:180px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 8px 12px #7247b521)}
+.champion-card>div{min-width:0}
+@media(min-width:761px){.is-presenting .champion-card .weekly-pass-image{width:120px;height:120px}}
+@media(max-width:760px){.champion-card{align-items:center}.champion-card .weekly-pass-image{width:130px;height:130px}}
+@media(max-width:480px){.champion-card{flex-direction:column;align-items:flex-start;gap:12px}.champion-card .weekly-pass-image{width:160px;height:160px;align-self:center}}
