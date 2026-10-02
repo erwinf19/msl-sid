@@ -42,8 +42,12 @@ export function telegramShareUrl(text, url) {
 }
 
 export function renderTeamDetail(team, rank, roles) {
-  const stats = [['Peringkat', `#${rank}`], ['Match Point',team.points], ['Match Win',team.wins], ['Match Lose',team.losses], ['Game Win',team.gameWins], ['Game Lose',team.gameLosses], ['Net Game',`${team.net > 0 ? '+' : ''}${team.net}`]];
-  return `<section class="detail-team"><div class="detail-team-head">${badge(team)}<div><span class="eyebrow">${escape(team.tag)} · ${team.players.length} PEMAIN</span><h3>${escape(team.name)}</h3></div></div><dl class="team-stat-grid">${stats.map(([label,value])=>`<div><dt>${label}</dt><dd>${value}</dd></div>`).join('')}</dl><h4>${matchIcon('players')} Roster team</h4>${team.players.length ? `<ul class="detail-roster">${team.players.map((username,i)=>`<li><span class="player-number">${String(i+1).padStart(2,'0')}</span><div><strong>${escape(username)}</strong><small>${escape(team.playerNames?.[i] || '')}</small></div><span class="detail-role role-${roles.indexOf(team.playerRoles?.[i] || roles[i])}">${escape(team.playerRoles?.[i] || roles[i] || 'Player')}</span></li>`).join('')}</ul>` : '<p class="detail-empty">Roster belum dipublikasikan. Pemain akan tampil setelah data team resmi tersedia.</p>'}</section>`;
+  const stats = [
+    ['Match W–L', `${team.wins}–${team.losses}`, `${team.wins} menang, ${team.losses} kalah`],
+    ['Game W–L', `${team.gameWins}–${team.gameLosses}`, `${team.gameWins} menang, ${team.gameLosses} kalah`],
+    ['Net Game', `${team.net > 0 ? '+' : ''}${team.net}`, null]
+  ];
+  return `<section class="detail-team"><div class="detail-team-head">${badge(team)}<div><span class="eyebrow">${escape(team.tag)} · ${team.players.length} PEMAIN</span><h3>${escape(team.name)}</h3><div class="detail-team-meta"><span class="detail-rank">Peringkat <b>#${rank}</b></span><span>${team.points} poin</span></div></div></div><dl class="team-stat-grid">${stats.map(([label,value,description])=>`<div><dt>${label}</dt><dd${description ? ` aria-label="${description}"` : ''}>${value}</dd></div>`).join('')}</dl><h4>${matchIcon('players')} Roster team</h4>${team.players.length ? `<ul class="detail-roster">${team.players.map((username,i)=>`<li><span class="player-number">${String(i+1).padStart(2,'0')}</span><div><strong>${escape(username)}</strong><small>${escape(team.playerNames?.[i] || '')}</small></div><span class="detail-role role-${roles.indexOf(team.playerRoles?.[i] || roles[i])}">${escape(team.playerRoles?.[i] || roles[i] || 'Player')}</span></li>`).join('')}</ul>` : '<p class="detail-empty">Roster belum dipublikasikan. Pemain akan tampil setelah data team resmi tersedia.</p>'}</section>`;
 }
 
 export function initMatchActions(data) {

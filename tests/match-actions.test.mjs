@@ -52,9 +52,10 @@ test('details show published roster roles, safe player text, and standings from 
   const html=renderTeamDetail(team,rows.indexOf(team)+1,data.roles);
   assert.match(html,/&lt;player&gt;/);
   assert.match(html,/Name &amp; name/);
-  assert.match(html, /Match Win<\/dt><dd>1/);
-  assert.match(html, /Game Win<\/dt><dd>2/);
-  assert.match(html, /Game Lose<\/dt><dd>1/);
+  assert.match(html, /Match W–L<\/dt><dd aria-label="1 menang, 0 kalah">1–0/);
+  assert.match(html, /Game W–L<\/dt><dd aria-label="2 menang, 1 kalah">2–1/);
+  assert.match(html, /Net Game<\/dt><dd>\+1/);
+  assert.doesNotMatch(html, /Match Lose|Game Lose|Match Point/);
   assert.ok(html.includes(data.roles[4]));
   assert.match(renderTeamDetail({...team,players:[]},1,data.roles),/Roster belum dipublikasikan/);
   const card=renderMatchCard(data,data.matches[0]);
