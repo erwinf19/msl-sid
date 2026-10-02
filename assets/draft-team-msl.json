@@ -1,16 +1,442 @@
 {
   "version": 1,
-  "finalized": false,
-  "locked": false,
-  "generatedAt": null,
+  "finalized": true,
+  "locked": true,
+  "generatedAt": "2026-10-02T09:33:02.186Z",
   "teams": [
-    { "id": 0, "name": null, "logo": null, "players": [] },
-    { "id": 1, "name": null, "logo": null, "players": [] },
-    { "id": 2, "name": null, "logo": null, "players": [] },
-    { "id": 3, "name": null, "logo": null, "players": [] },
-    { "id": 4, "name": null, "logo": null, "players": [] },
-    { "id": 5, "name": null, "logo": null, "players": [] },
-    { "id": 6, "name": null, "logo": null, "players": [] },
-    { "id": 7, "name": null, "logo": null, "players": [] }
+    {
+      "id": 0,
+      "name": "Airlangga",
+      "logo": "/assets/logo-team/Airlangga.png",
+      "players": [
+        {
+          "id": 1,
+          "playername": "Mauladi Arif Iqbal",
+          "username": "℻|ѕтιикzу漢",
+          "role": "Jungler",
+          "businessUnit": "FU - Technology",
+          "jobTitle": "Senior Data Engineer",
+          "telegram": "@kangpulungdata"
+        },
+        {
+          "id": 13,
+          "playername": "Habib Ma'rif",
+          "username": "Harfy",
+          "role": "Goldlaner",
+          "businessUnit": "FU - People & Culture",
+          "jobTitle": "People Operation",
+          "telegram": "@habibmarif"
+        },
+        {
+          "id": 16,
+          "playername": "Bana Hasnul Fata",
+          "username": "ɥɐʇɐღƃ",
+          "role": "Explaner",
+          "businessUnit": "FU - Learning Spaces Development",
+          "jobTitle": "Operation Officer",
+          "telegram": "@banahf"
+        },
+        {
+          "id": 29,
+          "playername": "Suci Amelia",
+          "username": "DINDA SILIWANGI",
+          "role": "Midlaner",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "guru",
+          "telegram": "@Sameli4"
+        },
+        {
+          "id": 34,
+          "playername": "Raffi Fafian",
+          "username": "gomaw",
+          "role": "Roamer",
+          "businessUnit": "BU - Kampus",
+          "jobTitle": "Roam (Tank, support), mid (mage)",
+          "telegram": "@rfffpt"
+        },
+        {
+          "id": 33,
+          "playername": "Ni Komang Widi Krisna Hasri",
+          "username": "Widkr",
+          "role": "Roamer",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "Roam",
+          "telegram": "@Widkr"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Kalingga",
+      "logo": "/assets/logo-team/Kalingga.png",
+      "players": [
+        {
+          "id": 2,
+          "playername": "Farhan M R A",
+          "username": "Swan.",
+          "role": "Jungler",
+          "businessUnit": "FU - Technology",
+          "jobTitle": "Quality Analyst",
+          "telegram": "@farhanmra"
+        },
+        {
+          "id": 10,
+          "playername": "Dimas Abdul Aziz",
+          "username": "Sandekala",
+          "role": "Goldlaner",
+          "businessUnit": "FU - Technology",
+          "jobTitle": "Software Engineer - Frontend",
+          "telegram": "@diimasaziiz"
+        },
+        {
+          "id": 23,
+          "playername": "Muhammad Rizqi Maulana",
+          "username": "Alnoth_Xu Weichi",
+          "role": "Explaner",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "Guru SMP-SMA",
+          "telegram": "@MRArizMaulana"
+        },
+        {
+          "id": 24,
+          "playername": "Azzah Auliya Mawarni",
+          "username": "®Teamcowlll°",
+          "role": "Midlaner",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "Kepala Sekolah",
+          "telegram": "@Azzahauliyaa"
+        },
+        {
+          "id": 37,
+          "playername": "Muhammad iqbal",
+          "username": "korbancaleg",
+          "role": "Roamer",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "Warehouse staff",
+          "telegram": "@Iqbaaal18"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Samudera",
+      "logo": "/assets/logo-team/Samudera.png",
+      "players": [
+        {
+          "id": 7,
+          "playername": "Fadhil Cahya Kesuma",
+          "username": "Saltzy.",
+          "role": "Jungler",
+          "businessUnit": "FU - Technology",
+          "jobTitle": "QA Analyst",
+          "telegram": "@fadhilkesuma"
+        },
+        {
+          "id": 15,
+          "playername": "Ridho Adi Saputro",
+          "username": "Big Brother",
+          "role": "Goldlaner",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "Guru Olahraga",
+          "telegram": "@RASaputro"
+        },
+        {
+          "id": 21,
+          "playername": "Ari Rahmat Romadhon",
+          "username": "daunkelor",
+          "role": "Explaner",
+          "businessUnit": "FU - Technology",
+          "jobTitle": "Tech Support Officer",
+          "telegram": "@Arirhmt"
+        },
+        {
+          "id": 31,
+          "playername": "Elbra Naomi Leoni Moningka",
+          "username": "polarbear.",
+          "role": "Midlaner",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "School Administrator",
+          "telegram": "@elbraleoni"
+        },
+        {
+          "id": 30,
+          "playername": "Riva Zatinabila Ruliandi",
+          "username": "Katie Curly",
+          "role": "Midlaner",
+          "businessUnit": "FU - People & Culture",
+          "jobTitle": "Talent Acquisition",
+          "telegram": "@rivazatinabila"
+        },
+        {
+          "id": 38,
+          "playername": "Hanifah Nurjanah",
+          "username": "jaquard",
+          "role": "Roamer",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "Guru SD",
+          "telegram": "@hanifahnurjanah"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Padjadjaran",
+      "logo": "/assets/logo-team/Padjadjaran.png",
+      "players": [
+        {
+          "id": 6,
+          "playername": "Muhammad Fauzy Ramadhan",
+          "username": "BAN GORD",
+          "role": "Jungler",
+          "businessUnit": "FU - Legal",
+          "jobTitle": "Legal",
+          "telegram": "@mfauzrmd"
+        },
+        {
+          "id": 9,
+          "playername": "Sofyan Rahman Hasyim",
+          "username": "✓Parthenoss",
+          "role": "Goldlaner",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "school support",
+          "telegram": "@sofyanrh28"
+        },
+        {
+          "id": 18,
+          "playername": "Sayyid akbar",
+          "username": "AbamB",
+          "role": "Explaner",
+          "businessUnit": "BU - Sekolah.mu",
+          "jobTitle": "Account Executive (sales)",
+          "telegram": "@S_akbar830"
+        },
+        {
+          "id": 27,
+          "playername": "Nesty Ermin Nadhirah",
+          "username": "한 Hae-na ~",
+          "role": "Midlaner",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "Guru",
+          "telegram": "@nestermadhira"
+        },
+        {
+          "id": 40,
+          "playername": "Isyar Andika Harun",
+          "username": "Nasi Katsu",
+          "role": "Roamer",
+          "businessUnit": "FU - Technology",
+          "jobTitle": "Frontend Developer",
+          "telegram": "@isyarharun"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Batavia",
+      "logo": "/assets/logo-team/Batavia.png",
+      "players": [
+        {
+          "id": 5,
+          "playername": "Yoga Ray F. S",
+          "username": "Rayyy",
+          "role": "Jungler",
+          "businessUnit": "FU - Operations",
+          "jobTitle": "Assessment Specialist",
+          "telegram": "@yogaray"
+        },
+        {
+          "id": 14,
+          "playername": "Jefry Martin",
+          "username": "Dean",
+          "role": "Goldlaner",
+          "businessUnit": "FU - Customer Service",
+          "jobTitle": "Customer Service",
+          "telegram": "@jefrysiburian"
+        },
+        {
+          "id": 20,
+          "playername": "Zikri Alfa Muhamad",
+          "username": "*LEDY*",
+          "role": "Explaner",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "School Support",
+          "telegram": "@Zikrialfa_204"
+        },
+        {
+          "id": 28,
+          "playername": "Alifia Azra H",
+          "username": "Vallen",
+          "role": "Midlaner",
+          "businessUnit": "BU - KTM Solutions",
+          "jobTitle": "Consultant",
+          "telegram": "@xcdn404"
+        },
+        {
+          "id": 36,
+          "playername": "Maulana Malik Ichsan",
+          "username": "MaMaIch",
+          "role": "Roamer",
+          "businessUnit": "FU - Operations",
+          "jobTitle": "Manager",
+          "telegram": "@maoel2509"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Warmadewa",
+      "logo": "/assets/logo-team/Warmadewa.png",
+      "players": [
+        {
+          "id": 4,
+          "playername": "Atiks",
+          "username": "Vladimir XI",
+          "role": "Jungler",
+          "businessUnit": "FU - Product",
+          "jobTitle": "UIUX Designer",
+          "telegram": "@AtikSusanto"
+        },
+        {
+          "id": 12,
+          "playername": "Kurnia Hari",
+          "username": "yang aku hamil",
+          "role": "Goldlaner",
+          "businessUnit": "BU - Sekolah.mu",
+          "jobTitle": "Operations",
+          "telegram": "@kurniaSK8"
+        },
+        {
+          "id": 22,
+          "playername": "Alam Budy Kusuma",
+          "username": "Dracarys",
+          "role": "Explaner",
+          "businessUnit": "FU - Technology",
+          "jobTitle": "QA Analayst",
+          "telegram": "@abkusumaa"
+        },
+        {
+          "id": 32,
+          "playername": "Saniya Nada Kamilah",
+          "username": "lollyshine",
+          "role": "Midlaner",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "Guru",
+          "telegram": "@nadaasan"
+        },
+        {
+          "id": 35,
+          "playername": "Mughny Mubarak",
+          "username": "M A R C O",
+          "role": "Roamer",
+          "businessUnit": "FU - Technology",
+          "jobTitle": "Roam/Midlane",
+          "telegram": "@mughnyms"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Sadewa",
+      "logo": "/assets/logo-team/Sadewa.png",
+      "players": [
+        {
+          "id": 0,
+          "playername": "Muhammad Fikri Adriansyah",
+          "username": "SUPERCANG",
+          "role": "Jungler",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "Admission Officer",
+          "telegram": "@Fikri_Adri"
+        },
+        {
+          "id": 11,
+          "playername": "Muhammad Khusnan Gufron",
+          "username": "Skemz",
+          "role": "Goldlaner",
+          "businessUnit": "FU - Finance & Procurement",
+          "jobTitle": "Accounting Officer",
+          "telegram": "@mk_gufron"
+        },
+        {
+          "id": 17,
+          "playername": "Alvin Nawal Syarif",
+          "username": "zavarian21",
+          "role": "Explaner",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "AO",
+          "telegram": "@Alvinawal"
+        },
+        {
+          "id": 25,
+          "playername": "Muthia Rahmah",
+          "username": "ValentineV",
+          "role": "Midlaner",
+          "businessUnit": "BU - KTM Solutions",
+          "jobTitle": "Assessment Development Analyst",
+          "telegram": "@muthir24"
+        },
+        {
+          "id": 39,
+          "playername": "Dyka Afan Afthori",
+          "username": "Thor.",
+          "role": "Roamer",
+          "businessUnit": "FU - Technology",
+          "jobTitle": "Tech Support Officer",
+          "telegram": "@dykasays"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Gajah Mada",
+      "logo": "/assets/logo-team/Gajah%20Mada.png",
+      "players": [
+        {
+          "id": 3,
+          "playername": "Arrohman Alwan Aziz",
+          "username": "All One",
+          "role": "Jungler",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "Admin",
+          "telegram": "@aalwanaziz"
+        },
+        {
+          "id": 8,
+          "playername": "Muhammad Farhan Naufal",
+          "username": "Pria Misterius",
+          "role": "Goldlaner",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "Guru",
+          "telegram": "@Farhannaufall"
+        },
+        {
+          "id": 19,
+          "playername": "Jaka Riaman",
+          "username": "Coolant",
+          "role": "Explaner",
+          "businessUnit": "FU - Customer Service",
+          "jobTitle": "Agent Customer Service",
+          "telegram": "@djakaryaman"
+        },
+        {
+          "id": 26,
+          "playername": "Adelia Rahmawati",
+          "username": "Racxel x STARLIUM",
+          "role": "Midlaner",
+          "businessUnit": "FU - People & Culture",
+          "jobTitle": "People Partner Intern",
+          "telegram": "@adeliiara"
+        },
+        {
+          "id": 41,
+          "playername": "Mochammad Trinanda",
+          "username": "3tzy",
+          "role": "Roamer",
+          "businessUnit": "FU - Technology",
+          "jobTitle": "Frontend Developer",
+          "telegram": "@Itsnanda"
+        }
+      ]
+    }
   ]
 }
