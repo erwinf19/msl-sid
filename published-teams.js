@@ -1,4 +1,4 @@
-import { ROLES, ROLE_LABELS, TEAM_COUNT, validateDraft } from './draft.js';
+import { ROLES, ROLE_LABELS, TEAM_COUNT, PLAYER_PROFILE_FIELDS, validateDraft } from './draft.js';
 
 export const PUBLISHED_TEAMS_PATH = 'assets/draft-team-msl.json';
 export const DOWNLOAD_FILENAME = 'draft-team-msl.json';
@@ -26,7 +26,7 @@ export function validatePublishedTeams(value, players, logos) {
   if (!canExportDraft(draft, players, logos)) return false;
   return value.teams.every(team => team.logo === logos.find(l => l.name === team.name)?.src && team.players.every(p => {
     const original = players.find(o => o.id === p?.id);
-    return original && p.playername === original.playername && p.username === original.username && p.role === original.role;
+    return original && p.playername === original.playername && p.username === original.username && p.role === original.role && PLAYER_PROFILE_FIELDS.every(field => p[field] === undefined || p[field] === original[field]);
   }));
 }
 

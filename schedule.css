@@ -1,0 +1,39 @@
+.schedule-page{padding-bottom:64px}
+.schedule-hero{display:grid;grid-template-columns:1.4fr 1fr;align-items:center;gap:44px;padding:54px 0 40px}
+.schedule-hero h1{font:800 clamp(42px,5vw,66px)/1.02 'Barlow Condensed',Impact,sans-serif;letter-spacing:-.7px;margin:20px 0}
+.schedule-hero h1 em{font-style:normal;color:var(--blue)}
+.schedule-hero p{font-size:16px;line-height:1.7;color:var(--muted)}
+.schedule-time{font-size:15px;font-weight:700;line-height:1.7;margin-top:24px}
+.schedule-time span{display:block;color:var(--blue);font-size:12px;letter-spacing:1.4px}
+.schedule-stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:12px;background:var(--white);padding:30px;text-align:center}
+.schedule-stats strong{display:block;font:800 54px 'Barlow Condensed',Impact,sans-serif;color:var(--blue)}
+.schedule-stats span{font-size:11px;letter-spacing:1.5px;font-weight:700}
+.schedule-stats p{grid-column:1/-1;margin:24px 0 0;padding-top:20px;border-top:1px solid var(--line);font-size:14px}
+.schedule-info{font-size:14px;line-height:1.8;padding:18px 22px;border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:6px;background:var(--white);color:var(--muted)}
+.schedule-info strong{color:var(--ink);margin-right:8px}
+#schedule-status{font-size:14px;color:var(--muted);line-height:1.7}
+.schedule-layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:32px;margin-top:36px;align-items:start}
+.week-index{position:sticky;top:112px;background:var(--white);border:1px solid var(--line);border-radius:10px;padding:20px}
+.week-index>.eyebrow{font-size:10px;letter-spacing:1.4px;margin-bottom:16px}
+.week-index nav{display:flex;flex-direction:column;height:auto;gap:5px;align-items:stretch}
+.week-index nav a{display:flex;justify-content:space-between;gap:10px;padding:11px 10px;border-radius:5px;font-size:14px;min-height:40px}
+.week-index nav a small{font-size:11px;color:var(--muted);font-weight:400}
+.week-index nav a:hover,.week-index nav a.active{background:#1856c10b;color:var(--blue)}
+.week-index nav a.active:after{display:none}
+.schedule-home{display:block;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:18px;margin-top:16px;line-height:1.6}
+.full-schedule{min-width:0}
+.schedule-week{scroll-margin-top:20px;margin-bottom:44px}
+.schedule-week:last-child{margin-bottom:0}
+.week-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin:0 0 20px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.week-heading h2{font-size:36px}
+.week-heading .eyebrow{font-size:10px;letter-spacing:1.3px}
+.week-heading>span{font-size:13px;color:var(--muted);text-align:right;line-height:1.6}
+.full-schedule .match-grid{grid-template-columns:1fr;gap:18px}
+.full-schedule .match-card{border-radius:10px}
+.full-schedule .match-body{grid-template-columns:minmax(0,1fr) 110px minmax(0,1fr);padding:24px}
+.full-schedule .match-team h3{font-size:23px;overflow-wrap:anywhere}
+.full-schedule .team-logo{width:96px;height:96px}
+[data-theme="dark"] .week-index nav a:hover,[data-theme="dark"] .week-index nav a.active{background:var(--accent-soft)}
+.week-index .nav-motion a.active{background:transparent}.week-index .nav-indicator{background:#1856c10b;border-radius:5px}[data-theme="dark"] .week-index .nav-indicator{background:var(--accent-soft)}
+@media(max-width:1000px){.schedule-layout{grid-template-columns:170px minmax(0,1fr);gap:22px}.week-index{padding:16px}.week-heading{align-items:flex-start}.week-heading>span{max-width:145px}.full-schedule .match-body{gap:12px;padding:22px 16px;grid-template-columns:minmax(0,1fr) 90px minmax(0,1fr)}}
+@media(max-width:760px){.schedule-hero{grid-template-columns:1fr;gap:24px;padding:34px 0}.schedule-stats{padding:22px}.schedule-stats strong{font-size:44px}.schedule-layout{grid-template-columns:1fr;gap:28px}.week-index{position:static}.week-index nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.week-index nav a{white-space:normal}.schedule-home{margin-top:12px;padding-top:12px}.week-heading h2{font-size:32px}.week-heading>span{font-size:12px}.full-schedule .match-team h3{font-size:19px}.full-schedule .team-logo{width:76px;height:76px}.full-schedule .match-top{padding:14px 16px;font-size:12px}.full-schedule .match-body{gap:8px;grid-template-columns:minmax(0,1fr) 72px minmax(0,1fr);padding:22px 12px}.schedule-week{scroll-margin-top:20px}.schedule-info{padding:16px}}

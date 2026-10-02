@@ -130,3 +130,15 @@
 /* Four teams per row, with the logo beside the team details. */
 .team-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.roster-head{flex-direction:row;text-align:left;gap:12px;padding:20px 16px;min-height:128px}.roster-head>div{flex:1;min-width:0;width:auto;margin:0}.roster-head .team-logo{width:84px;height:84px}.roster-head h3{font-size:28px}.roster-card ul{padding:8px 18px}.roster-card li{grid-template-columns:36px minmax(0,1fr);gap:8px 12px}.roster-player{grid-column:1/-1;padding-left:0}.roster-card li .roster-player strong{font-size:16px}.roster-player>span{font-size:13px}.roster-head>div>span{font-size:11px}.table-team{font-size:21px}.table-shell tbody td{font-size:16px}.pending-roster{font-size:15px}
 @media(max-width:1000px){.team-grid{grid-template-columns:repeat(4,minmax(260px,1fr));overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:14px}.roster-card{scroll-snap-align:start}}
+
+/* Keep all ten week tabs accessible and the full schedule easy to find. */
+.schedule-toolbar{min-width:0}.week-tabs{max-width:100%;overflow-x:auto;padding-bottom:2px}.week-tabs button{flex-shrink:0;padding:14px 18px;white-space:nowrap}.schedule-summary{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:20px}.schedule-summary .schedule-note{margin:0;max-width:760px;font-size:13px;line-height:1.7;color:var(--muted)}.schedule-link{flex-shrink:0;gap:18px}
+@media(max-width:760px){.schedule-summary{align-items:flex-start;flex-direction:column;gap:16px}.timezone{text-align:right;line-height:1.6}.week-tabs button{padding:13px 16px;font-size:12px}}
+
+/* A shared sliding indicator replaces the separate underline on each tab. */
+.nav-motion{position:relative;isolation:isolate;--nav-indicator-offset:7px}.nav-motion a{z-index:1;transition:color .24s ease,background-color .24s ease}.site-header .nav-motion a.active:after{content:none}.nav-indicator{position:absolute;top:0;left:0;display:block;width:0;height:3px;background:var(--blue);border-radius:3px;pointer-events:none;opacity:0;z-index:0;will-change:transform}.nav-ready .nav-indicator{transition:transform .36s cubic-bezier(.22,1,.36,1),width .36s cubic-bezier(.22,1,.36,1),height .36s cubic-bezier(.22,1,.36,1),opacity .18s ease,background-color .24s ease}
+@media(max-width:760px){.site-header .nav-motion{--nav-indicator-offset:-3px}}
+@media(prefers-reduced-motion:reduce){.nav-motion a,.nav-ready .nav-indicator{transition:none}}
+
+/* Room for the event guide link on shared navigation. */
+@media(min-width:761px) and (max-width:1350px){.has-event-guide .nav-season{display:none}.has-event-guide{gap:18px}.has-event-guide nav{gap:20px}}

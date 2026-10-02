@@ -75,6 +75,16 @@ test('empty published file shows eight waiting slots and rejects partial/invalid
   }
 });
 
+test('new exports include profiles, old exports remain valid, and altered profile contacts are rejected', () => {
+  const value = exportDraft(lockDraft(namedDraft(),players,names),players,logos);
+  assert.ok(value.teams.flatMap(t=>t.players).every(p=>p.businessUnit&&p.jobTitle&&p.telegram));
+  const old = structuredClone(value);
+  old.teams.forEach(team=>team.players.forEach(p=>{delete p.businessUnit;delete p.jobTitle;delete p.telegram;}));
+  assert.ok(validatePublishedTeams(old,players,logos));
+  value.teams[0].players[0].telegram = '@wrongcontact';
+  assert.equal(validatePublishedTeams(value,players,logos),false);
+});
+
 test('password verification accepts the matching PBKDF2 value and rejects wrong passwords', async () => {
   const configuration = { ...DOWNLOAD_LOCK, digest: pbkdf2Sync('test-password-only', Buffer.from(DOWNLOAD_LOCK.salt, 'hex'), DOWNLOAD_LOCK.iterations, 32, 'sha256').toString('hex') };
   assert.equal(await verifyDownloadPassword('test-password-only', configuration), true);

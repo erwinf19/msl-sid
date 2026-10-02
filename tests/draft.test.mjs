@@ -1,12 +1,39 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
-import { ROLES, preparePlayers, createDraft, generateRole, validateDraft, chooseName, lockDraft } from '../draft.js';
+import { ROLES, PLAYER_PROFILE_FIELDS, preparePlayers, createDraft, generateRole, validateDraft, chooseName, lockDraft, readDraft, saveDraft } from '../draft.js';
 
 const source = JSON.parse(readFileSync(new URL('../assets/player-msl.json', import.meta.url), 'utf8'));
 const players = preparePlayers(source);
 const files = JSON.parse(readFileSync(new URL('../assets/logo-team.json', import.meta.url), 'utf8').replace(/^\uFEFF/, ''));
 const names = files.map(file => file.replace(/\.[^.]+$/, ''));
+
+test('all 42 player profiles include the supplied organization, position and Telegram handle', () => {
+  assert.equal(players.length,42);
+  for (const player of players) {
+    assert.ok(PLAYER_PROFILE_FIELDS.every(field => typeof player[field] === 'string' && player[field].trim()));
+    assert.match(player.businessUnit,/^(BU|FU) - /);
+    assert.match(player.telegram,/^@[a-z0-9_]{5,32}$/i);
+  }
+  const fikri = players.find(p => p.playername === 'Muhammad Fikri Adriansyah');
+  assert.deepEqual([fikri.businessUnit,fikri.jobTitle,fikri.telegram],['BU - Sekolah Murid Merdeka','Admission Officer','@Fikri_Adri']);
+  assert.equal(players.find(p => p.playername === 'Suci Amelia').telegram,'@Sameli4');
+  assert.equal(players.find(p => p.playername === 'Bana Hasnul Fata').businessUnit,'FU - Learning Spaces Development');
+  assert.throws(() => preparePlayers(source.map((p,i)=>i ? p : {...p,telegram:'javascript:bad'})));
+});
+
+test('profile updates preserve legacy saved drafts while actual player identity changes still invalidate them', () => {
+  const legacyPlayers = players.map(({id,playername,username,role})=>({id,playername,username,role}));
+  const draft = generateRole(createDraft(),players);
+  let stored = JSON.stringify({signature:JSON.stringify(legacyPlayers),draft});
+  const storage = {getItem:()=>stored,setItem:(_key,value)=>{stored=value;}};
+  assert.deepEqual(readDraft(players,names,storage),draft);
+  saveDraft(draft,players,storage);
+  const updated = players.map(p=>({...p,businessUnit:'FU - Updated',jobTitle:'Updated position',telegram:'@newhandle'}));
+  assert.deepEqual(readDraft(updated,names,storage),draft);
+  const renamed = players.map((p,i)=>i ? p : {...p,username:'Changed identity'});
+  assert.throws(()=>readDraft(renamed,names,storage));
+});
 
 test('every supplied logo is offered using its filename as the identity', () => {
   assert.deepEqual([...files].sort(), readdirSync(new URL('../assets/logo-team/', import.meta.url)).sort());

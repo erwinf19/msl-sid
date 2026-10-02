@@ -30,13 +30,19 @@ Karena seluruh aplikasi bersifat statis, pemeriksaan password di browser hanya m
 
 Player berasal dari `assets/player-msl.json`. Ada 8 Jungler, 8 Goldlaner, 8 Explaner, 9 Midlaner, dan 9 Roamer. Hasil undian terdiri dari enam team berisi lima player dan dua team berisi enam player. Player Midlaner tambahan dan Roamer tambahan selalu berada di team berbeda.
 
+Halaman **Player Data** tetap memakai URL `choose-team.html`; tautan navbar membuka bagian `#player-list`. Tabel menampilkan nama/username, role dengan lima warna berbeda, BU/Function, ID Telegram yang bisa diklik, serta team. Data profil 42 player disimpan di sumber player melalui `businessUnit`, `jobTitle`, dan `telegram`. Pencarian juga mencakup BU/Function dan Telegram. Pada layar kecil seluruh kolom tersedia melalui geser horizontal.
+
+Perubahan profil tidak mengubah signature identitas undian, sehingga draft lama tetap bisa dilanjutkan. Ekspor JSON baru menyertakan profil, sedangkan JSON roster lama tanpa profil masih diterima. Nama, username, dan role tetap divalidasi terhadap sumber; data profil yang disertakan dalam ekspor juga harus sesuai.
+
 Logo berasal dari `assets/logo-team/`, dengan daftar file di `assets/logo-team.json`. Nama team diambil dari nama file tanpa ekstensi. Perbarui manifest saat menambah/menghapus logo. Saat ini ada 14 logo dalam grid empat kolom.
 
 Beranda memvalidasi JSON publikasi terhadap sumber player dan logo: jumlah team, keunikan player/nama, role, identitas player, dan path logo. File yang rusak atau tidak cocok menampilkan pesan kesalahan; draft browser tidak digunakan sebagai pengganti. Jika mengubah sumber player, buat dan publikasikan ulang JSON hasil undian yang sesuai.
 
 ## Klasemen dan jadwal
 
-`tournament-data.js` menyediakan aturan skor dan jadwal contoh round-robin: 8 team, 28 match, Selasa dan Kamis pukul 12.15 WIB, mulai 6 Oktober 2026 selama 14 pekan. Jadwal belum resmi. ID slot team tetap konsisten ketika nama dan roster diperbarui.
+`tournament-data.js` menyediakan aturan skor dan jadwal round-robin: 8 team, 28 match, mulai 6 Oktober sampai 10 Desember 2026 selama 10 pekan. Jumlah match per pekan adalah 3, 3, 3, 2, 3, 3, 2, 3, 3, 3. Match berlangsung Selasa, Rabu, dan Kamis pukul 12.15 WIB; pekan 4 dan 7 hanya Selasa–Rabu. Setiap tim bertemu tujuh lawan sekali dan bermain maksimal sekali per pekan. ID slot team tetap konsisten ketika nama dan roster diperbarui.
+
+Beranda menampilkan jadwal per pekan. `schedule.html` menampilkan seluruh 28 match secara vertikal, dikelompokkan per pekan, dengan navigasi untuk lompat ke pekan tertentu. Kedua halaman membaca sumber jadwal, nama team, skor, dan reward yang sama. Menu aktif mengikuti bagian yang dibuka atau digulir, termasuk setelah membuka tautan langsung ke Player List/Random Team. Indikator navbar bergeser dengan animasi di semua halaman; tab tujuan tetap aktif selama scroll otomatis, tanpa memilih bagian yang hanya dilewati. Animasi mengikuti preferensi reduced motion perangkat.
 
 Ekspor roster tidak memasukkan hasil pertandingan. Publikasi nama/roster tidak menghapus skor pertandingan yang sudah ada. `score: null` berarti belum selesai. Skor BO3 valid: `[2,0]`, `[2,1]`, `[1,2]`, `[0,2]`. Kemenangan bernilai 1 poin. Urutan klasemen: poin, net game win, game win, lalu nama team. Jadwal resmi dan skor dikelola di `tournament-data.js`.
 
@@ -45,6 +51,10 @@ Font Barlow dan Barlow Condensed menggunakan Google Fonts dengan fallback lokal.
 ## Penguncian final dan mode pemeliharaan
 
 Sebelum Kunci Roster dikonfirmasi dengan password, seluruh draft boleh diulang, termasuk sesudah kelima role dan delapan nama selesai. Nama team dapat diganti selama tetap unik. Generate, Kunci Roster, dan Ulangi undian berada dalam panel kontrol yang sama.
+
+Setiap Generate memulai animasi undian nama, countdown, dan pembagian satu player setiap 3 detik, dari Team 01 sampai Team 08. Pemain tambahan Mid Lane/Roamer diumumkan terakhir dengan jeda yang sama. Satu role berisi 8 player membutuhkan sekitar 24 detik; role dengan 9 player sekitar 27 detik. Generate, Ulangi undian, nama team, dan Kunci Roster tidak dapat digunakan selama proses berjalan. Nama player di kartu dan Player List baru menjadi hasil undian setelah diumumkan.
+
+Progres animasi memakai localStorage `msl-team-draw-animation-v1`. Hasil diacak sekali saat role dimulai, lalu diumumkan bertahap. Reload melanjutkan hasil yang sama dari player berikutnya; roster yang belum selesai tidak disimpan sebagai role lengkap. Browser yang mendukung Web Locks menjalankan animasi di satu tab, sementara tab lain mengikuti progres yang sama. Preferensi reduced motion menghilangkan efek berputar/pergantian nama cepat, dengan jeda pembagian tetap 3 detik.
 
 Kunci Roster hanya aktif saat 42 player dan delapan nama team lengkap. Password salah atau membatalkan dialog tidak mengubah draft. Password benar menambahkan `locked: true` dan `lockedAt` ke draft browser, lalu men-download JSON final (`finalized: true`, `locked: true`). Setelah itu reset dan penggantian nama tidak tersedia, termasuk setelah reload. Tombol Kunci Roster berubah menjadi Download JSON untuk mengunduh ulang dengan password.
 
@@ -59,3 +69,7 @@ export const ALLOW_FINAL_TEAM_CHANGES = false;
 Membuka kembali roster final memerlukan perubahan konstanta menjadi `true` secara manual, commit, dan deploy ulang. Tidak ada tombol atau password yang mengubah flag ini. Setelah pemeliharaan, kembalikan ke `false` sebelum mempublikasikan roster baru. Jangan mengubah `finalized` menjadi false pada file berisi roster; nilai false hanya untuk delapan slot kosong awal.
 
 Pada website statis, penguncian menegakkan alur UI. Publikasi data resmi tetap membutuhkan akses repository/deploy.
+
+## Event Guide / Technical Meeting
+
+`event-guide.html` merangkum delapan topik technical meeting: latar belakang, timeline dan ketentuan umum, struktur team, format dan klasemen, peraturan teknis, reward, etika, serta penayangan. Halaman tersedia dari navbar. Mode Presentasi menampilkan satu topik sekaligus; gunakan navigasi topik, tombol sebelumnya/berikutnya, atau panah kiri/kanan. Escape keluar dari presentasi. Seluruh materi tetap tersedia tanpa JavaScript. Timeline, reward, dan aturan mengikuti materi panitia; jadwal tetap pukul 12:15 WIB.

@@ -1,6 +1,6 @@
 // Ubah data turnamen di file ini. Klasemen dan hadiah dihitung otomatis.
 export const tournament = {
-  demo: true,
+  demo: false,
   pointsPerWin: 1,
   defaultWeek: 1,
   teams: [
@@ -24,14 +24,21 @@ export const tournament = {
   ]
 };
 
-// Round-robin preview: eight teams, 28 matches over 14 Tuesday/Thursday weeks.
+// Eight teams meet once across ten weeks, starting Tuesday, 6 October 2026.
+export const weeklyMatchCounts = [3, 3, 3, 2, 3, 3, 2, 3, 3, 3];
 const rotation = tournament.teams.map(t => t.id);
-tournament.matches = [];
+const pairings = [];
 for (let round = 0; round < rotation.length - 1; round++) {
   for (let pair = 0; pair < rotation.length / 2; pair++) {
-    const index = tournament.matches.length;
-    const date = new Date(Date.UTC(2026, 9, 6 + Math.floor(index / 2) * 7 + (index % 2) * 2));
-    tournament.matches.push({ id: `m${index + 1}`, week: Math.floor(index / 2) + 1, date: date.toISOString().slice(0, 10), time: '12:15', a: rotation[pair], b: rotation[rotation.length - 1 - pair], score: null, ...(index === 0 ? { previewScore: [2, 1] } : {}) });
+    pairings.push({ a: rotation[pair], b: rotation[rotation.length - 1 - pair] });
   }
   rotation.splice(1, 0, rotation.pop());
 }
+let matchIndex = 0;
+tournament.matches = weeklyMatchCounts.flatMap((count, weekIndex) =>
+  Array.from({ length: count }, (_, dayIndex) => {
+    const date = new Date(Date.UTC(2026, 9, 6 + weekIndex * 7 + dayIndex));
+    const pairing = pairings[matchIndex++];
+    return { id: `m${matchIndex}`, week: weekIndex + 1, date: date.toISOString().slice(0, 10), time: '12:15', ...pairing, score: null };
+  })
+);

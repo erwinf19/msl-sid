@@ -33,14 +33,33 @@ test('invalid scores and incomplete rosters are rejected',()=>{
   const data=structuredClone(tournament); data.teams[0].players.pop();
   assert.throws(()=>validateTournament(data));
 });
-test('eight teams play each other once at lunch on Tuesday or Thursday',()=>{
+test('eight teams meet once over ten weeks on the requested Tuesday–Thursday dates',()=>{
   assert.equal(tournament.teams.length,8);
   assert.equal(tournament.matches.length,28);
   const pairs=new Set();
   for(const m of tournament.matches){
-    assert.ok([2,4].includes(new Date(`${m.date}T12:15:00Z`).getUTCDay()));
+    assert.ok([2,3,4].includes(new Date(`${m.date}T12:15:00Z`).getUTCDay()));
     assert.equal(m.time,'12:15'); pairs.add([m.a,m.b].sort().join(':'));
   }
   assert.equal(pairs.size,28);
   for(const t of tournament.teams) assert.equal(tournament.matches.filter(m=>m.a===t.id||m.b===t.id).length,7);
+  const expectedDates = [
+    ['2026-10-06','2026-10-07','2026-10-08'],
+    ['2026-10-13','2026-10-14','2026-10-15'],
+    ['2026-10-20','2026-10-21','2026-10-22'],
+    ['2026-10-27','2026-10-28'],
+    ['2026-11-03','2026-11-04','2026-11-05'],
+    ['2026-11-10','2026-11-11','2026-11-12'],
+    ['2026-11-17','2026-11-18'],
+    ['2026-11-24','2026-11-25','2026-11-26'],
+    ['2026-12-01','2026-12-02','2026-12-03'],
+    ['2026-12-08','2026-12-09','2026-12-10']
+  ];
+  assert.equal(new Set(tournament.matches.map(m=>m.week)).size,10);
+  expectedDates.forEach((dates,index)=>{
+    const matches=tournament.matches.filter(m=>m.week===index+1);
+    assert.deepEqual(matches.map(m=>m.date),dates);
+    const teams=matches.flatMap(m=>[m.a,m.b]);
+    assert.equal(new Set(teams).size,teams.length,'a team plays at most once per week');
+  });
 });

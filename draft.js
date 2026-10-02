@@ -3,11 +3,14 @@ export const TEAM_COUNT = 8;
 export const STORAGE_KEY = 'msl-team-draft-v1';
 export const ROLES = ['Jungler', 'Goldlaner', 'Explaner', 'Midlaner', 'Roamer'];
 export const ROLE_LABELS = { Jungler: 'Jungler', Goldlaner: 'Gold Lane', Explaner: 'EXP Lane', Midlaner: 'Mid Lane', Roamer: 'Roamer' };
+export const PLAYER_PROFILE_FIELDS = ['businessUnit', 'jobTitle', 'telegram'];
+const playerSignature = players => JSON.stringify(players.map(({ id, playername, username, role }) => ({ id, playername, username, role })));
 
 export function preparePlayers(source) {
   if (!Array.isArray(source)) throw new Error('Daftar player tidak valid.');
-  const players = source.map((p, id) => ({ id, playername: p.playername, username: p.username, role: p.role }));
+  const players = source.map((p, id) => ({ id, playername: p.playername, username: p.username, role: p.role, ...Object.fromEntries(PLAYER_PROFILE_FIELDS.filter(field => p[field] !== undefined).map(field => [field, typeof p[field] === 'string' ? p[field].trim() : p[field]])) }));
   if (players.some(p => !ROLES.includes(p.role) || typeof p.playername !== 'string' || !p.playername.trim() || typeof p.username !== 'string' || !p.username.trim())) throw new Error('Nama atau role player tidak valid.');
+  if (players.some(p => PLAYER_PROFILE_FIELDS.some(field => p[field] !== undefined && (typeof p[field] !== 'string' || !p[field])) || p.telegram !== undefined && !/^@[a-z0-9_]{5,32}$/i.test(p.telegram))) throw new Error('Profil atau ID Telegram player tidak valid.');
   for (const role of ROLES) {
     const count = players.filter(p => p.role === role).length;
     if (count < TEAM_COUNT || (!['Midlaner', 'Roamer'].includes(role) && count !== TEAM_COUNT)) throw new Error(`${role} harus memiliki ${TEAM_COUNT} player; hanya Mid Lane dan Roamer boleh berlebih.`);
@@ -90,15 +93,15 @@ export async function loadAssets() {
   return { players: preparePlayers(source), logos: files.map(file => ({ name: file.replace(/\.[^.]+$/, ''), src: `assets/logo-team/${encodeURIComponent(file)}` })) };
 }
 
-export function readDraft(players, names) {
-  const raw = localStorage.getItem(STORAGE_KEY);
+export function readDraft(players, names, storage = localStorage) {
+  const raw = storage.getItem(STORAGE_KEY);
   if (!raw) return null;
   const saved = JSON.parse(raw);
-  const signature = JSON.stringify(players);
+  const signature = playerSignature(players);
   if (saved.signature !== signature || !validateDraft(saved.draft, players, names)) throw new Error('Simpanan undian tidak cocok dengan data player saat ini.');
   return saved.draft;
 }
 
-export function saveDraft(draft, players) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ signature: JSON.stringify(players), draft }));
+export function saveDraft(draft, players, storage = localStorage) {
+  storage.setItem(STORAGE_KEY, JSON.stringify({ signature: playerSignature(players), draft }));
 }

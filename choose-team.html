@@ -2,8 +2,8 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Choose Team & Player Draft — MSL</title>
-  <meta name="description" content="Kenali player MSL dan undi 8 team, satu role setiap langkah.">
+  <title>Player Data & Team Draft — MSL</title>
+  <meta name="description" content="Data player MSL: role, BU/Function, ID Telegram, serta undian 8 team.">
   <meta name="theme-color" content="#10254c">
   <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css">
@@ -11,22 +11,28 @@
 </head>
 <body>
   <a class="skip" href="#player-list">Langsung ke player list</a>
-  <header class="site-header"><div class="nav-wrap">
+  <header class="site-header"><div class="nav-wrap has-event-guide">
     <a class="brand" href="index.html"><img src="assets/msl-logo.jpg" alt="Logo MSL" width="62" height="62"><span>MSL<small>MLBB SID LEAGUE</small></span></a>
-    <nav aria-label="Navigasi utama"><a href="index.html">Beranda</a><a href="#choose-team" class="active">Choose Team</a><a href="#player-list">Player List</a><a href="#random-team">Random Team</a></nav>
+    <nav aria-label="Navigasi utama"><a href="index.html">Beranda</a><a href="#choose-team" class="active">Team Identity</a><a href="#player-list">Player Data</a><a href="#random-team">Random Team</a><a href="schedule.html">Jadwal Lengkap</a><a href="event-guide.html">Event Guide</a></nav>
     <div class="nav-actions"><span class="nav-season">THE MUVERS' DRAFT <span>2026</span></span><button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Mode gelap" title="Aktifkan mode gelap"><svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/></svg></button></div>
   </div></header>
   <main class="wrap draft-page">
     <section class="draft-hero"><div><div class="eyebrow"><i></i> FROM PLAYERS TO TEAMMATES</div><h1>YOUR TEAM.<br><em>YOUR NEXT CHAPTER.</em></h1><p>Kenali para player. Undi setiap role.<br>Temukan rekan satu team untuk perjalanan di Land of Dawn.</p><a class="button" href="#random-team">Mulai random team <span aria-hidden="true">↗</span></a></div><div class="draft-stats"><div><strong id="total-players">—</strong><span>PLAYERS</span></div><div><strong>08</strong><span>TEAMS</span></div><div><strong>05</strong><span>ROLES</span></div><p>Satu team, lima peran.<br>Maksimal enam player per team.</p></div></section>
     <p id="load-status" role="status">Memuat player dan logo team…</p>
     <p id="storage-status" class="demo-note" role="status" hidden></p>
-    <section id="choose-team" class="section"><div class="section-heading"><div><div class="eyebrow">01 / TEAM IDENTITY</div><h2>Choose team<span>.</span></h2></div><span class="count-label" id="logo-count"></span></div><p class="section-intro" id="choose-hint">Pilihan identitas untuk team kamu. Selesaikan undian, lalu klik Choose Team Name pada kartu team.</p><div id="logo-grid" class="logo-grid"></div></section>
-    <section id="player-list" class="section"><div class="section-heading"><div><div class="eyebrow">02 / MEET THE PLAYERS</div><h2>Player list<span>.</span></h2></div><span class="count-label" id="player-count"></span></div>
-      <div class="player-toolbar"><div class="role-filters" id="role-filters" aria-label="Filter role"></div><label class="player-search"><span class="sr-only">Cari nama atau username</span><input id="player-search" type="search" placeholder="Cari nama atau username…"></label></div>
-      <div class="table-shell player-table" tabindex="0" role="region" aria-label="Daftar player, gulir untuk melihat semua"><table><caption class="sr-only">Player yang siap diundi dan team hasil undian</caption><thead><tr><th scope="col">#</th><th scope="col">Player / Username</th><th scope="col">Role</th><th scope="col">Team</th></tr></thead><tbody id="players"></tbody></table></div>
+    <section id="choose-team" class="section"><div class="section-heading"><div><div class="eyebrow">01 / TEAM IDENTITY</div><h2>Team identity<span>.</span></h2></div><span class="count-label" id="logo-count"></span></div><p class="section-intro" id="choose-hint">Pilihan identitas untuk team kamu. Selesaikan undian, lalu klik Choose Team Name pada kartu team.</p><div id="logo-grid" class="logo-grid"></div></section>
+    <section id="player-list" class="section"><div class="section-heading"><div><div class="eyebrow">02 / MEET THE PLAYERS</div><h2>Player data<span>.</span></h2></div><span class="count-label" id="player-count"></span></div>
+      <div class="player-toolbar"><div class="role-filters" id="role-filters" aria-label="Filter role"></div><label class="player-search"><span class="sr-only">Cari nama, username, BU, atau Telegram</span><input id="player-search" type="search" placeholder="Cari nama, BU, atau Telegram…"></label></div>
+      <p class="player-table-hint">Profil dan kontak seluruh player. Geser tabel ke samping untuk melihat semua kolom.</p>
+      <div class="table-shell player-table" tabindex="0" role="region" aria-label="Data player, gulir untuk melihat semua kolom dan pemain"><table><caption class="sr-only">Profil player, role Mobile Legends, BU/Function, Telegram, dan team hasil undian</caption><thead><tr><th scope="col">#</th><th scope="col">Player / Username</th><th scope="col">Role</th><th scope="col">BU / Function</th><th scope="col">ID Telegram</th><th scope="col">Team</th></tr></thead><tbody id="players"></tbody></table></div>
     </section>
     <section id="random-team" class="section"><div class="section-heading"><div><div class="eyebrow">03 / THE TEAM DRAW</div><h2>Let’s build your team<span>.</span></h2></div><span class="count-label">8 team · 5–6 player / team</span></div>
       <div class="draw-console"><div><h3 id="draw-title">Satu klik. Satu role. Delapan team.</h3><p id="draw-description">Jungler → Gold Lane → EXP Lane → Mid Lane → Roamer.</p></div><div class="draw-actions"><button id="generate" class="button" type="button" disabled>Memuat player…</button><button id="download" class="secondary-button lock-button" type="button" disabled aria-describedby="download-help">Kunci Roster 🔒</button><button id="reset" class="text-button" type="button" disabled>Ulangi undian</button></div><p id="download-help" class="download-help" role="status">Kunci Roster aktif setelah 5 role selesai dan seluruh 8 nama team dipilih.</p><ol id="draw-steps" class="draw-steps"></ol><div class="draw-bottom"><span id="draw-status" role="status" aria-live="polite">Belum ada player yang dibagikan.</span></div></div>
+      <section id="draw-animation" class="draw-stage" aria-label="Animasi undian player" hidden>
+        <div class="draw-orbit" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="m24 5 16 10v18L24 43 8 33V15Z" stroke="currentColor" stroke-width="2"/><path d="m24 5 0 38M8 15l32 18M40 15 8 33" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <div class="draw-stage-copy"><span class="draw-stage-label">LIVE DRAW · <span id="animation-role"></span></span><h3 id="animation-team"></h3><div class="draw-slot" aria-hidden="true"><strong id="animation-name">Mengundi player…</strong><span class="draw-slot-scan"></span></div><p id="animation-last">Nama pertama akan muncul setelah 3 detik.</p></div>
+        <div class="draw-stage-progress"><div class="draw-countdown" aria-hidden="true"><strong id="animation-countdown">3</strong><span>DETIK</span></div><label for="animation-progress" id="animation-count"></label><progress id="animation-progress" value="0" max="8"></progress></div>
+      </section>
       <section id="final-banner" class="final-banner" aria-labelledby="final-title" tabindex="-1" hidden><div><span class="final-badge" id="final-badge">ROSTER TERKUNCI</span><h2 id="final-title">YOUR SQUAD IS HERE.</h2><p id="final-copy"></p></div><span class="final-emblem" aria-hidden="true">✦</span></section>
       <div id="draft-teams" class="draft-team-grid"></div>
       <p class="section-intro">Draft tersimpan otomatis di browser ini dan bisa diubah sampai Kunci Roster ditekan. Setelah terkunci, simpan JSON hasil unduhan ke assets/, commit, dan deploy untuk memperbarui beranda.</p>

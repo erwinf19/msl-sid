@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jadwal Lengkap — MSL</title>
+  <meta name="description" content="Seluruh 28 pertandingan MLBB SID League dalam 10 pekan, mulai 6 Oktober 2026. Selasa, Rabu, dan Kamis pukul 12.15 WIB.">
+  <meta name="theme-color" content="#10254c">
+  <script src="theme.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="schedule.css">
+</head>
+<body>
+  <a class="skip" href="#full-schedule">Langsung ke jadwal lengkap</a>
+  <header class="site-header"><div class="nav-wrap has-event-guide">
+    <a class="brand" href="index.html" aria-label="MSL — Beranda"><img src="assets/msl-logo.jpg" alt="Logo MSL" width="62" height="62"><span>MSL<small>MLBB SID LEAGUE</small></span></a>
+    <nav aria-label="Navigasi utama"><a href="index.html">Beranda</a><a href="index.html#klasemen">Klasemen</a><a href="schedule.html" class="active" aria-current="page">Jadwal Lengkap</a><a href="index.html#tim">Tim & Pemain</a><a href="choose-team.html#player-list">Player Data</a><a href="event-guide.html">Event Guide</a></nav>
+    <div class="nav-actions"><span class="nav-season">REGULAR SEASON <span>2026</span></span><button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Mode gelap" title="Aktifkan mode gelap"><svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/></svg></button></div>
+  </div></header>
+  <main class="wrap schedule-page" id="schedule-top">
+    <section class="schedule-hero" aria-labelledby="schedule-title"><div><div class="eyebrow"><i></i> EVERY MATCH. EVERY WEEK.</div><h1 id="schedule-title">Satu liga.<br><em>Seluruh pertandingan.</em></h1><p>Dari match pertama sampai pekan terakhir.<br>Temukan jadwal squad kamu, lalu bersiap masuk arena.</p><div class="schedule-time">Selasa · Rabu · Kamis <span>12.15 WIB / BO3</span></div></div><div class="schedule-stats"><div><strong>28</strong><span>MATCH</span></div><div><strong>10</strong><span>PEKAN</span></div><div><strong>08</strong><span>TEAM</span></div><p>6 Oktober – 10 Desember 2026</p></div></section>
+    <aside class="schedule-info"><strong>Satu tim, tujuh pertandingan.</strong> Setiap pasangan bertemu sekali. Maksimal 3 match per pekan. Pekan 4 dan 7 berlangsung Selasa–Rabu.</aside>
+    <p id="schedule-status" role="status">Memuat jadwal pertandingan…</p>
+    <div class="schedule-layout"><aside class="week-index"><div class="eyebrow">PILIH PEKAN</div><nav id="week-index" aria-label="Lompat ke pekan"></nav><a class="schedule-home" href="index.html#jadwal">← Jadwal di beranda</a></aside><div id="full-schedule" class="full-schedule" aria-live="polite"></div></div>
+  </main>
+  <footer><div class="wrap footer-inner"><div class="footer-brand">MSL <span>MLBB SID LEAGUE</span></div><p>© 2026 Semesta Integrasi Digital.<br>Turnamen komunitas internal.</p><a href="#schedule-top">Kembali ke atas ↑</a></div></footer>
+  <script type="module" src="schedule.js"></script>
+</body>
+</html>
