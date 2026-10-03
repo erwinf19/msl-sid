@@ -1,0 +1,232 @@
+{
+  "version": 1,
+  "matches": [
+    {
+      "id": "m1",
+      "week": 1,
+      "date": "2026-10-06",
+      "teamA": "Airlangga",
+      "teamB": "Gajah Mada",
+      "score": [
+        2,
+        1
+      ]
+    },
+    {
+      "id": "m2",
+      "week": 1,
+      "date": "2026-10-07",
+      "teamA": "Kalingga",
+      "teamB": "Sadewa",
+      "score": null
+    },
+    {
+      "id": "m3",
+      "week": 1,
+      "date": "2026-10-08",
+      "teamA": "Samudera",
+      "teamB": "Warmadewa",
+      "score": null
+    },
+    {
+      "id": "m4",
+      "week": 2,
+      "date": "2026-10-13",
+      "teamA": "Padjadjaran",
+      "teamB": "Batavia",
+      "score": null
+    },
+    {
+      "id": "m5",
+      "week": 2,
+      "date": "2026-10-14",
+      "teamA": "Airlangga",
+      "teamB": "Sadewa",
+      "score": null
+    },
+    {
+      "id": "m6",
+      "week": 2,
+      "date": "2026-10-15",
+      "teamA": "Gajah Mada",
+      "teamB": "Warmadewa",
+      "score": null
+    },
+    {
+      "id": "m7",
+      "week": 3,
+      "date": "2026-10-20",
+      "teamA": "Kalingga",
+      "teamB": "Batavia",
+      "score": null
+    },
+    {
+      "id": "m8",
+      "week": 3,
+      "date": "2026-10-21",
+      "teamA": "Samudera",
+      "teamB": "Padjadjaran",
+      "score": null
+    },
+    {
+      "id": "m9",
+      "week": 3,
+      "date": "2026-10-22",
+      "teamA": "Airlangga",
+      "teamB": "Warmadewa",
+      "score": null
+    },
+    {
+      "id": "m10",
+      "week": 4,
+      "date": "2026-10-27",
+      "teamA": "Sadewa",
+      "teamB": "Batavia",
+      "score": null
+    },
+    {
+      "id": "m11",
+      "week": 4,
+      "date": "2026-10-28",
+      "teamA": "Gajah Mada",
+      "teamB": "Padjadjaran",
+      "score": null
+    },
+    {
+      "id": "m12",
+      "week": 5,
+      "date": "2026-11-03",
+      "teamA": "Kalingga",
+      "teamB": "Samudera",
+      "score": null
+    },
+    {
+      "id": "m13",
+      "week": 5,
+      "date": "2026-11-04",
+      "teamA": "Airlangga",
+      "teamB": "Batavia",
+      "score": null
+    },
+    {
+      "id": "m14",
+      "week": 5,
+      "date": "2026-11-05",
+      "teamA": "Warmadewa",
+      "teamB": "Padjadjaran",
+      "score": null
+    },
+    {
+      "id": "m15",
+      "week": 6,
+      "date": "2026-11-10",
+      "teamA": "Sadewa",
+      "teamB": "Samudera",
+      "score": null
+    },
+    {
+      "id": "m16",
+      "week": 6,
+      "date": "2026-11-11",
+      "teamA": "Gajah Mada",
+      "teamB": "Kalingga",
+      "score": null
+    },
+    {
+      "id": "m17",
+      "week": 6,
+      "date": "2026-11-12",
+      "teamA": "Airlangga",
+      "teamB": "Padjadjaran",
+      "score": null
+    },
+    {
+      "id": "m18",
+      "week": 7,
+      "date": "2026-11-17",
+      "teamA": "Batavia",
+      "teamB": "Samudera",
+      "score": null
+    },
+    {
+      "id": "m19",
+      "week": 7,
+      "date": "2026-11-18",
+      "teamA": "Warmadewa",
+      "teamB": "Kalingga",
+      "score": null
+    },
+    {
+      "id": "m20",
+      "week": 8,
+      "date": "2026-11-24",
+      "teamA": "Sadewa",
+      "teamB": "Gajah Mada",
+      "score": null
+    },
+    {
+      "id": "m21",
+      "week": 8,
+      "date": "2026-11-25",
+      "teamA": "Airlangga",
+      "teamB": "Samudera",
+      "score": null
+    },
+    {
+      "id": "m22",
+      "week": 8,
+      "date": "2026-11-26",
+      "teamA": "Padjadjaran",
+      "teamB": "Kalingga",
+      "score": null
+    },
+    {
+      "id": "m23",
+      "week": 9,
+      "date": "2026-12-01",
+      "teamA": "Batavia",
+      "teamB": "Gajah Mada",
+      "score": null
+    },
+    {
+      "id": "m24",
+      "week": 9,
+      "date": "2026-12-02",
+      "teamA": "Warmadewa",
+      "teamB": "Sadewa",
+      "score": null
+    },
+    {
+      "id": "m25",
+      "week": 9,
+      "date": "2026-12-03",
+      "teamA": "Airlangga",
+      "teamB": "Kalingga",
+      "score": null
+    },
+    {
+      "id": "m26",
+      "week": 10,
+      "date": "2026-12-08",
+      "teamA": "Samudera",
+      "teamB": "Gajah Mada",
+      "score": null
+    },
+    {
+      "id": "m27",
+      "week": 10,
+      "date": "2026-12-09",
+      "teamA": "Padjadjaran",
+      "teamB": "Sadewa",
+      "score": null
+    },
+    {
+      "id": "m28",
+      "week": 10,
+      "date": "2026-12-10",
+      "teamA": "Batavia",
+      "teamB": "Warmadewa",
+      "score": null
+    }
+  ]
+}

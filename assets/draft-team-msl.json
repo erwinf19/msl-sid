@@ -392,6 +392,15 @@
           "businessUnit": "FU - Technology",
           "jobTitle": "Tech Support Officer",
           "telegram": "@dykasays"
+        },
+        {
+          "id": 44,
+          "playername": "Rachmat Basuki",
+          "username": "Cor@Zon",
+          "role": "Jungler",
+          "businessUnit": "BU - Sekolah Murid Merdeka",
+          "jobTitle": "Guru",
+          "telegram": "@amatingat"
         }
       ]
     },

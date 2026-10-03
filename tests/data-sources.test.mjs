@@ -65,5 +65,6 @@ test('Player Data and locked published rosters share external profiles without c
   assert.ok(!calls.includes('/assets/player-msl.json'));
   players[0].username='changed locked identity';
   await assert.rejects(loadPublishedTeams(players,logos,fetcher),/File team tidak valid/);
-  await assert.rejects(loadAssets(async url=>({ok:true,json:async()=>url===DATA_SOURCES.players ? source.slice(1) : files})),/harus memiliki/);
+  const incomplete=[...source.filter(p=>p.role!=='Jungler'),...source.filter(p=>p.role==='Jungler').slice(0,7)];
+  await assert.rejects(loadAssets(async url=>({ok:true,json:async()=>url===DATA_SOURCES.players ? incomplete : files})),/harus memiliki/);
 });

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "matches": [
+    {
+      "id": "m1",
+      "teamA": "Airlangga",
+      "teamB": "Gajah Mada",
+      "playerIdsA": [
+        1,
+        13,
+        16,
+        29,
+        34
+      ],
+      "playerIdsB": [
+        3,
+        8,
+        19,
+        26,
+        41
+      ],
+      "borrowedPlayerIdsA": [],
+      "borrowedPlayerIdsB": [],
+      "locked": true,
+      "lockedAt": "2026-10-03T06:00:00.000Z"
+    }
+  ]
+}

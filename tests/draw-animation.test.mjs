@@ -38,8 +38,8 @@ test('each role reveals one player every 3000 ms, followed by surplus players, w
     assert.ok(validateDraft(next, players, names));
     draft = next;
   }
-  assert.equal(new Set(draft.teams.flatMap(t => t.players)).size,44);
-  assert.deepEqual(draft.teams.map(t => t.players.length).sort(), [5,5,5,5,6,6,6,6]);
+  assert.equal(new Set(draft.teams.flatMap(t => t.players)).size,45);
+  assert.deepEqual(draft.teams.map(t => t.players.length).sort(), [5,5,5,6,6,6,6,6]);
 });
 
 test('no assignment appears before its delay; an interrupted draw resumes the same outcome', async () => {
@@ -66,7 +66,7 @@ test('no assignment appears before its delay; an interrupted draw resumes the sa
     onPending() {},
     onReveal: assignment => remaining.push(assignment.playerId)
   });
-  assert.equal(remaining.length,7);
+  assert.equal(remaining.length,drawAssignments(animation).length-1);
   assert.ok(!remaining.includes(drawAssignments(animation)[0].playerId));
   assert.deepEqual(next,animation.next);
   assert.equal(readDrawAnimation(players,names,next,storage),null);
