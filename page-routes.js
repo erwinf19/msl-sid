@@ -3,7 +3,8 @@ export const pageRoutes = [
   { path: '/', file: '/index.html', label: 'Beranda', aliases: ['/index'] },
   { path: '/full-schedule', file: '/schedule.html', label: 'Jadwal Lengkap', aliases: ['/schedule', '/jadwal-lengkap'] },
   { path: '/player-data', file: '/choose-team.html', label: 'Player Data', aliases: ['/choose-team'] },
-  { path: '/event-guide', file: '/event-guide.html', label: 'Event Guide', aliases: [] }
+  { path: '/event-guide', file: '/event-guide.html', label: 'Event Guide', aliases: [] },
+  { path: '/player-reward', file: '/player-reward.html', label: 'Player Reward', aliases: [] }
 ];
 
 export function getPageRoute(pathname) {

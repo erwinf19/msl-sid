@@ -61,7 +61,7 @@ export function applyPublishedTeams(tournament, published) {
   const next = structuredClone(tournament);
   next.teams = next.teams.map((team, index) => {
     const saved = published.teams[index];
-    return { ...team, name: saved.name || `Team ${String(index + 1).padStart(2, '0')}`, tag: `T${String(index + 1).padStart(2, '0')}`, logo: saved.logo, pendingRoster: !published.finalized, players: saved.players.map(p => p.username), playerNames: saved.players.map(p => p.playername), playerRoles: saved.players.map(p => ROLE_LABELS[p.role]) };
+    return { ...team, name: saved.name || `Team ${String(index + 1).padStart(2, '0')}`, tag: `T${String(index + 1).padStart(2, '0')}`, logo: saved.logo, pendingRoster: !published.finalized, playerIds: saved.players.map(p => p.id), players: saved.players.map(p => p.username), playerNames: saved.players.map(p => p.playername), playerRoles: saved.players.map(p => ROLE_LABELS[p.role]) };
   });
   // Keep match IDs and real scores intact when publishing names and rosters.
   next.matches.forEach(match => { delete match.previewScore; });

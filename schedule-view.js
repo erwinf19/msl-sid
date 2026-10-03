@@ -22,7 +22,7 @@ export function renderMatchCard(data, match) {
   const score = isPreview ? match.previewScore : match.score, done = score !== null;
   const aWins = done && score[0] > score[1];
   return `<article class="match-card ${done ? 'match-completed' : ''}" id="match-${escape(match.id)}" data-match-id="${escape(match.id)}">
-    <div class="match-top"><span>${escape(dateLabel(match.date))}</span><span class="match-status ${done ? 'finished' : ''}">${done ? 'Selesai' : 'Terjadwal'}</span></div>
+    <div class="match-top"><span class="match-date">${escape(dateLabel(match.date))}</span><div class="match-top-actions"><span class="match-status ${done ? 'finished' : ''}">${done ? 'Selesai' : 'Terjadwal'}</span><button class="action-button lineup-trigger" type="button" data-match-lineup="${escape(match.id)}" aria-label="Lineup pertandingan ${escape(a.name)} vs ${escape(b.name)}" ${a.playerIds?.length>=5 && b.playerIds?.length>=5 ? '' : 'disabled'}>${matchIcon('lock')} ${data.lineupConfig?.matches.some(entry=>entry.id===match.id) ? 'Lihat lineup' : 'Lock lineup'}</button></div></div>
     ${isPreview ? '<div class="match-preview-label">CONTOH HASIL · Tidak masuk klasemen</div>' : ''}
     <div class="match-body">
       <div class="match-team ${done && aWins ? 'match-winner' : ''}">${badge(a)}<h3>${escape(a.name)}</h3>${done ? `<span class="outcome ${aWins ? 'won' : ''}">${aWins ? 'UNGGUL' : 'BERPARTISIPASI'}</span>` : ''}</div>

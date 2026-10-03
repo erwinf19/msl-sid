@@ -7,8 +7,10 @@
 /choose-team.html /player-data      301!
 /choose-team      /player-data      301!
 /event-guide.html /event-guide      301!
+/player-reward.html /player-reward 301!
 
 # Serve the original HTML without changing the browser URL.
 /full-schedule   /schedule.html    200!
 /player-data      /choose-team.html 200!
 /event-guide      /event-guide.html 200!
+/player-reward    /player-reward.html 200!

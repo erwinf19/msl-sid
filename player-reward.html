@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Player Reward — MSL</title>
+  <meta name="description" content="Total diamond dan riwayat reward setiap pemain MLBB SID League berdasarkan lineup resmi pertandingan.">
+  <meta name="theme-color" content="#10254c">
+  <script src="/theme.js"></script>
+  <link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/player-reward.css">
+</head>
+<body>
+  <a class="skip" href="#reward-list">Langsung ke reward pemain</a>
+  <header class="site-header"><div class="nav-wrap">
+    <a class="brand" href="/" aria-label="MSL — Beranda"><img src="/assets/msl-logo.jpg" alt="Logo MSL" width="62" height="62"><span>MSL<small>MLBB SID LEAGUE</small></span></a>
+    <nav aria-label="Navigasi utama"><a href="/">Beranda</a><a href="/full-schedule">Jadwal Lengkap</a><a href="/player-data">Player Data</a><a href="/event-guide">Event Guide</a><a href="/player-reward" class="active" aria-current="page">Player Reward</a></nav>
+    <div class="nav-actions"><span class="nav-season">EVERY PLAYER COUNTS <span>2026</span></span><button class="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Mode gelap" title="Aktifkan mode gelap"><svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg><svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"/></svg></button></div>
+  </div></header>
+  <main class="wrap reward-page" id="reward-top">
+    <section class="reward-hero"><div><span class="eyebrow"><i></i> SHOW UP. PLAY. EARN.</span><h1>Setiap match.<br><em>Setiap diamond.</em></h1><p>Kontribusimu di arena punya cerita.<br>Lihat reward dan perjalanan setiap player sepanjang liga.</p><a class="action-button" href="/full-schedule">Atur lineup di jadwal <span aria-hidden="true">↗</span></a></div><div class="reward-total"><img src="/assets/diamond-icon.png" alt="" width="120" height="120"><span>TOTAL REWARD PEMAIN</span><strong id="reward-total">—</strong><small>Diamonds · akumulasi regular season</small></div></section>
+    <div class="reward-metrics"><div><strong id="reward-match-count">—</strong><span>Match dihitung</span></div><div><strong id="reward-earned-count">—</strong><span>Pemain mendapat reward</span></div><div><strong id="reward-player-count">—</strong><span>Player terdaftar</span></div></div>
+    <aside class="reward-rule"><strong>5 pemain masuk lineup. 5 pemain mendapat reward.</strong><p>Reward mengikuti individu yang bermain, termasuk pemain pinjaman, berdasarkan hasil team yang dibelanya pada match tersebut. Match yang belum selesai atau belum memiliki lineup resmi tidak dihitung. Weekly Diamond Pass terpisah dari total diamond pertandingan.</p><div><span>Unggul 2–0 <b>28</b></span><span>Unggul 2–1 <b>19</b></span><span>Berpartisipasi 1–2 <b>12</b></span><span>Berpartisipasi 0–2 <b>5</b></span></div></aside>
+    <p id="reward-status" class="reward-status" role="status" aria-live="polite">Memuat skor dan lineup resmi…</p>
+    <section id="reward-list"><div class="section-heading"><div><span class="eyebrow">YOUR SEASON, YOUR REWARDS</span><h2>Player reward<span>.</span></h2></div><span id="reward-visible-count" class="count-label"></span></div><div class="reward-toolbar"><label><span class="sr-only">Cari nama atau username pemain</span><input id="reward-search" type="search" placeholder="Cari nama atau username…"></label><label><span class="sr-only">Filter reward berdasarkan team</span><select id="reward-team"><option value="">Semua team</option></select></label></div><div class="table-shell reward-table" tabindex="0" role="region" aria-label="Total reward pemain, geser untuk melihat semua kolom"><table><caption class="sr-only">Reward berdasarkan pertandingan dan lineup resmi setiap pemain</caption><thead><tr><th scope="col">Player</th><th scope="col">Role</th><th scope="col">Team</th><th scope="col">Match dimainkan</th><th scope="col">Total diamonds</th><th scope="col">Detail</th></tr></thead><tbody id="reward-rows"></tbody></table></div></section>
+  </main>
+  <footer><div class="wrap footer-inner"><div class="footer-brand">MSL <span>MLBB SID LEAGUE</span></div><p>© 2026 Semesta Integrasi Digital.<br>Turnamen komunitas internal.</p><a href="#reward-top">Kembali ke atas ↑</a></div></footer>
+  <script type="module" src="/player-reward.js"></script>
+</body>
+</html>

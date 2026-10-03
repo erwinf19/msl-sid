@@ -8,12 +8,16 @@ import { loadMatchStreams } from './match-streams.js';
 import { initMatchActions } from './match-actions.js';
 import { matchIcon } from './match-icons.js';
 import { loadMatchResults } from './match-results.js';
+import { loadMatchLineups } from './match-lineups.js';
+import { initLineupActions } from './lineup-actions.js';
 
 try {
   const { players, logos } = await loadAssets();
   const published = await loadPublishedTeams(players, logos);
   const data = await loadMatchStreams(await loadMatchResults(applyPublishedTeams(tournament, published)));
   validateTournament(data);
+  const lineupState = await loadMatchLineups(data);
+  data.lineupConfig = lineupState.config;
   const weeks = [...new Set(data.matches.map(m => m.week))].sort((a, b) => a - b);
   document.querySelector('#week-index').innerHTML = weeks.map(week => `<a href="#pekan-${week}"><span>Pekan ${String(week).padStart(2, '0')}</span><small>${data.matches.filter(m => m.week === week).length} match</small></a>`).join('');
   const shortDate = date => new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', timeZone: 'Asia/Jakarta' }).format(new Date(`${date}T12:00:00+07:00`));
@@ -25,6 +29,7 @@ try {
   status.textContent = published.finalized ? '' : 'Nama team mengikuti hasil roster resmi setelah dipublikasikan. Jadwal tiap slot sudah tersedia di bawah.';
   status.hidden = published.finalized;
   initMatchActions(data);
+  initLineupActions(data,lineupState);
   if (/^#(?:pekan-\d+|match-m\d+)$/.test(location.hash)) document.querySelector(location.hash)?.scrollIntoView();
   initSectionNavigation();
 } catch (error) {

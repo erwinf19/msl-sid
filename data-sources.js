@@ -4,14 +4,16 @@ export const DATA_SOURCES = {
   players: '',
   teamRoster: '',
   matchResults: 'https://raw.githubusercontent.com/erwinf19/msl-data/refs/heads/main/match-results.json',
-  matchStreams: 'https://raw.githubusercontent.com/erwinf19/msl-data/refs/heads/main/match-streams.json'
+  matchStreams: 'https://raw.githubusercontent.com/erwinf19/msl-data/refs/heads/main/match-streams.json',
+  matchLineups: 'https://raw.githubusercontent.com/erwinf19/msl-data/refs/heads/main/match-lineups.json'
 };
 
 const LOCAL_SOURCES = {
   players: '/assets/player-msl.json',
   teamRoster: '/assets/draft-team-msl.json',
   matchResults: '/assets/match-results.json',
-  matchStreams: '/assets/match-streams.json'
+  matchStreams: '/assets/match-streams.json',
+  matchLineups: '/assets/match-lineups.json'
 };
 
 export function getDataSource(key, sources = DATA_SOURCES) {

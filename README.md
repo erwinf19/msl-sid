@@ -49,7 +49,8 @@ export const DATA_SOURCES = {
   players: 'https://raw.githubusercontent.com/USERNAME/msl-data/main/player-msl.json',
   teamRoster: '',
   matchResults: '',
-  matchStreams: ''
+  matchStreams: '',
+  matchLineups: ''
 };
 ```
 
@@ -114,11 +115,50 @@ Pada website statis, penguncian menegakkan alur UI. Publikasi data resmi tetap m
 
 `/event-guide` merangkum delapan topik technical meeting: latar belakang, timeline dan ketentuan umum, struktur team, format dan klasemen, peraturan teknis, reward, etika, serta penayangan. Halaman tersedia dari navbar. Mode Presentasi menampilkan satu topik sekaligus; gunakan navigasi topik, tombol sebelumnya/berikutnya, atau panah kiri/kanan. Escape keluar dari presentasi. Seluruh materi tetap tersedia tanpa JavaScript. Timeline, reward, dan aturan mengikuti materi panitia; jadwal tetap pukul 12:15 WIB.
 
-Navigasi utama seluruh halaman memakai urutan yang sama: Beranda, Jadwal Lengkap, Player Data, dan Event Guide. Daftar link dikelola bersama melalui `site-navigation.js`; tab aktif mengikuti halaman dan tidak berubah ketika bagian di dalam halaman digulir. HTML setiap halaman juga menyediakan menu yang sama sebelum JavaScript berjalan.
+Navigasi utama seluruh halaman memakai urutan yang sama: Beranda, Jadwal Lengkap, Player Data, Event Guide, dan Player Reward. Daftar link dikelola bersama melalui `site-navigation.js`; tab aktif mengikuti halaman dan tidak berubah ketika bagian di dalam halaman digulir. HTML setiap halaman juga menyediakan menu yang sama sebelum JavaScript berjalan.
 
 ## URL halaman
 
-Beranda: `/`; Jadwal Lengkap: `/full-schedule`; Player Data: `/player-data`; Event Guide: `/event-guide`. Server lokal melayani URL ini dan mengalihkan tautan `.html` lama (termasuk query dan anchor) ke URL baru. Restart `npm start` setelah mengubah server. Netlify memakai `_redirects` untuk pengalihan 301 dan rewrite 200, serta `netlify.toml` untuk menonaktifkan normalisasi Pretty URLs bawaan. Commit kedua file konfigurasi tersebut dan deploy ulang agar URL baru aktif di Netlify. Asset menggunakan path dari root agar tetap tersedia saat halaman dibuka langsung atau memakai trailing slash.
+Beranda: `/`; Jadwal Lengkap: `/full-schedule`; Player Data: `/player-data`; Event Guide: `/event-guide`; Player Reward: `/player-reward`. Server lokal melayani URL ini dan mengalihkan tautan `.html` lama (termasuk query dan anchor) ke URL baru. Restart `npm start` setelah mengubah server. Netlify memakai `_redirects` untuk pengalihan 301 dan rewrite 200, serta `netlify.toml` untuk menonaktifkan normalisasi Pretty URLs bawaan. Commit kedua file konfigurasi tersebut dan deploy ulang agar URL baru aktif di Netlify. Asset menggunakan path dari root agar tetap tersedia saat halaman dibuka langsung atau memakai trailing slash.
+
+## Player Reward dan lineup pertandingan
+
+`/player-reward` menghitung diamond setiap pemain dari **skor selesai + lineup resmi**. Hasil 2–0 memberi 28 diamond, 2–1 memberi 19, 1–2 memberi 12, dan 0–2 memberi 5 per pemain yang dipilih. Pemain cadangan yang tidak dipilih mendapat 0 untuk match tersebut. Total dijumlahkan sepanjang liga; tersedia pencarian, filter team, dan riwayat match setiap pemain. Weekly Diamond Pass terpisah dari total diamond ini.
+
+1. Di jadwal beranda atau `/full-schedule`, klik **Lock lineup** di bagian atas kartu match, di sebelah status Terjadwal/Selesai.
+2. Pilih tepat **5 pemain untuk setiap team**. Jika anggota tidak hadir, buka **Pinjam pemain**, lalu pilih team asal atau cari pemain. Wajib minimal 3 anggota asli dan maksimal 2 pinjaman; anggota team lawan dan team yang bermain pada tanggal/jam yang sama tidak tersedia. Pemain yang sama tidak bisa dipilih di kedua sisi. Pilihan ini berlaku untuk satu match BO3 secara keseluruhan, bukan per game; panitia tetap memastikan peminjaman tidak melebihi 2 game sesuai Event Guide.
+3. Masukkan password panitia yang sama dengan download roster, lalu klik **Kunci lineup & download**. Password salah tidak mengunci atau mengunduh data. Setelah terkunci, pilihan hanya bisa dilihat atau diunduh ulang; koreksi dilakukan manual di JSON sumber.
+4. Ganti **match-lineups.json** di repository **erwinf19/msl-data** dengan file unduhan dan commit. Jika browser menambahkan `(1)` pada nama file, kembalikan namanya. File unduhan mencakup seluruh lineup yang sudah dipublikasikan ditambah lineup yang baru dikunci di browser ini, agar match sebelumnya tetap tersimpan.
+5. Refresh website setelah publikasi. Perhitungan reward hanya memakai lineup dari sumber resmi dan `match-results.json`; draft browser berstatus **Siap diunggah** belum menambah reward publik.
+
+Sumber `matchLineups` sudah diarahkan ke `https://raw.githubusercontent.com/erwinf19/msl-data/refs/heads/main/match-lineups.json` melalui `data-sources.js`. File yang belum ada (HTTP 404) dianggap tahap awal sehingga unduhan pertama tetap dapat dibuat. Gangguan jaringan, JSON rusak, atau ketidakcocokan roster memblokir ekspor agar data resmi lain tidak tertimpa. Gunakan file terbaru saat mempublikasikan, terutama jika beberapa panitia mengelola data dari browser berbeda. Netlify membutuhkan satu deploy untuk memasang fitur ini; perubahan lineup/skor eksternal sesudahnya cukup commit di repo data dan refresh.
+
+File awal `assets/match-lineups.json` kosong. Tambahkan hanya match yang sudah dikunci. Berikut contoh struktur untuk m1; ini contoh format, bukan lineup resmi pertandingan:
+
+```json
+{
+  "version": 1,
+  "matches": [
+    {
+      "id": "m1",
+      "teamA": "Airlangga",
+      "teamB": "Gajah Mada",
+      "playerIdsA": [1, 13, 16, 29, 34],
+      "playerIdsB": [3, 8, 19, 26, 41],
+      "borrowedPlayerIdsA": [],
+      "borrowedPlayerIdsB": [],
+      "locked": true,
+      "lockedAt": "2026-10-03T01:00:00.000Z"
+    }
+  ]
+}
+```
+
+ID sebenarnya berupa angka, sama dengan `players[].id` di `assets/draft-team-msl.json` (berasal dari posisi array player). Unduhan melalui UI mengisi ID dan nama team otomatis. Jangan mengubah urutan array sumber pemain. Skor tetap di `match-results.json`, link siaran tetap di `match-streams.json`, dan jadwal tanggal/jam tetap di `tournament-data.js`. Pertandingan selesai yang belum memiliki lineup ditandai menunggu dan tidak masuk total. Format skor saat ini hanya mendukung empat hasil BO3 di atas; WO belum dihitung oleh sumber skor.
+
+`playerIdsA`/`playerIdsB` selalu berisi kelima pemain yang benar-benar membela team pada match, termasuk pemain pinjaman. `borrowedPlayerIdsA`/`borrowedPlayerIdsB` mencatat subset ID pinjaman secara otomatis; file lama tanpa kedua field ini tetap diterima. Nama team dan kepemilikan roster pemain tidak berubah karena peminjaman. Diamond diberikan kepada individu berdasarkan hasil team yang dibelanya pada match tersebut; dapat terakumulasi dengan reward saat bermain untuk team sendiri. Riwayat menandai match sebagai **Pinjaman** dan menunjukkan team asal. Anggota asli yang tidak dipilih tidak mendapat diamond match itu.
+
+Draft lineup browser memakai `msl-match-lineups-draft-v1`, divalidasi terhadap roster saat ini. Lineup resmi selalu menang jika ada perbedaan dengan draft browser. Ekspor menggunakan verifikasi hash yang sama di `download-password.js`, dengan batasan aplikasi statis yang dijelaskan pada bagian Password download.
 
 ## Link streaming per pertandingan
 
