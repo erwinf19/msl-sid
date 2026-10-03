@@ -6,6 +6,7 @@ import { escape, badge, diamondIcon, renderMatchCard } from './schedule-view.js'
 import { initSectionNavigation } from './section-navigation.js';
 import { loadMatchStreams } from './match-streams.js';
 import { initMatchActions } from './match-actions.js';
+import { loadMatchResults } from './match-results.js';
 let data = structuredClone(tournament);
 // Five independent viewport windows into the original supplied role sheet.
 // Keep the source bitmap intact; no redrawing or image regeneration.
@@ -19,7 +20,7 @@ function renderSchedule(week) {
 try {
   const { players, logos } = await loadAssets();
   const published = await loadPublishedTeams(players, logos);
-  data = await loadMatchStreams(applyPublishedTeams(tournament, published));
+  data = await loadMatchStreams(await loadMatchResults(applyPublishedTeams(tournament, published)));
   validateTournament(data);
   document.querySelector('#demo-note').hidden = false;
   document.querySelector('#demo-note').textContent = published.finalized

@@ -9,12 +9,12 @@ test('standings ignore unplayed matches and balance games and match results', ()
   fixture.matches[1].score = [2,1];
   validateTournament(fixture);
   const rows = getStandings(fixture);
-  assert.equal(rows[0].id, 'dawn');
+  assert.equal(rows[0].id, 'airlangga');
   assert.deepEqual([rows[0].points, rows[0].wins, rows[0].losses, rows[0].net], [1,1,0,2]);
   assert.equal(rows.reduce((n,r)=>n+r.net,0),0);
   assert.equal(rows.reduce((n,r)=>n+r.wins,0),2);
   assert.equal(rows.reduce((n,r)=>n+r.losses,0),2);
-  assert.equal(rows.find(r=>r.id==='sky').gameWins,0);
+  assert.equal(rows.find(r=>r.id==='samudera').gameWins,0);
 });
 test('the published tournament starts with no results and all standings at zero', () => {
   assert.ok(tournament.matches.every(m => m.score === null));
@@ -30,7 +30,7 @@ test('invalid scores and incomplete rosters are rejected',()=>{
     const data=structuredClone(tournament);data.matches[0].score=score;
     assert.throws(()=>validateTournament(data));
   }
-  const data=structuredClone(tournament); data.teams[0].players.pop();
+  const data=structuredClone(tournament); data.teams[0].pendingRoster=false; data.teams[0].players=['P1','P2','P3','P4'];
   assert.throws(()=>validateTournament(data));
 });
 test('eight teams meet once over ten weeks on the requested Tuesday–Thursday dates',()=>{

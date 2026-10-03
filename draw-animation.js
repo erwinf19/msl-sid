@@ -7,7 +7,7 @@ export function createDrawAnimation(draft, players, random = Math.random) {
   return { version: 1, base: structuredClone(draft), next: generateRole(draft, players, random), revealed: 0 };
 }
 
-// Reveal each team's main player first, then any surplus Mid Lane/Roamer.
+// Reveal each team's main player first, then any surplus player for that role.
 export function drawAssignments(animation) {
   const additions = animation.next.teams.map((team, index) => team.players.slice(animation.base.teams[index].players.length));
   return [

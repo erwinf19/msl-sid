@@ -1,15 +1,39 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { tournament } from '../tournament-data.js';
+import { tournament as baseTournament } from '../tournament-data.js';
+import { applyPublishedTeams } from '../published-teams.js';
 import { applyMatchStreams, loadMatchStreams, getStreamUrl, MATCH_STREAMS_PATH } from '../match-streams.js';
 import { renderMatchCard } from '../schedule-view.js';
 
 const config = JSON.parse(await readFile(new URL('../assets/match-streams.json', import.meta.url),'utf8'));
+const published = JSON.parse(await readFile(new URL('../assets/draft-team-msl.json', import.meta.url),'utf8'));
+const tournament = applyPublishedTeams(baseTournament, published);
+
+test('official team IDs and names are consistent in standings, results and stream JSON', async () => {
+  const results=JSON.parse(await readFile(new URL('../assets/match-results.json',import.meta.url),'utf8'));
+  assert.deepEqual(tournament.teams.map(t=>t.id),published.teams.map(t=>t.name.toLowerCase().replace(/\s+/g,'-')));
+  for (const entry of config.matches) {
+    const result=results.matches.find(m=>m.id===entry.id);
+    assert.deepEqual([entry.teamA,entry.teamB,entry.date,entry.week],[result.teamA,result.teamB,result.date,result.week]);
+  }
+  const {getStandings}=await import('../league.js');
+  const scored=structuredClone(tournament);scored.matches[0].score=[2,1];
+  const rows=getStandings(scored);
+  const airlangga=rows.find(t=>t.id==='airlangga'),gajahMada=rows.find(t=>t.id==='gajah-mada');
+  assert.deepEqual([airlangga.name,airlangga.wins,gajahMada.name,gajahMada.losses],['Airlangga',1,'Gajah Mada',1]);
+  assert.equal(published.locked,true);
+  assert.deepEqual(scored.teams.map(t=>t.players),tournament.teams.map(t=>t.players));
+});
 
 test('all 28 stream entries identify the correct match, and links follow IDs rather than row order', () => {
   assert.equal(config.matches.length,28);
   assert.equal(new Set(config.matches.map(match => match.id)).size,28);
+  for (const entry of config.matches) {
+    const match=tournament.matches.find(m=>m.id===entry.id);
+    assert.equal(entry.teamA,tournament.teams.find(t=>t.id===match.a).name);
+    assert.equal(entry.teamB,tournament.teams.find(t=>t.id===match.b).name);
+  }
   const source = structuredClone(config);
   source.matches[0].streamUrl = 'https://www.youtube.com/watch?v=match-one';
   source.matches[1].streamUrl = 'https://www.youtube.com/watch?v=match-two';
@@ -30,6 +54,8 @@ test('unknown or duplicate matches, mismatched dates and unsafe stream URLs are 
     source => { source.matches[0].id = 'm999'; },
     source => { source.matches.push(source.matches[0]); },
     source => { source.matches[0].date = '2027-01-01'; },
+    source => { source.matches[0].teamA = 'Wrong team'; },
+    source => { [source.matches[0].teamA,source.matches[0].teamB] = [source.matches[0].teamB,source.matches[0].teamA]; },
     source => { source.matches[0].streamUrl = 'javascript:alert(1)'; },
     source => { source.matches[0].streamUrl = 123; }
   ]) {

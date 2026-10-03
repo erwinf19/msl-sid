@@ -1,3 +1,5 @@
+export const isValidMatchScore = score => score === null || (Array.isArray(score) && score.length === 2 && score.every(n => Number.isInteger(n) && n >= 0 && n <= 2) && Math.max(...score) === 2 && score[0] !== score[1]);
+
 export function validateTournament(data) {
   const ids = new Set(data.teams.map(t => t.id));
   if (ids.size !== data.teams.length) throw new Error('ID tim harus unik.');
@@ -8,7 +10,7 @@ export function validateTournament(data) {
   }
   for (const m of data.matches) {
     if (!ids.has(m.a) || !ids.has(m.b) || m.a === m.b) throw new Error(`Tim pada ${m.id} tidak valid.`);
-    if (m.score !== null && (!Array.isArray(m.score) || m.score.length !== 2 || !m.score.every(n => Number.isInteger(n) && n >= 0 && n <= 2) || Math.max(...m.score) !== 2 || m.score[0] === m.score[1])) throw new Error(`Skor BO3 ${m.id} tidak valid.`);
+    if (!isValidMatchScore(m.score)) throw new Error(`Skor BO3 ${m.id} tidak valid.`);
   }
 }
 export function getStandings(data) {

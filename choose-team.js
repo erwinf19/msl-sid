@@ -11,6 +11,7 @@ let published = null;
 let activeDraw = null, activeAssignment = null, lastReveal = null, animationController = null, animationRunning = false, animationOwned = false;
 let rouletteTimer, countdownTimer;
 const permissions = () => draftPermissions(draft, published);
+const canDownloadRoster = () => (permissions().locked && published?.finalized === true) || canExportDraft(draft, players, logos);
 const teamLabel = team => team.name || `Team ${String(team.id + 1).padStart(2, '0')}`;
 const isComplete = () => draft.step === ROLES.length;
 const visibleDraft = () => activeDraw ? previewDraw(activeDraw) : draft;
@@ -164,24 +165,31 @@ function renderPlayers() {
 
 function render() {
   const shown = visibleDraft();
-  $('#logo-grid').innerHTML = logos.map((logo, i) => logoTile(logo, i)).join('');
-  $('#draw-steps').innerHTML = ROLES.map((role, i) => `<li class="${i < draft.step ? 'done' : i === draft.step ? 'current' : ''}" ${i === draft.step ? 'aria-current="step"' : ''}>${i < draft.step ? '✓' : String(i + 1).padStart(2, '0')} ${ROLE_LABELS[role]}<small>${players.filter(p => p.role === role).length} player · ${i < draft.step ? 'Selesai' : activeDraw && i === draft.step ? 'Sedang diundi' : 'Menunggu'}</small></li>`).join('');
   const policy = permissions();
+  $('#logo-grid').innerHTML = logos.map((logo, i) => logoTile(logo, i)).join('');
+  $('#draw-steps').innerHTML = ROLES.map((role, i) => {
+    const pool = players.filter(p => p.role === role);
+    const assigned = pool.filter(p => shown.teams.some(team => team.players.includes(p.id))).length;
+    const remaining = pool.length - assigned;
+    const status = policy.locked && remaining ? `${remaining} menunggu undian` : i < draft.step ? 'Selesai' : activeDraw && i === draft.step ? 'Sedang diundi' : 'Menunggu';
+    return `<li class="${i < draft.step ? 'done' : i === draft.step ? 'current' : ''}" ${i === draft.step ? 'aria-current="step"' : ''}>${i < draft.step ? '✓' : String(i + 1).padStart(2, '0')} ${ROLE_LABELS[role]}<small>${pool.length} player · ${status}</small></li>`;
+  }).join('');
   $('#generate').disabled = Boolean(activeDraw) || !policy.canGenerate;
   $('#generate').setAttribute('aria-busy', String(Boolean(activeDraw)));
   $('#generate').textContent = activeDraw ? `Mengundi ${ROLE_LABELS[ROLES[draft.step]]}…` : policy.locked ? '✓ Team final terkunci' : isComplete() ? '✓ Semua role selesai' : `Generate ${ROLES[draft.step]}`;
   const count = shown.teams.reduce((sum, t) => sum + t.players.length, 0);
+  const waitingCount = players.length - count;
   $('#draw-status').textContent = `${draft.step} / 5 role selesai · ${count} / ${players.length} player terbagi${isComplete() ? ` · ${draft.teams.filter(t => t.name).length} / 8 nama dipilih` : ''}`;
   if (activeDraw && lastReveal) $('#draw-status').textContent += ` · ${players.find(p => p.id === lastReveal.playerId).username} masuk ${teamLabel(shown.teams[lastReveal.teamId])}`;
   $('#reset').disabled = Boolean(activeDraw) || !policy.canReset;
   $('#final-banner').hidden = !isComplete();
   $('#final-banner').classList.toggle('is-final', policy.locked);
   $('#final-title').textContent = policy.locked ? 'THE TEAMS ARE READY.' : 'YOUR SQUAD IS HERE.';
-  $('#final-copy').textContent = policy.locked ? 'Delapan team. Satu arena. Roster dan identitas team sudah final — saatnya bersiap untuk match pertama.' : 'Periksa lineup dan pilih nama squad kamu. Undian bisa diulang dan nama bisa diganti sampai kamu menekan Kunci Roster.';
+  $('#final-copy').textContent = policy.locked ? waitingCount ? `Roster final tetap terkunci. ${waitingCount} player tambahan menunggu undian penempatan team.` : 'Delapan team. Satu arena. Roster dan identitas team sudah final — saatnya bersiap untuk match pertama.' : 'Periksa lineup dan pilih nama squad kamu. Undian bisa diulang dan nama bisa diganti sampai kamu menekan Kunci Roster.';
   $('#final-badge').textContent = policy.locked ? 'FINAL · TERKUNCI' : 'DRAFT · MASIH BISA DIUBAH';
   $('#draw-title').textContent = activeDraw ? `Siapa ${ROLE_LABELS[ROLES[draft.step]]} squad kamu?` : policy.locked ? 'Lineup final. Let the games begin.' : isComplete() ? 'Roster selesai. Pilih identitas team.' : 'Satu klik. Satu role. Delapan team.';
   $('#draw-description').textContent = activeDraw ? 'Player diumumkan satu per satu setiap 3 detik. Tunggu sampai undian role ini selesai.' : policy.locked ? 'Hasil ini terkunci. Tidak ada perubahan roster maupun nama team melalui halaman ini.' : isComplete() ? 'Periksa hasilnya, pilih 8 nama team, lalu Kunci Roster. Kamu masih bisa mengulang undian.' : 'Jungler → Gold Lane → EXP Lane → Mid Lane → Roamer. Satu player diumumkan setiap 3 detik.';
-  $('#download').disabled = Boolean(activeDraw) || !canExportDraft(draft, players, logos);
+  $('#download').disabled = Boolean(activeDraw) || !canDownloadRoster();
   $('#download').textContent = policy.locked ? 'Download JSON ↓' : 'Kunci Roster 🔒';
   $('#download-help').textContent = policy.locked ? 'Roster final terkunci. JSON dapat diunduh ulang dengan password.' : canExportDraft(draft, players, logos) ? '8 team lengkap. Kunci Roster dengan password untuk memfinalisasi dan langsung mengunduh JSON.' : 'Kunci Roster aktif setelah 5 role selesai dan seluruh 8 nama team dipilih.';
   $('#choose-hint').textContent = isComplete() ? 'Klik Choose Team Name pada masing-masing kartu hasil undian untuk memilih identitas dari logo di bawah.' : 'Pilihan identitas untuk team kamu. Selesaikan undian, lalu klik Choose Team Name pada kartu team.';
@@ -256,7 +264,7 @@ $('#confirm-reset').addEventListener('click', () => {
   $('#generate').focus();
 });
 $('#download').addEventListener('click', () => {
-  if (activeDraw || !canExportDraft(draft, players, logos)) return;
+  if (activeDraw || !canDownloadRoster()) return;
   $('#download-form').reset();
   $('#download-error').textContent = '';
   $('#download-title').textContent = permissions().locked ? 'Download roster final.' : 'Kunci roster & download.';
@@ -274,7 +282,7 @@ $('#download-dialog').addEventListener('close', () => {
 });
 $('#download-form').addEventListener('submit', async event => {
   event.preventDefault();
-  if (activeDraw || $('#confirm-download').disabled || !canExportDraft(draft, players, logos)) return;
+  if (activeDraw || $('#confirm-download').disabled || !canDownloadRoster()) return;
   const attempt = ++passwordAttempt;
   $('#confirm-download').disabled = true;
   $('#confirm-download').textContent = 'Memverifikasi…';

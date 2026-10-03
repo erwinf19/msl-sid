@@ -8,8 +8,8 @@ const players = preparePlayers(source);
 const files = JSON.parse(readFileSync(new URL('../assets/logo-team.json', import.meta.url), 'utf8').replace(/^\uFEFF/, ''));
 const names = files.map(file => file.replace(/\.[^.]+$/, ''));
 
-test('all 42 player profiles include the supplied organization, position and Telegram handle', () => {
-  assert.equal(players.length,42);
+test('all 44 player profiles include the supplied organization, position and Telegram handle', () => {
+  assert.equal(players.length,44);
   for (const player of players) {
     assert.ok(PLAYER_PROFILE_FIELDS.every(field => typeof player[field] === 'string' && player[field].trim()));
     assert.match(player.businessUnit,/^(BU|FU) - /);
@@ -19,6 +19,10 @@ test('all 42 player profiles include the supplied organization, position and Tel
   assert.deepEqual([fikri.businessUnit,fikri.jobTitle,fikri.telegram],['BU - Sekolah Murid Merdeka','Admission Officer','@Fikri_Adri']);
   assert.equal(players.find(p => p.playername === 'Suci Amelia').telegram,'@Sameli4');
   assert.equal(players.find(p => p.playername === 'Bana Hasnul Fata').businessUnit,'FU - Learning Spaces Development');
+  assert.deepEqual(players.slice(-2).map(p=>[p.id,p.playername,p.username,p.role,p.businessUnit,p.telegram]),[
+    [42,'Furqon Ahmad Taher','BakpaoCoklat','Goldlaner','FU - Technology','@frqnahmdt24'],
+    [43,'Amrul Fikri','arl17','Explaner','BU - Kampus','@amrulfikri']
+  ]);
   assert.throws(() => preparePlayers(source.map((p,i)=>i ? p : {...p,telegram:'javascript:bad'})));
 });
 
@@ -40,7 +44,7 @@ test('every supplied logo is offered using its filename as the identity', () => 
   assert.equal(new Set(names).size, names.length);
 });
 
-test('42 players are allocated once, in role order, with different teams receiving surplus players', () => {
+test('44 players are allocated once, in role order, with four different teams receiving surplus players', () => {
   for (let run = 0; run < 200; run++) {
     let draft = createDraft();
     assert.ok(validateDraft(draft, players, names));
@@ -55,14 +59,24 @@ test('42 players are allocated once, in role order, with different teams receivi
       }
     }
     const ids = draft.teams.flatMap(t => t.players);
-    assert.equal(ids.length, 42);
-    assert.equal(new Set(ids).size, 42);
-    assert.deepEqual(draft.teams.map(t => t.players.length).sort(), [5, 5, 5, 5, 5, 5, 6, 6]);
-    const mid = draft.teams.find(t => t.players.filter(id => players[id].role === 'Midlaner').length === 2);
-    const roam = draft.teams.find(t => t.players.filter(id => players[id].role === 'Roamer').length === 2);
-    assert.notEqual(mid.id, roam.id);
+    assert.equal(ids.length, 44);
+    assert.equal(new Set(ids).size, 44);
+    assert.deepEqual(draft.teams.map(t => t.players.length).sort(), [5, 5, 5, 5, 6, 6, 6, 6]);
+    const extraTeams=['Goldlaner','Explaner','Midlaner','Roamer'].map(role=>draft.teams.find(t=>t.players.filter(id=>players[id].role===role).length===2)?.id);
+    assert.ok(extraTeams.every(id=>id!==undefined));
+    assert.equal(new Set(extraTeams).size,4);
     assert.throws(() => generateRole(draft, players));
   }
+});
+
+test('surplus players respect the total capacity of eight teams with at most six players', () => {
+  const extra = Array.from({length:4},(_,i)=>({...source[0],playername:`Extra ${i}`,username:`Extra ${i}`,role:'Goldlaner'}));
+  const full=preparePlayers([...source,...extra]);
+  let draft=createDraft();
+  for (const role of ROLES) draft=generateRole(draft,full);
+  assert.ok(validateDraft(draft,full,names));
+  assert.ok(draft.teams.every(t=>t.players.length===6));
+  assert.throws(()=>preparePlayers([...source,...extra,{...source[0],playername:'Over capacity',username:'Over capacity'}]),/kapasitas/);
 });
 
 test('team identities unlock after the final draw and cannot be shared', () => {

@@ -1,17 +1,18 @@
-// Ubah data turnamen di file ini. Klasemen dan hadiah dihitung otomatis.
+// Aturan dan slot jadwal tetap. Nama/roster: assets/draft-team-msl.json.
+// Hasil pertandingan: assets/match-results.json. Klasemen dan hadiah dihitung otomatis.
 export const tournament = {
   demo: false,
   pointsPerWin: 1,
   defaultWeek: 1,
   teams: [
-    { id: 'dawn', name: 'Dawn Raiders', tag: 'DWN', color: 'blue', players: ['Aether', 'GoldRush', 'Titan', 'Atlas', 'Lumi'] },
-    { id: 'solar', name: 'Solar Titans', tag: 'SOL', color: 'amber', players: ['Blaze', 'Solstice', 'Orion', 'Aegis', 'Nova'] },
-    { id: 'sky', name: 'Sky Sentinels', tag: 'SKY', color: 'teal', players: ['Zephyr', 'Cloud9', 'Stratos', 'Harbor', 'Nimbus'] },
-    { id: 'lunar', name: 'Lunar Wolves', tag: 'LNR', color: 'purple', players: ['Lupus', 'Moonshot', 'Eclipse', 'Howl', 'Selene'] },
-    { id: 'ember', name: 'Ember Pact', tag: 'EMB', color: 'red', players: ['Cinder', 'Flare', 'Obsidian', 'Bastion', 'Pyra'] },
-    { id: 'rift', name: 'Rift Nomads', tag: 'RFT', color: 'slate', players: ['Drift', 'Vesper', 'Onyx', 'Rune', 'Sora'] },
-    { id: 'storm', name: 'Storm Keepers', tag: 'STM', color: 'blue', players: ['Bolt', 'Flash', 'Thunder', 'Rain', 'Mist'] },
-    { id: 'jade', name: 'Jade Guardians', tag: 'JDE', color: 'teal', players: ['Jade', 'Emerald', 'Stone', 'Fern', 'Leaf'] }
+    { id: 'airlangga', name: 'Team 01', tag: 'T01', color: 'blue', players: [], pendingRoster: true },
+    { id: 'kalingga', name: 'Team 02', tag: 'T02', color: 'amber', players: [], pendingRoster: true },
+    { id: 'samudera', name: 'Team 03', tag: 'T03', color: 'teal', players: [], pendingRoster: true },
+    { id: 'padjadjaran', name: 'Team 04', tag: 'T04', color: 'purple', players: [], pendingRoster: true },
+    { id: 'batavia', name: 'Team 05', tag: 'T05', color: 'red', players: [], pendingRoster: true },
+    { id: 'warmadewa', name: 'Team 06', tag: 'T06', color: 'slate', players: [], pendingRoster: true },
+    { id: 'sadewa', name: 'Team 07', tag: 'T07', color: 'blue', players: [], pendingRoster: true },
+    { id: 'gajah-mada', name: 'Team 08', tag: 'T08', color: 'teal', players: [], pendingRoster: true }
   ],
   // Urutan pemain selalu mengikuti urutan role ini.
   roles: ['Jungler', 'Gold Lane', 'EXP Lane', 'Roamer', 'Mid Lane'],

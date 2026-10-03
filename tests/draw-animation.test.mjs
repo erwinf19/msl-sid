@@ -38,8 +38,8 @@ test('each role reveals one player every 3000 ms, followed by surplus players, w
     assert.ok(validateDraft(next, players, names));
     draft = next;
   }
-  assert.equal(new Set(draft.teams.flatMap(t => t.players)).size,42);
-  assert.deepEqual(draft.teams.map(t => t.players.length).sort(), [5,5,5,5,5,5,6,6]);
+  assert.equal(new Set(draft.teams.flatMap(t => t.players)).size,44);
+  assert.deepEqual(draft.teams.map(t => t.players.length).sort(), [5,5,5,5,6,6,6,6]);
 });
 
 test('no assignment appears before its delay; an interrupted draw resumes the same outcome', async () => {
@@ -74,7 +74,7 @@ test('no assignment appears before its delay; an interrupted draw resumes the sa
 
 test('invalid progress, changed earlier assignments, and unrelated drafts cannot resume', () => {
   const base = generateRole(createDraft(),players), animation = createDrawAnimation(base,players);
-  for (const revealed of [-1,0.5,9]) assert.equal(validateDrawAnimation({...animation,revealed},players,names),false);
+  for (const revealed of [-1,0.5,drawAssignments(animation).length+1]) assert.equal(validateDrawAnimation({...animation,revealed},players,names),false);
   const changed = structuredClone(animation);
   [changed.next.teams[0].players[0],changed.next.teams[1].players[0]] = [changed.next.teams[1].players[0],changed.next.teams[0].players[0]];
   assert.equal(validateDrawAnimation(changed,players,names),false);

@@ -7,11 +7,12 @@ import { initSectionNavigation } from './section-navigation.js';
 import { loadMatchStreams } from './match-streams.js';
 import { initMatchActions } from './match-actions.js';
 import { matchIcon } from './match-icons.js';
+import { loadMatchResults } from './match-results.js';
 
 try {
   const { players, logos } = await loadAssets();
   const published = await loadPublishedTeams(players, logos);
-  const data = await loadMatchStreams(applyPublishedTeams(tournament, published));
+  const data = await loadMatchStreams(await loadMatchResults(applyPublishedTeams(tournament, published)));
   validateTournament(data);
   const weeks = [...new Set(data.matches.map(m => m.week))].sort((a, b) => a - b);
   document.querySelector('#week-index').innerHTML = weeks.map(week => `<a href="#pekan-${week}"><span>Pekan ${String(week).padStart(2, '0')}</span><small>${data.matches.filter(m => m.week === week).length} match</small></a>`).join('');

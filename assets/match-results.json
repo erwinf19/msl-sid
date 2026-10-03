@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "matches": [
     {
       "id": "m1",
@@ -6,7 +7,7 @@
       "date": "2026-10-06",
       "teamA": "Airlangga",
       "teamB": "Gajah Mada",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m2",
@@ -14,7 +15,7 @@
       "date": "2026-10-07",
       "teamA": "Kalingga",
       "teamB": "Sadewa",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m3",
@@ -22,7 +23,7 @@
       "date": "2026-10-08",
       "teamA": "Samudera",
       "teamB": "Warmadewa",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m4",
@@ -30,7 +31,7 @@
       "date": "2026-10-13",
       "teamA": "Padjadjaran",
       "teamB": "Batavia",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m5",
@@ -38,7 +39,7 @@
       "date": "2026-10-14",
       "teamA": "Airlangga",
       "teamB": "Sadewa",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m6",
@@ -46,7 +47,7 @@
       "date": "2026-10-15",
       "teamA": "Gajah Mada",
       "teamB": "Warmadewa",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m7",
@@ -54,7 +55,7 @@
       "date": "2026-10-20",
       "teamA": "Kalingga",
       "teamB": "Batavia",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m8",
@@ -62,7 +63,7 @@
       "date": "2026-10-21",
       "teamA": "Samudera",
       "teamB": "Padjadjaran",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m9",
@@ -70,7 +71,7 @@
       "date": "2026-10-22",
       "teamA": "Airlangga",
       "teamB": "Warmadewa",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m10",
@@ -78,7 +79,7 @@
       "date": "2026-10-27",
       "teamA": "Sadewa",
       "teamB": "Batavia",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m11",
@@ -86,7 +87,7 @@
       "date": "2026-10-28",
       "teamA": "Gajah Mada",
       "teamB": "Padjadjaran",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m12",
@@ -94,7 +95,7 @@
       "date": "2026-11-03",
       "teamA": "Kalingga",
       "teamB": "Samudera",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m13",
@@ -102,7 +103,7 @@
       "date": "2026-11-04",
       "teamA": "Airlangga",
       "teamB": "Batavia",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m14",
@@ -110,7 +111,7 @@
       "date": "2026-11-05",
       "teamA": "Warmadewa",
       "teamB": "Padjadjaran",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m15",
@@ -118,7 +119,7 @@
       "date": "2026-11-10",
       "teamA": "Sadewa",
       "teamB": "Samudera",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m16",
@@ -126,7 +127,7 @@
       "date": "2026-11-11",
       "teamA": "Gajah Mada",
       "teamB": "Kalingga",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m17",
@@ -134,7 +135,7 @@
       "date": "2026-11-12",
       "teamA": "Airlangga",
       "teamB": "Padjadjaran",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m18",
@@ -142,7 +143,7 @@
       "date": "2026-11-17",
       "teamA": "Batavia",
       "teamB": "Samudera",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m19",
@@ -150,7 +151,7 @@
       "date": "2026-11-18",
       "teamA": "Warmadewa",
       "teamB": "Kalingga",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m20",
@@ -158,7 +159,7 @@
       "date": "2026-11-24",
       "teamA": "Sadewa",
       "teamB": "Gajah Mada",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m21",
@@ -166,7 +167,7 @@
       "date": "2026-11-25",
       "teamA": "Airlangga",
       "teamB": "Samudera",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m22",
@@ -174,7 +175,7 @@
       "date": "2026-11-26",
       "teamA": "Padjadjaran",
       "teamB": "Kalingga",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m23",
@@ -182,7 +183,7 @@
       "date": "2026-12-01",
       "teamA": "Batavia",
       "teamB": "Gajah Mada",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m24",
@@ -190,7 +191,7 @@
       "date": "2026-12-02",
       "teamA": "Warmadewa",
       "teamB": "Sadewa",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m25",
@@ -198,7 +199,7 @@
       "date": "2026-12-03",
       "teamA": "Airlangga",
       "teamB": "Kalingga",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m26",
@@ -206,7 +207,7 @@
       "date": "2026-12-08",
       "teamA": "Samudera",
       "teamB": "Gajah Mada",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m27",
@@ -214,7 +215,7 @@
       "date": "2026-12-09",
       "teamA": "Padjadjaran",
       "teamB": "Sadewa",
-      "streamUrl": ""
+      "score": null
     },
     {
       "id": "m28",
@@ -222,7 +223,7 @@
       "date": "2026-12-10",
       "teamA": "Batavia",
       "teamB": "Warmadewa",
-      "streamUrl": ""
+      "score": null
     }
   ]
 }

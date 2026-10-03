@@ -279,6 +279,15 @@
           "businessUnit": "FU - Operations",
           "jobTitle": "Manager",
           "telegram": "@maoel2509"
+        },
+        {
+          "id": 42,
+          "playername": "Furqon Ahmad Taher",
+          "username": "BakpaoCoklat",
+          "role": "Goldlaner",
+          "businessUnit": "FU - Technology",
+          "jobTitle": "QA Analyst",
+          "telegram": "@frqnahmdt24"
         }
       ]
     },
@@ -435,6 +444,15 @@
           "businessUnit": "FU - Technology",
           "jobTitle": "Frontend Developer",
           "telegram": "@Itsnanda"
+        },
+        {
+          "id": 43,
+          "playername": "Amrul Fikri",
+          "username": "arl17",
+          "role": "Explaner",
+          "businessUnit": "BU - Kampus",
+          "jobTitle": "HR Manager",
+          "telegram": "@amrulfikri"
         }
       ]
     }
