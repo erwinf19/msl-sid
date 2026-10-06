@@ -28,7 +28,7 @@ try {
   const status = document.querySelector('#schedule-status');
   status.textContent = published.finalized ? '' : 'Nama team mengikuti hasil roster resmi setelah dipublikasikan. Jadwal tiap slot sudah tersedia di bawah.';
   status.hidden = published.finalized;
-  initMatchActions(data);
+  initMatchActions(data, players);
   initLineupActions(data,lineupState);
   if (/^#(?:pekan-\d+|match-m\d+)$/.test(location.hash)) document.querySelector(location.hash)?.scrollIntoView();
   initSectionNavigation();

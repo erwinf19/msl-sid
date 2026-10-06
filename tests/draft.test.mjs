@@ -8,12 +8,13 @@ const players = preparePlayers(source);
 const files = JSON.parse(readFileSync(new URL('../assets/logo-team.json', import.meta.url), 'utf8').replace(/^\uFEFF/, ''));
 const names = files.map(file => file.replace(/\.[^.]+$/, ''));
 
-test('all 45 player profiles include the supplied organization, position and Telegram handle', () => {
+test('all 45 player profiles include the supplied organization, position, Telegram handle and email', () => {
   assert.equal(players.length,45);
   for (const player of players) {
     assert.ok(PLAYER_PROFILE_FIELDS.every(field => typeof player[field] === 'string' && player[field].trim()));
     assert.match(player.businessUnit,/^(BU|FU) - /);
     assert.match(player.telegram,/^@[a-z0-9_]{5,32}$/i);
+    assert.match(player.email,/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
   }
   const fikri = players.find(p => p.playername === 'Muhammad Fikri Adriansyah');
   assert.deepEqual([fikri.businessUnit,fikri.jobTitle,fikri.telegram],['BU - Sekolah Murid Merdeka','Admission Officer','@Fikri_Adri']);
@@ -25,6 +26,14 @@ test('all 45 player profiles include the supplied organization, position and Tel
     [44,'Rachmat Basuki','Cor@Zon','Jungler','BU - Sekolah Murid Merdeka','@amatingat']
   ]);
   assert.throws(() => preparePlayers(source.map((p,i)=>i ? p : {...p,telegram:'javascript:bad'})));
+  assert.equal(fikri.email,'ext.muhammad.adriansyah@smm.sch.id');
+  assert.equal(players.find(p=>p.username==='℻|ѕтιикzу漢').email,'mauladi.arif@sekolahmu.co.id');
+  assert.equal(players[44].email,'ext.rachmat.basuki@smm.sch.id');
+  for (const email of ['bad-address','javascript:alert(1)','a@b.co\nBcc:other@example.com',42,'']) {
+    assert.throws(()=>preparePlayers(source.map((p,i)=>i ? p : {...p,email})),/Email|Profil/);
+  }
+  assert.equal(preparePlayers(source.map((p,i)=>i ? p : {...p,email:'  test@example.com  '}))[0].email,'test@example.com');
+  assert.ok(preparePlayers(source.map(({email,...p})=>p)).every(p=>p.email===undefined));
 });
 
 test('profile updates preserve legacy saved drafts while actual player identity changes still invalidate them', () => {
@@ -34,7 +43,7 @@ test('profile updates preserve legacy saved drafts while actual player identity 
   const storage = {getItem:()=>stored,setItem:(_key,value)=>{stored=value;}};
   assert.deepEqual(readDraft(players,names,storage),draft);
   saveDraft(draft,players,storage);
-  const updated = players.map(p=>({...p,businessUnit:'FU - Updated',jobTitle:'Updated position',telegram:'@newhandle'}));
+  const updated = players.map(p=>({...p,businessUnit:'FU - Updated',jobTitle:'Updated position',telegram:'@newhandle',email:'updated@example.com'}));
   assert.deepEqual(readDraft(updated,names,storage),draft);
   const renamed = players.map((p,i)=>i ? p : {...p,username:'Changed identity'});
   assert.throws(()=>readDraft(renamed,names,storage));

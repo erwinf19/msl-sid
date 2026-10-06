@@ -40,7 +40,7 @@ test('Player Data and locked published rosters share external profiles without c
   const original=structuredClone(published),oldUrl=DATA_SOURCES.players;
   DATA_SOURCES.players='https://example.com/player-msl.json';
   t.after(()=>{DATA_SOURCES.players=oldUrl;});
-  source[0].businessUnit='FU - Updated';source[0].telegram='@newcontact';
+  source[0].businessUnit='FU - Updated';source[0].telegram='@newcontact';source[0].email='updated@example.com';
   const calls=[];
   const fetcher=async (url,options)=>{
     calls.push(url);
@@ -56,6 +56,7 @@ test('Player Data and locked published rosters share external profiles without c
   const profile=loaded.teams.flatMap(t=>t.players).find(p=>p.id===0);
   assert.equal(profile.telegram,'@newcontact');
   assert.equal(profile.businessUnit,'FU - Updated');
+  assert.equal(profile.email,'updated@example.com');
   assert.deepEqual(loaded.teams.map(t=>[t.id,t.name,t.players.map(p=>p.id)]),published.teams.map(t=>[t.id,t.name,t.players.map(p=>p.id)]));
   assert.deepEqual(published,original);
   const permissions=draftPermissions(publishedToDraft(loaded),loaded);

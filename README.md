@@ -1,4 +1,4 @@
-# MLBB SID LEAGUE
+# MLBB SESI LEAGUE
 
 Website statis MSL, siap dihosting di Netlify tanpa backend, database, atau dependency aplikasi.
 
@@ -32,9 +32,9 @@ Player berasal dari sumber `players` di `data-sources.js`; jika URL belum diisi,
 
 Untuk undian baru 45 pemain, hasil terdiri dari tiga team berisi lima player dan lima team berisi enam player. Setiap role memiliki minimal 8 player, dengan total maksimal 48 player. Pemain tambahan kelima role dibagi ke team berbeda; satu team hanya menerima satu pemain tambahan. Kunci roster baru tetap membutuhkan seluruh pemain terdaftar terbagi. Download ulang roster resmi yang terkunci tetap tersedia dengan password meskipun ada pemain baru menunggu undian.
 
-Halaman **Player Data** memakai URL `/player-data`; tautan navbar membuka halaman ini. Tabel menampilkan nama/username, role dengan lima warna berbeda, BU/Function, ID Telegram yang bisa diklik, serta team. Data profil player disimpan di sumber player melalui `businessUnit`, `jobTitle`, dan `telegram`. Pencarian juga mencakup BU/Function dan Telegram. Pada layar kecil seluruh kolom tersedia melalui geser horizontal.
+Halaman **Player Data** memakai URL `/player-data`; tautan navbar membuka halaman ini. Tabel menampilkan nama/username, role dengan lima warna berbeda, BU/Function, ID Telegram yang bisa diklik, serta team. Email seluruh 45 pemain tetap disimpan melalui field `email` di `assets/player-msl.json` dan salinan roster final untuk undangan Calendar, tetapi tidak ditampilkan atau dipakai untuk pencarian Player Data. Data profil player mencakup `businessUnit`, `jobTitle`, `telegram`, dan `email`; posisi tetap disimpan di data tanpa ditampilkan. Pencarian mencakup BU/Function dan Telegram. Pada layar kecil seluruh kolom tersedia melalui geser horizontal.
 
-Perubahan profil tidak mengubah signature identitas undian, sehingga draft lama tetap bisa dilanjutkan. Ekspor JSON baru menyertakan profil, sedangkan JSON roster lama tanpa profil masih diterima. Saat memuat roster, BU/Function, posisi, dan Telegram diperbarui dari sumber player terbaru tanpa mengubah anggota team atau flag terkunci. Nama, username, dan role tetap divalidasi terhadap sumber.
+Perubahan profil tidak mengubah signature identitas undian, sehingga draft lama tetap bisa dilanjutkan. Ekspor JSON baru menyertakan profil, sedangkan JSON roster lama tanpa profil masih diterima. Saat memuat roster, BU/Function, posisi, Telegram, dan email diperbarui dari sumber player terbaru tanpa mengubah anggota team atau flag terkunci. Nama, username, dan role tetap divalidasi terhadap sumber.
 
 Logo berasal dari `assets/logo-team/`, dengan daftar file di `assets/logo-team.json`. Nama team diambil dari nama file tanpa ekstensi. Perbarui manifest saat menambah/menghapus logo. Saat ini ada 14 logo dalam grid empat kolom.
 
@@ -61,6 +61,18 @@ Gunakan repository data terpisah yang tidak terhubung ke deploy Netlify jika ing
 Pertahankan struktur array `player-msl.json` serta urutan player, karena ID pemain berasal dari posisi array. BU/Function dan Telegram dapat diperbarui langsung. Mengubah nama, username, role, jumlah/urutan pemain memerlukan penyesuaian JSON roster resmi agar valid; sumber eksternal tidak membuka flag kunci roster. Sumber jadwal tanggal/jam masih `tournament-data.js`; memindahkan jadwal ke JSON belum diterapkan.
 
 ## Klasemen dan jadwal
+
+### Invite Player ke Google Calendar
+
+Popup **Detail & pemain** di beranda dan jadwal lengkap menyediakan **Invite Player** yang selalu aktif. Setelah lineup pertandingan dikunci (lineup resmi atau draft terkunci yang siap diunggah), undangan mengikuti tepat 5 pemain setiap team, termasuk pemain pinjaman; cadangan yang tidak dipilih tidak ikut diundang. Jika lineup belum dikunci atau gagal dimuat, draft Calendar mengundang seluruh roster kedua team, termasuk cadangan, dengan keterangan jelas di popup. Email yang belum lengkap ditandai agar ditambahkan langsung di Google Calendar sebelum mengirim; alamat tidak valid tidak dimasukkan ke daftar tamu.
+
+Tombol membuka draft event pada akun Google Calendar panitia dengan nama **MLBB SESI LEAGUE**, tanggal/jam pertandingan (saat ini 12:15 WIB), zona **Asia/Jakarta**, durasi 45 menit (12:15–13:00 WIB), serta daftar tamu. **infomuvers@sekolahmu.co.id** selalu ikut menjadi tamu di semua pertandingan, termasuk saat lineup atau email pemain belum tersedia; alamat ini diatur lewat `MATCH_INVITE_EMAIL` di `match-calendar.js`. Durasi diatur lewat `CALENDAR_DURATION_MINUTES` di `match-calendar.js`. Link Meet tetap **https://meet.google.com/nyt-mwco-dsc** dimasukkan ke lokasi dan deskripsi, beserta lineup, aturan hadir, dan tautan detail pertandingan. Ini tidak membuat room Meet baru atau mengatur conference otomatis di Calendar.
+
+Periksa event dan tamunya di Google Calendar, lalu pilih **Simpan** dan **Kirim** agar undangan email dikirim. Website tidak mengirim otomatis, menyimpan token Google, atau mencatat bahwa undangan sudah terkirim; hindari menyimpan event yang sama dua kali. Email tetap berada dalam JSON yang dibaca browser. Menghilangkan kolom email dari tampilan tidak menjadikan data JSON privat.
+
+Tautan **Detail pertandingan** di invitation selalu memakai domain publik `https://msl-sesi.netlify.app/full-schedule#match-mX`, termasuk saat invitation dibuat dari localhost. Domain diatur melalui `MATCH_SITE_URL` di `match-calendar.js`.
+
+Logo **MLBB SESI LEAGUE** menggunakan gambar yang diberikan di `assets/msl-logo.png` untuk navbar seluruh halaman. Banner beranda dan Event Guide tetap memakai gambar aslinya di `assets/msl-banner.png`.
 
 `tournament-data.js` menyediakan aturan skor dan jadwal round-robin: 8 team, 28 match, mulai 6 Oktober sampai 10 Desember 2026 selama 10 pekan. Jumlah match per pekan adalah 3, 3, 3, 2, 3, 3, 2, 3, 3, 3. Match berlangsung Selasa, Rabu, dan Kamis pukul 12.15 WIB; pekan 4 dan 7 hanya Selasa–Rabu. Setiap tim bertemu tujuh lawan sekali dan bermain maksimal sekali per pekan. ID slot team tetap konsisten ketika nama dan roster diperbarui.
 

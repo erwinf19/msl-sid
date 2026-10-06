@@ -39,7 +39,7 @@ try {
   document.querySelector('#week-tabs').innerHTML=weeks.map(w=>`<button data-week="${w}" aria-pressed="false">PEKAN ${String(w).padStart(2,'0')}</button>`).join('');
   document.querySelector('#week-tabs').addEventListener('click',e=>{const button=e.target.closest('button[data-week]');if(button)renderSchedule(Number(button.dataset.week));});
   renderSchedule(weeks.includes(data.defaultWeek)?data.defaultWeek:weeks[0]);
-  initMatchActions(data);
+  initMatchActions(data, players);
   lineupController = initLineupActions(data,lineupState);
   const linkedMatch = data.matches.find(m => location.hash === `#match-${m.id}`);
   if (linkedMatch) { renderSchedule(linkedMatch.week); document.getElementById(`match-${linkedMatch.id}`)?.scrollIntoView(); }

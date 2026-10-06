@@ -16,7 +16,8 @@
           "role": "Jungler",
           "businessUnit": "FU - Technology",
           "jobTitle": "Senior Data Engineer",
-          "telegram": "@kangpulungdata"
+          "telegram": "@kangpulungdata",
+          "email": "mauladi.arif@sekolahmu.co.id"
         },
         {
           "id": 13,
@@ -25,7 +26,8 @@
           "role": "Goldlaner",
           "businessUnit": "FU - People & Culture",
           "jobTitle": "People Operation",
-          "telegram": "@habibmarif"
+          "telegram": "@habibmarif",
+          "email": "habib.marif@sekolahmu.co.id"
         },
         {
           "id": 16,
@@ -34,7 +36,8 @@
           "role": "Explaner",
           "businessUnit": "FU - Learning Spaces Development",
           "jobTitle": "Operation Officer",
-          "telegram": "@banahf"
+          "telegram": "@banahf",
+          "email": "bana.fata@sekolahmu.co.id"
         },
         {
           "id": 29,
@@ -43,7 +46,8 @@
           "role": "Midlaner",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "guru",
-          "telegram": "@Sameli4"
+          "telegram": "@Sameli4",
+          "email": "ext.suci.amelia@smm.sch.id"
         },
         {
           "id": 34,
@@ -52,7 +56,8 @@
           "role": "Roamer",
           "businessUnit": "BU - Kampus",
           "jobTitle": "Roam (Tank, support), mid (mage)",
-          "telegram": "@rfffpt"
+          "telegram": "@rfffpt",
+          "email": "raffi.fafian@uci.id"
         },
         {
           "id": 33,
@@ -61,7 +66,8 @@
           "role": "Roamer",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "Roam",
-          "telegram": "@Widkr"
+          "telegram": "@Widkr",
+          "email": "ext.komang.widi@smm.sch.id"
         }
       ]
     },
@@ -77,7 +83,8 @@
           "role": "Jungler",
           "businessUnit": "FU - Technology",
           "jobTitle": "Quality Analyst",
-          "telegram": "@farhanmra"
+          "telegram": "@farhanmra",
+          "email": "farhan.adyatma@sekolahmu.co.id"
         },
         {
           "id": 10,
@@ -86,7 +93,8 @@
           "role": "Goldlaner",
           "businessUnit": "FU - Technology",
           "jobTitle": "Software Engineer - Frontend",
-          "telegram": "@diimasaziiz"
+          "telegram": "@diimasaziiz",
+          "email": "dimas.aziz@sekolahmu.co.id"
         },
         {
           "id": 23,
@@ -95,7 +103,8 @@
           "role": "Explaner",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "Guru SMP-SMA",
-          "telegram": "@MRArizMaulana"
+          "telegram": "@MRArizMaulana",
+          "email": "muhammad.rizqi@smm.sch.id"
         },
         {
           "id": 24,
@@ -104,7 +113,8 @@
           "role": "Midlaner",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "Kepala Sekolah",
-          "telegram": "@Azzahauliyaa"
+          "telegram": "@Azzahauliyaa",
+          "email": "azzah.auliya@sekolahmu.co.id"
         },
         {
           "id": 37,
@@ -113,7 +123,8 @@
           "role": "Roamer",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "Warehouse staff",
-          "telegram": "@Iqbaaal18"
+          "telegram": "@Iqbaaal18",
+          "email": "muhammad.iqbal@sekolahmu.co.id"
         }
       ]
     },
@@ -129,7 +140,8 @@
           "role": "Jungler",
           "businessUnit": "FU - Technology",
           "jobTitle": "QA Analyst",
-          "telegram": "@fadhilkesuma"
+          "telegram": "@fadhilkesuma",
+          "email": "fadhil.kesuma@sekolahmu.co.id"
         },
         {
           "id": 15,
@@ -138,7 +150,8 @@
           "role": "Goldlaner",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "Guru Olahraga",
-          "telegram": "@RASaputro"
+          "telegram": "@RASaputro",
+          "email": "ridho.saputro@smm.sch.id"
         },
         {
           "id": 21,
@@ -147,7 +160,8 @@
           "role": "Explaner",
           "businessUnit": "FU - Technology",
           "jobTitle": "Tech Support Officer",
-          "telegram": "@Arirhmt"
+          "telegram": "@Arirhmt",
+          "email": "ari.romadhon@sekolahmu.co.id"
         },
         {
           "id": 31,
@@ -156,7 +170,8 @@
           "role": "Midlaner",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "School Administrator",
-          "telegram": "@elbraleoni"
+          "telegram": "@elbraleoni",
+          "email": "ext.elbra.moningka@smm.sch.id"
         },
         {
           "id": 30,
@@ -165,7 +180,8 @@
           "role": "Midlaner",
           "businessUnit": "FU - People & Culture",
           "jobTitle": "Talent Acquisition",
-          "telegram": "@rivazatinabila"
+          "telegram": "@rivazatinabila",
+          "email": "riva.zatinabila@sekolahmu.co.id"
         },
         {
           "id": 38,
@@ -174,7 +190,8 @@
           "role": "Roamer",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "Guru SD",
-          "telegram": "@hanifahnurjanah"
+          "telegram": "@hanifahnurjanah",
+          "email": "ext.hanifah.nurjanah@smm.sch.id"
         }
       ]
     },
@@ -190,7 +207,8 @@
           "role": "Jungler",
           "businessUnit": "FU - Legal",
           "jobTitle": "Legal",
-          "telegram": "@mfauzrmd"
+          "telegram": "@mfauzrmd",
+          "email": "fauzy.ramadhan@sekolahmu.co.id"
         },
         {
           "id": 9,
@@ -199,7 +217,8 @@
           "role": "Goldlaner",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "school support",
-          "telegram": "@sofyanrh28"
+          "telegram": "@sofyanrh28",
+          "email": "sofyanrh28@gmail.com"
         },
         {
           "id": 18,
@@ -208,7 +227,8 @@
           "role": "Explaner",
           "businessUnit": "BU - Sekolah.mu",
           "jobTitle": "Account Executive (sales)",
-          "telegram": "@S_akbar830"
+          "telegram": "@S_akbar830",
+          "email": "sayyid.akbar@sekolahmu.co.id"
         },
         {
           "id": 27,
@@ -217,7 +237,8 @@
           "role": "Midlaner",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "Guru",
-          "telegram": "@nestermadhira"
+          "telegram": "@nestermadhira",
+          "email": "nesty.nadhirah@smm.sch.id"
         },
         {
           "id": 40,
@@ -226,7 +247,8 @@
           "role": "Roamer",
           "businessUnit": "FU - Technology",
           "jobTitle": "Frontend Developer",
-          "telegram": "@isyarharun"
+          "telegram": "@isyarharun",
+          "email": "isyar.andika@sekolahmu.co.id"
         }
       ]
     },
@@ -242,7 +264,8 @@
           "role": "Jungler",
           "businessUnit": "FU - Operations",
           "jobTitle": "Assessment Specialist",
-          "telegram": "@yogaray"
+          "telegram": "@yogaray",
+          "email": "yoga.saputra@sekolahmu.co.id"
         },
         {
           "id": 14,
@@ -251,7 +274,8 @@
           "role": "Goldlaner",
           "businessUnit": "FU - Customer Service",
           "jobTitle": "Customer Service",
-          "telegram": "@jefrysiburian"
+          "telegram": "@jefrysiburian",
+          "email": "jefry.martin@sekolahmu.co.id"
         },
         {
           "id": 20,
@@ -260,7 +284,8 @@
           "role": "Explaner",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "School Support",
-          "telegram": "@Zikrialfa_204"
+          "telegram": "@Zikrialfa_204",
+          "email": "zikrialfamuhammad20@gmail.com"
         },
         {
           "id": 28,
@@ -269,7 +294,8 @@
           "role": "Midlaner",
           "businessUnit": "BU - KTM Solutions",
           "jobTitle": "Consultant",
-          "telegram": "@xcdn404"
+          "telegram": "@xcdn404",
+          "email": "ext.alifia.azra@ktmsolutions.id"
         },
         {
           "id": 36,
@@ -278,7 +304,8 @@
           "role": "Roamer",
           "businessUnit": "FU - Operations",
           "jobTitle": "Manager",
-          "telegram": "@maoel2509"
+          "telegram": "@maoel2509",
+          "email": "maulana.malik@sekolahmu.co.id"
         },
         {
           "id": 42,
@@ -287,7 +314,8 @@
           "role": "Goldlaner",
           "businessUnit": "FU - Technology",
           "jobTitle": "QA Analyst",
-          "telegram": "@frqnahmdt24"
+          "telegram": "@frqnahmdt24",
+          "email": "furqon.ahmad@sekolahmu.co.id"
         }
       ]
     },
@@ -303,7 +331,8 @@
           "role": "Jungler",
           "businessUnit": "FU - Product",
           "jobTitle": "UIUX Designer",
-          "telegram": "@AtikSusanto"
+          "telegram": "@AtikSusanto",
+          "email": "atik.susanto@sekolahmu.co.id"
         },
         {
           "id": 12,
@@ -312,7 +341,8 @@
           "role": "Goldlaner",
           "businessUnit": "BU - Sekolah.mu",
           "jobTitle": "Operations",
-          "telegram": "@kurniaSK8"
+          "telegram": "@kurniaSK8",
+          "email": "kurnia.hari@sekolahmu.co.id"
         },
         {
           "id": 22,
@@ -321,7 +351,8 @@
           "role": "Explaner",
           "businessUnit": "FU - Technology",
           "jobTitle": "QA Analayst",
-          "telegram": "@abkusumaa"
+          "telegram": "@abkusumaa",
+          "email": "alam.budy@sekolahmu.co.id"
         },
         {
           "id": 32,
@@ -330,7 +361,8 @@
           "role": "Midlaner",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "Guru",
-          "telegram": "@nadaasan"
+          "telegram": "@nadaasan",
+          "email": "saniya.kamilah@smm.sch.id"
         },
         {
           "id": 35,
@@ -339,7 +371,8 @@
           "role": "Roamer",
           "businessUnit": "FU - Technology",
           "jobTitle": "Roam/Midlane",
-          "telegram": "@mughnyms"
+          "telegram": "@mughnyms",
+          "email": "mughny.mubarak@sekolahmu.co.id"
         }
       ]
     },
@@ -355,7 +388,8 @@
           "role": "Jungler",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "Admission Officer",
-          "telegram": "@Fikri_Adri"
+          "telegram": "@Fikri_Adri",
+          "email": "ext.muhammad.adriansyah@smm.sch.id"
         },
         {
           "id": 11,
@@ -364,7 +398,8 @@
           "role": "Goldlaner",
           "businessUnit": "FU - Finance & Procurement",
           "jobTitle": "Accounting Officer",
-          "telegram": "@mk_gufron"
+          "telegram": "@mk_gufron",
+          "email": "muhammad.gufron@sekolahmu.co.id"
         },
         {
           "id": 17,
@@ -373,7 +408,8 @@
           "role": "Explaner",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "AO",
-          "telegram": "@Alvinawal"
+          "telegram": "@Alvinawal",
+          "email": "ext.alvin.nawal@smm.sch.id"
         },
         {
           "id": 25,
@@ -382,7 +418,8 @@
           "role": "Midlaner",
           "businessUnit": "BU - KTM Solutions",
           "jobTitle": "Assessment Development Analyst",
-          "telegram": "@muthir24"
+          "telegram": "@muthir24",
+          "email": "muthia.rahmah@ktmsolutions.id"
         },
         {
           "id": 39,
@@ -391,7 +428,8 @@
           "role": "Roamer",
           "businessUnit": "FU - Technology",
           "jobTitle": "Tech Support Officer",
-          "telegram": "@dykasays"
+          "telegram": "@dykasays",
+          "email": "dyka.afthori@sekolahmu.co.id"
         },
         {
           "id": 44,
@@ -400,7 +438,8 @@
           "role": "Jungler",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "Guru",
-          "telegram": "@amatingat"
+          "telegram": "@amatingat",
+          "email": "ext.rachmat.basuki@smm.sch.id"
         }
       ]
     },
@@ -416,7 +455,8 @@
           "role": "Jungler",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "Admin",
-          "telegram": "@aalwanaziz"
+          "telegram": "@aalwanaziz",
+          "email": "ext.arrohman.aziz@smm.sch.id"
         },
         {
           "id": 8,
@@ -425,7 +465,8 @@
           "role": "Goldlaner",
           "businessUnit": "BU - Sekolah Murid Merdeka",
           "jobTitle": "Guru",
-          "telegram": "@Farhannaufall"
+          "telegram": "@Farhannaufall",
+          "email": "ext.muhammad.naufal@smm.sch.id"
         },
         {
           "id": 19,
@@ -434,7 +475,8 @@
           "role": "Explaner",
           "businessUnit": "FU - Customer Service",
           "jobTitle": "Agent Customer Service",
-          "telegram": "@djakaryaman"
+          "telegram": "@djakaryaman",
+          "email": "jaka.riaman@sekolahmu.co.id"
         },
         {
           "id": 26,
@@ -443,7 +485,8 @@
           "role": "Midlaner",
           "businessUnit": "FU - People & Culture",
           "jobTitle": "People Partner Intern",
-          "telegram": "@adeliiara"
+          "telegram": "@adeliiara",
+          "email": "itn.people.partner@sekolahmu.co.id"
         },
         {
           "id": 41,
@@ -452,7 +495,8 @@
           "role": "Roamer",
           "businessUnit": "FU - Technology",
           "jobTitle": "Frontend Developer",
-          "telegram": "@Itsnanda"
+          "telegram": "@Itsnanda",
+          "email": "trinanda.noviardy@sekolahmu.co.id"
         },
         {
           "id": 43,
@@ -461,7 +505,8 @@
           "role": "Explaner",
           "businessUnit": "BU - Kampus",
           "jobTitle": "HR Manager",
-          "telegram": "@amrulfikri"
+          "telegram": "@amrulfikri",
+          "email": "amrul.fikri@uci.id"
         }
       ]
     }

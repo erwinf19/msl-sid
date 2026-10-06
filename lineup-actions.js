@@ -10,6 +10,7 @@ export function initLineupActions(data, initialState) {
     pending.matches = pending.matches.filter(entry=>!source.config.matches.some(saved=>saved.id===entry.id));
     merged = mergeLineups(data,pending,source.config);
     data.lineupConfig = merged;
+    data.lineupAvailable = source.available;
     document.querySelectorAll('[data-match-lineup]').forEach(button=>{
       const entry=merged.matches.find(lineup=>lineup.id===button.dataset.matchLineup);
       const published=source.config.matches.some(lineup=>lineup.id===button.dataset.matchLineup);
