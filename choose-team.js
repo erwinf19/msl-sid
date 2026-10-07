@@ -157,7 +157,7 @@ function renderPlayers() {
   $('#player-count').textContent = `${visible.length} / ${players.length} player`;
   $('#players').innerHTML = visible.length ? visible.map(p => {
     const team = shown.teams.find(t => t.players.includes(p.id));
-    const telegram = p.telegram ? `<a class="telegram-link" href="https://t.me/${encodeURIComponent(p.telegram.slice(1))}" target="_blank" rel="noopener noreferrer" aria-label="Buka Telegram ${escape(p.playername)}">${escape(p.telegram)} <span aria-hidden="true">↗</span></a>` : '<span class="player-pending">—</span>';
+    const telegram = p.telegram ? (/^@[a-z0-9_]{5,32}$/i.test(p.telegram) ? `<a class="telegram-link" href="https://t.me/${encodeURIComponent(p.telegram.slice(1))}" target="_blank" rel="noopener noreferrer" aria-label="Buka Telegram ${escape(p.playername)}">${escape(p.telegram)} <span aria-hidden="true">↗</span></a>` : `<span>${escape(p.telegram)}</span>`) : '<span class="player-pending">—</span>';
     return `<tr><td>${String(p.id + 1).padStart(2, '0')}</td><th scope="row"><strong>${escape(p.playername)}</strong><small>${escape(p.username)}</small></th><td><span class="role-pill" data-role="${p.role}">${ROLE_LABELS[p.role]}</span></td><td><span class="player-unit">${escape(p.businessUnit || '—')}</span></td><td>${telegram}</td><td>${team ? escape(teamLabel(team)) : '<span class="player-pending">Menunggu undian</span>'}</td></tr>`;
   }).join('') : '<tr><td colspan="6">Tidak ada player yang cocok dengan pencarian.</td></tr>';
   fitPlayerTable();

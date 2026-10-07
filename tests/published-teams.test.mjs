@@ -45,13 +45,13 @@ test('downloaded JSON round-trips into homepage rosters, logos, standings and sc
   const value = JSON.parse(JSON.stringify(exportDraft(draft, players, logos)));
   assert.equal(DOWNLOAD_FILENAME, 'draft-team-msl.json');
   assert.ok(validatePublishedTeams(value, players, logos));
-  assert.equal(value.teams.flatMap(t => t.players).length, 45);
+  assert.equal(value.teams.flatMap(t => t.players).length, 46);
   const data = applyPublishedTeams(tournament, value);
   validateTournament(data);
   assert.equal(data.teams.length, 8);
   assert.equal(data.teams[0].name, names[0]);
   assert.equal(data.teams[0].logo, logos[0].src);
-  assert.equal(data.teams.reduce((sum, t) => sum + t.players.length, 0), 45);
+  assert.equal(data.teams.reduce((sum, t) => sum + t.players.length, 0), 46);
   assert.ok(getStandings(data).every(row => row.points === 0));
   assert.ok(data.matches.every(m => !m.previewScore));
   const scored = structuredClone(tournament);
@@ -70,7 +70,7 @@ test('newly registered players can wait outside the existing locked roster witho
   const draft=publishedToDraft(published);
   const assigned=new Set(draft.teams.flatMap(t=>t.players));
   assert.equal(assigned.size,42);
-  assert.deepEqual(players.filter(p=>!assigned.has(p.id)).map(p=>[p.id,p.username,p.role]),[[42,'BakpaoCoklat','Goldlaner'],[43,'arl17','Explaner'],[44,'Cor@Zon','Jungler']]);
+  assert.deepEqual(players.filter(p=>!assigned.has(p.id)).map(p=>[p.id,p.username,p.role]),[[42,'BakpaoCoklat','Goldlaner'],[43,'arl17','Explaner'],[44,'Cor@Zon','Jungler'],[45,'Cheese Milk','Jungler']]);
   assert.equal(draftPermissions(draft,published).canGenerate,false);
   assert.equal(draftPermissions(draft,published).canReset,false);
   assert.equal(canExportDraft(draft,players,officialLogos),false);
@@ -94,8 +94,8 @@ test('the finalized roster includes additional players in separate teams with at
   assert.equal(published.finalized,true);
   assert.equal(published.locked,true);
   const assigned=published.teams.flatMap(team=>team.players.map(player=>player.id));
-  assert.equal(assigned.length,45);
-  assert.equal(new Set(assigned).size,45);
+  assert.equal(assigned.length,46);
+  assert.equal(new Set(assigned).size,46);
   assert.ok(published.teams.every(team=>team.players.length>=5&&team.players.length<=6));
   const goldTeam=published.teams.find(team=>team.players.some(player=>player.id===42));
   const expTeam=published.teams.find(team=>team.players.some(player=>player.id===43));
@@ -115,7 +115,7 @@ test('the finalized roster includes additional players in separate teams with at
 
 test('adding Cor@Zon preserves the previous 44-player roster and its finalized flags', () => {
   const published=json('../assets/draft-team-msl.json'),previous=structuredClone(published);
-  previous.teams.forEach(team=>{team.players=team.players.filter(player=>player.id!==44);});
+  previous.teams.forEach(team=>{team.players=team.players.filter(player=>player.id<44);});
   const officialLogos=json('../assets/logo-team.json').map(file=>({name:file.replace(/\.[^.]+$/,''),src:`/assets/logo-team/${encodeURIComponent(file)}`}));
   assert.ok(validatePublishedTeams(previous,players.slice(0,44),officialLogos));
   assert.equal(previous.teams.find(team=>team.name==='Sadewa').players.length,5);

@@ -4,7 +4,7 @@ export const TEAM_COUNT = 8;
 export const STORAGE_KEY = 'msl-team-draft-v1';
 export const ROLES = ['Jungler', 'Goldlaner', 'Explaner', 'Midlaner', 'Roamer'];
 export const ROLE_LABELS = { Jungler: 'Jungler', Goldlaner: 'Gold Lane', Explaner: 'EXP Lane', Midlaner: 'Mid Lane', Roamer: 'Roamer' };
-export const PLAYER_PROFILE_FIELDS = ['businessUnit', 'jobTitle', 'telegram', 'email'];
+export const PLAYER_PROFILE_FIELDS = ['businessUnit', 'jobTitle', 'telegram', 'email', 'mobileLegendsId', 'mobileLegendsServerId', 'registeredRoles'];
 const playerSignature = players => JSON.stringify(players.map(({ id, playername, username, role }) => ({ id, playername, username, role })));
 
 export function preparePlayers(source) {
@@ -13,8 +13,9 @@ export function preparePlayers(source) {
   if (players.some(p => !ROLES.includes(p.role) || typeof p.playername !== 'string' || !p.playername.trim() || typeof p.username !== 'string' || !p.username.trim())) throw new Error('Nama atau role player tidak valid.');
   const identities = players.map(p => JSON.stringify([p.playername.trim().toLowerCase(), p.username.trim().toLowerCase()]));
   if (new Set(identities).size !== players.length) throw new Error('Player yang sama tidak boleh didaftarkan dua kali.');
-  if (players.some(p => PLAYER_PROFILE_FIELDS.some(field => p[field] !== undefined && (typeof p[field] !== 'string' || !p[field])) || p.telegram !== undefined && !/^@[a-z0-9_]{5,32}$/i.test(p.telegram))) throw new Error('Profil atau ID Telegram player tidak valid.');
+  if (players.some(p => PLAYER_PROFILE_FIELDS.some(field => p[field] !== undefined && (typeof p[field] !== 'string' || !p[field])) || p.telegram !== undefined && !/^@[a-z0-9_.]{5,32}$/i.test(p.telegram))) throw new Error('Profil atau ID Telegram player tidak valid.');
   if (players.some(p => p.email !== undefined && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email))) throw new Error('Email player tidak valid.');
+  if (players.some(p => ['mobileLegendsId', 'mobileLegendsServerId'].some(field => p[field] !== undefined && !/^\d+$/.test(p[field])))) throw new Error('ID akun atau server Mobile Legends player tidak valid.');
   for (const role of ROLES) {
     const count = players.filter(p => p.role === role).length;
     if (count < TEAM_COUNT) throw new Error(`${role} harus memiliki minimal ${TEAM_COUNT} player.`);

@@ -8,19 +8,20 @@ const players = preparePlayers(source);
 const files = JSON.parse(readFileSync(new URL('../assets/logo-team.json', import.meta.url), 'utf8').replace(/^\uFEFF/, ''));
 const names = files.map(file => file.replace(/\.[^.]+$/, ''));
 
-test('all 45 player profiles include the supplied organization, position, Telegram handle and email', () => {
-  assert.equal(players.length,45);
+test('all 46 player profiles include the supplied organization, position, Telegram contact and email', () => {
+  assert.equal(players.length,46);
   for (const player of players) {
-    assert.ok(PLAYER_PROFILE_FIELDS.every(field => typeof player[field] === 'string' && player[field].trim()));
+    assert.ok(['businessUnit','jobTitle','telegram','email'].every(field => typeof player[field] === 'string' && player[field].trim()));
+    assert.ok(PLAYER_PROFILE_FIELDS.every(field => player[field] === undefined || typeof player[field] === 'string' && player[field].trim()));
     assert.match(player.businessUnit,/^(BU|FU) - /);
-    assert.match(player.telegram,/^@[a-z0-9_]{5,32}$/i);
+    assert.match(player.telegram,/^@[a-z0-9_.]{5,32}$/i);
     assert.match(player.email,/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
   }
   const fikri = players.find(p => p.playername === 'Muhammad Fikri Adriansyah');
   assert.deepEqual([fikri.businessUnit,fikri.jobTitle,fikri.telegram],['BU - Sekolah Murid Merdeka','Admission Officer','@Fikri_Adri']);
   assert.equal(players.find(p => p.playername === 'Suci Amelia').telegram,'@Sameli4');
   assert.equal(players.find(p => p.playername === 'Bana Hasnul Fata').businessUnit,'FU - Learning Spaces Development');
-  assert.deepEqual(players.slice(-3).map(p=>[p.id,p.playername,p.username,p.role,p.businessUnit,p.telegram]),[
+  assert.deepEqual(players.slice(42,45).map(p=>[p.id,p.playername,p.username,p.role,p.businessUnit,p.telegram]),[
     [42,'Furqon Ahmad Taher','BakpaoCoklat','Goldlaner','FU - Technology','@frqnahmdt24'],
     [43,'Amrul Fikri','arl17','Explaner','BU - Kampus','@amrulfikri'],
     [44,'Rachmat Basuki','Cor@Zon','Jungler','BU - Sekolah Murid Merdeka','@amatingat']
@@ -54,7 +55,7 @@ test('every supplied logo is offered using its filename as the identity', () => 
   assert.equal(new Set(names).size, names.length);
 });
 
-test('45 players are allocated once, in role order, with five different teams receiving surplus players', () => {
+test('46 players are allocated once, in role order, with six different teams receiving surplus players', () => {
   for (let run = 0; run < 200; run++) {
     let draft = createDraft();
     assert.ok(validateDraft(draft, players, names));
@@ -69,12 +70,12 @@ test('45 players are allocated once, in role order, with five different teams re
       }
     }
     const ids = draft.teams.flatMap(t => t.players);
-    assert.equal(ids.length, 45);
-    assert.equal(new Set(ids).size, 45);
-    assert.deepEqual(draft.teams.map(t => t.players.length).sort(), [5, 5, 5, 6, 6, 6, 6, 6]);
-    const extraTeams=ROLES.map(role=>draft.teams.find(t=>t.players.filter(id=>players[id].role===role).length===2)?.id);
+    assert.equal(ids.length, 46);
+    assert.equal(new Set(ids).size, 46);
+    assert.deepEqual(draft.teams.map(t => t.players.length).sort(), [5, 5, 6, 6, 6, 6, 6, 6]);
+    const extraTeams=ROLES.flatMap(role=>draft.teams.filter(t=>t.players.filter(id=>players[id].role===role).length===2).map(t=>t.id));
     assert.ok(extraTeams.every(id=>id!==undefined));
-    assert.equal(new Set(extraTeams).size,5);
+    assert.equal(new Set(extraTeams).size,6);
     assert.throws(() => generateRole(draft, players));
   }
 });

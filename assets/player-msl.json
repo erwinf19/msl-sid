@@ -316,12 +316,15 @@
   },
   {
     "playername": "Mughny Mubarak",
-    "username": "M A R C O",
+    "username": "SEPHORA",
     "role": "Roamer",
     "businessUnit": "FU - Technology",
     "jobTitle": "Roam/Midlane",
     "telegram": "@mughnyms",
-    "email": "mughny.mubarak@sekolahmu.co.id"
+    "email": "mughny.mubarak@sekolahmu.co.id",
+    "mobileLegendsId": "114502835",
+    "mobileLegendsServerId": "2578",
+    "registeredRoles": "Midlaner, Roamer"
   },
   {
     "playername": "Maulana Malik Ichsan",
@@ -403,5 +406,17 @@
     "jobTitle": "Guru",
     "telegram": "@amatingat",
     "email": "ext.rachmat.basuki@smm.sch.id"
+  },
+  {
+    "playername": "Risno",
+    "username": "Cheese Milk",
+    "role": "Jungler",
+    "businessUnit": "BU - Sekolah Murid Merdeka",
+    "jobTitle": "Guru",
+    "telegram": "@risno.14",
+    "email": "risno@smm.sch.id",
+    "mobileLegendsId": "128162878",
+    "mobileLegendsServerId": "5029",
+    "registeredRoles": "Jungler, Goldlaner"
   }
 ]
